@@ -1,6 +1,3 @@
-<?php
-require_once __DIR__ . "/config/base.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +8,8 @@ require_once __DIR__ . "/config/base.php";
 </head>
 
 <body>
-    <?php require_once "./auth/login_siswa.php"; ?>
-    belum punya akun? <a href="./siswa/registrasi_siswa.php">Register</a>
+    <h1>register sukses silahkan login</h1>
+    <a href="../auth/login_siswa.php">Login</a>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 Proses cek username & password
 Session set -->
 <?php
-require_once("../config/function.php");
+require_once(__DIR__ . "/../config/function.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nisn_siswa_login = $_POST['nisn_login_siswa'];
     $password_siswa_login = md5($_POST['password_login_siswa']);

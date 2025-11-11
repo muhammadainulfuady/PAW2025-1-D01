@@ -10,6 +10,8 @@ dll -->
 
 <?php
 require_once "database.php";
+session_start();
+
 function addSiswa(array $data)
 {
     // mengambil data yang ada di dalam koneksi
@@ -44,7 +46,7 @@ function addSiswa(array $data)
         ":password_siswa" => md5($data['password_siswa']),
     ]);
     if ($stmnt->rowCount() > 0) {
-        header("Location: ../auth/login_siswa.php");
+        header("Location: ../index.php");
     } else {
         echo "Gagal insert data.";
     }
@@ -104,9 +106,8 @@ function loginSiswa($nisn, $password)
         echo "Password salah!";
         return;
     }
-    session_start();
     $_SESSION['NISN_SISWA'] = $log['NISN_SISWA'];
-    header("Location: ../index.php");
+    header("Location: ./dashboard/index.php");
 }
 
 function updateSiswa($nisn, $data)
@@ -162,10 +163,21 @@ function updateSiswa($nisn, $data)
     ]);
 
     if ($update) {
-        header("Location: ../index.php");
+        header("Location: ../dashboard/index.php");
         exit;
     } else {
         echo "Gagal update.";
     }
+}
+
+function showName($nisn)
+{
+    global $connect;
+    $stmnt = $connect->prepare("SELECT NAMA_LENGKAP_SISWA FROM siswa WHERE NISN_SISWA = :nisn_siswa");
+    $stmnt->execute([
+        ":nisn_siswa" => $nisn,
+    ]);
+    $st = $stmnt->fetch();
+    return $st['NAMA_LENGKAP_SISWA'];
 }
 ?>

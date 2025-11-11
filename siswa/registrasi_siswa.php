@@ -1,6 +1,6 @@
 <!-- Form register + proses masuk ke database. -->
 <?php
-require_once("../config/function.php");
+require_once(__DIR__ . "/../config/function.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     addSiswa($_POST);
 }
@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label for="nisn_siswa">Masukkan nisn</label>
                             </td>
                             <td>
-
                                 <input type="text" name="nisn_siswa" id="nisn_siswa">
                             </td>
                         </tr>
@@ -104,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </section>
+    ada akun? <a href="../index.php">Login</a>
 </body>
 
 </html>

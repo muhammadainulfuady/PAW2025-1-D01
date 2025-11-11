@@ -5,7 +5,7 @@ require_once("../config/function.php");
 
 // pastikan sudah login
 if (!isset($_SESSION['NISN_SISWA'])) {
-    header("Location: ../auth/login.php");
+    header("Location: ../index.php");
     exit;
 }
 
