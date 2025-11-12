@@ -4,6 +4,7 @@ if (!isset($_SESSION['NISN_SISWA'])) {
     header("Location: ../index.php");
     exit;
 }
+
 $nisn = $_SESSION['NISN_SISWA'];
 global $connect;
 
@@ -12,7 +13,9 @@ $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
 $stmnt->execute([':nisn' => $nisn]);
 $siswa = $stmnt->fetch();
 ?>
-
+<?php
+include "../components/header.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,17 +23,16 @@ $siswa = $stmnt->fetch();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../source/css/style.css">
 </head>
 
 <body>
-    selamat datang di web kami
-    <img src="../source/upload/images/<?= $siswa['FOTO_SISWA_SISWA']; ?>" alt="Foto Siswa" width="100"
-        style="border-radius: 50%;">
-    <p><?= htmlspecialchars($siswa['NAMA_LENGKAP_SISWA']); ?></p>
-    </div>
-
-    <a href="../siswa/edit_siswa.php">Edit Profil</a> |
-    <a href="../auth/logout.php">Logout</a>
+    <section class="header">
+        <div class="container">
+            <h2>Selamat Datang di PPDB Online</h2>
+            <p>Sekolah Berbasis Pesantren Modern, Mencetak Generasi Qur'ani dan Berprestasi.</p>
+        </div>
+    </section>
 
 </body>
 
