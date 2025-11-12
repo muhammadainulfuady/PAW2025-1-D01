@@ -56,39 +56,37 @@ function uploadFileGambarSiswa()
 {
     $namaFile = $_FILES['foto_siswa']['name'];
     $ukuranFile = $_FILES['foto_siswa']['size'];
-    $eror = $_FILES['foto_siswa']['error'];
+    $error = $_FILES['foto_siswa']['error'];
     $tmpName = $_FILES['foto_siswa']['tmp_name'];
 
-    // cek apakah tidak ada gambar yang di upload
-    if ($eror === 4) {
-        echo "'Pilih gambar terlebih dahulu'";
+    // cek apakah user tidak upload file
+    if ($error === 4) {
+        echo "<script>alert('Pilih gambar terlebih dahulu!');</script>";
         return false;
     }
 
-    // cek apakah yang di upload sama user itu adalah gambar atau bukan
-    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-    $ekstensiGambar = explode(".", $namaFile);
-    $ekstensiGambar = strtolower(end($ekstensiGambar));
-    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-        echo "Yang anda upload bukan gambar";
+    // ekstensi yang diperbolehkan
+    $ekstensiValid = ['jpg', 'jpeg', 'png'];
+    $ekstensiFile = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
+
+    // cek ekstensi
+    if (!in_array($ekstensiFile, $ekstensiValid)) {
+        echo "<script>alert('Yang anda upload bukan file gambar (hanya JPG, JPEG, PNG)!');</script>";
         return false;
     }
 
-    // cek jika ukuranya terlalu besar
+    // cek ukuran (maks 1 MB)
     if ($ukuranFile > 1000000) {
-        echo "Ukuran gambar terlalu besar";
+        echo "<script>alert('Ukuran gambar terlalu besar! Maksimal 1 MB');</script>";
         return false;
     }
 
-    // lolos pengecekan gambar siap di upload
-    // generate nama gambar baru
-    $namaFileBaru = uniqid();
-    $namaFileBaru .= ".";
-    $namaFileBaru .= $ekstensiGambar;
-    $fileBaru = $namaFileBaru;
-    move_uploaded_file($tmpName, "../source/upload/images/" . $fileBaru);
-    return $fileBaru;
+    // generate nama unik biar tidak bentrok
+    $namaBaru = uniqid() . '.' . $ekstensiFile;
+    move_uploaded_file($tmpName, "../source/upload/images/" . $namaBaru);
+    return $namaBaru;
 }
+
 
 function loginSiswa($nisn, $password)
 {
@@ -124,23 +122,26 @@ function updateSiswa($nisn, $data)
         return false;
     }
 
-    // Jika user upload foto baru
+    // Cek apakah ada upload foto baru
     if ($_FILES['foto_siswa']['error'] === 0) {
         $fotoBaru = uploadFileGambarSiswa();
+        if ($fotoBaru === false) {
+            return; // upload gagal
+        }
 
-        // hapus foto lama
-        if ($siswaLama['FOTO_SISWA_SISWA'] != "") {
+        // Hapus foto lama (kalau ada)
+        if (!empty($siswaLama['FOTO_SISWA_SISWA'])) {
             $oldPath = "../source/upload/images/" . $siswaLama['FOTO_SISWA_SISWA'];
             if (file_exists($oldPath)) {
                 unlink($oldPath);
             }
         }
     } else {
-        // Tidak upload foto baru → tetap pakai yang lama
+        // Tidak upload foto baru → pakai foto lama
         $fotoBaru = $siswaLama['FOTO_SISWA_SISWA'];
     }
 
-    // Update database
+    // Proses update data ke database
     $stmnt = $connect->prepare("
         UPDATE siswa SET
             NAMA_LENGKAP_SISWA = :nama,
@@ -166,7 +167,7 @@ function updateSiswa($nisn, $data)
         header("Location: ../dashboard/index.php");
         exit;
     } else {
-        echo "Gagal update.";
+        echo "Gagal update data siswa.";
     }
 }
 

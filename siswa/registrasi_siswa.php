@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </tr>
                         <tr>
                             <td>
-                                <label for="alamat_siswa">Masukkan alamt</label>
+                                <label for="alamat_siswa">Masukkan alamat</label>
                             </td>
                             <td>
 

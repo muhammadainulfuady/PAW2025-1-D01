@@ -3,7 +3,7 @@
 
 // koneksi ke database
 $host = "localhost";
-$dbname = "paw2025-1-d01_dump";
+$dbname = "ppdb";
 $username = "root";
 $password = "";
 try {
