@@ -32,6 +32,7 @@ $siswa = $stmnt->fetch();
 
     <a href="../siswa/edit_siswa.php">Edit Profil</a> |
     <a href="../auth/logout.php">Logout</a>
+    <a href="../siswa/pendaftaran.php">Daftar Sekolah</a>
 </body>
 
 </html>
