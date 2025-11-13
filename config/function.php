@@ -89,25 +89,55 @@ function uploadFileGambarSiswa()
 }
 
 
-function loginSiswa($nisn, $password)
+function loginUser($username, $password)
 {
     global $connect;
-    $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn_login_siswa");
-    $stmnt->execute([
-        ":nisn_login_siswa" => $nisn,
-    ]);
-    $log = $stmnt->fetch();
-    if (!$log) {
-        echo "Username tidak valid!";
-        return;
+
+    // 1️⃣ Cek dulu apakah username cocok di tabel admin
+    $stmntAdmin = $connect->prepare("SELECT * FROM admin WHERE USERNAME_ADMIN = :username");
+    $stmntAdmin->execute([':username' => $username]);
+    $admin = $stmntAdmin->fetch();
+
+    if ($admin) {
+        // Jika username ditemukan di tabel admin
+        if ($admin['PASSWORD_ADMIN'] === $password) {
+            $_SESSION['LOGIN_ROLE'] = 'admin';
+            $_SESSION['ADMIN_ID'] = $admin['ID_ADMIN'];
+            $_SESSION['NAMA_ADMIN'] = $admin['NAMA_ADMIN'];
+            $_SESSION['USERNAME_ADMIN'] = $admin['USERNAME_ADMIN'];
+
+            header("Location: ./admin/index.php");
+            exit;
+        } else {
+            echo "<script>alert('Password admin salah!');</script>";
+            return false;
+        }
     }
-    if ($log['PASSWORD_SISWA'] !== $password) {
-        echo "Password salah!";
-        return;
+
+    // 2️⃣ Jika bukan admin, cek di tabel siswa berdasarkan NISN
+    $stmntSiswa = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
+    $stmntSiswa->execute([':nisn' => $username]);
+    $siswa = $stmntSiswa->fetch();
+
+    if ($siswa) {
+        if ($siswa['PASSWORD_SISWA'] === $password) {
+            $_SESSION['LOGIN_ROLE'] = 'siswa';
+            $_SESSION['NISN_SISWA'] = $siswa['NISN_SISWA'];
+            $_SESSION['NAMA_SISWA'] = $siswa['NAMA_LENGKAP_SISWA'];
+
+            header("Location:./dashboard/index.php");
+            exit;
+        } else {
+            echo "<script>alert('Password siswa salah!');</script>";
+            return false;
+        }
     }
-    $_SESSION['NISN_SISWA'] = $log['NISN_SISWA'];
-    header("Location: ./dashboard/index.php");
+
+    // 3️⃣ Jika tidak ditemukan di kedua tabel
+    echo "<script>alert('Akun tidak ditemukan di sistem!');</script>";
+    return false;
 }
+
 
 function updateSiswa($nisn, $data)
 {

@@ -3,10 +3,17 @@ Proses cek username & password
 Session set -->
 <?php
 require_once(__DIR__ . "/../config/function.php");
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nisn_siswa_login = $_POST['nisn_login_siswa'];
-    $password_siswa_login = md5($_POST['password_login_siswa']);
-    loginSiswa($nisn_siswa_login, $password_siswa_login);
+    // Ambil input dan bersihkan dari karakter berbahaya
+    $username = htmlspecialchars(trim($_POST['nisn_login_siswa']));
+    $password = htmlspecialchars(trim($_POST['password_login_siswa']));
+
+    // Enkripsi password (pastikan di database juga tersimpan dalam md5)
+    $password = md5($password);
+
+    // Panggil fungsi login gabungan (admin + siswa)
+    loginUser($username, $password);
 }
 ?>
 
