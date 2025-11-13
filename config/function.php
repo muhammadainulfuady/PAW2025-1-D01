@@ -202,14 +202,43 @@ function updateSiswa($nisn, $data)
     }
 }
 
-function showName($nisn)
+function pendaftaran(array $data)
 {
+    // mengambil data yang ada di dalam koneksi
     global $connect;
-    $stmnt = $connect->prepare("SELECT NAMA_LENGKAP_SISWA FROM siswa WHERE NISN_SISWA = :nisn_siswa");
+    if (
+        empty($data['nama_lengkap_siswa']) ||
+        empty($data['nisn_siswa']) ||
+        empty($data['alamat_siswa']) ||
+        empty($data['tanggal_lahir_siswa']) ||
+        empty($data['jenis_kelamin_siswa']) ||
+        empty($data['no_telp_siswa']) ||
+        empty($data['password_siswa']) ||
+        empty($_FILES['foto_siswa']['name'])
+    ) {
+        echo "Semua field wajib diisi!";
+        return;
+    }
+
+    // proses memasukan data ke database
+    $stmnt = $connect->prepare("
+        INSERT INTO siswa (NISN_SISWA, NAMA_LENGKAP_SISWA, ALAMAT_SISWA, TANGGAL_LAHIR_SISWA, JENIS_KELAMIN_SISWA, NO_TELPON_SISWA, FOTO_SISWA_SISWA, PASSWORD_SISWA)
+        VALUES (:nisn_siswa, :nama_lengkap_siswa, :alamat_siswa, :tanggal_lahir_siswa, :jenis_kelamin_siswa, :no_telpon_siswa, :foto_siswa_siswa, :password_siswa)
+        ");
     $stmnt->execute([
-        ":nisn_siswa" => $nisn,
+        ":nisn_siswa" => htmlspecialchars($data['nisn_siswa']),
+        ":nama_lengkap_siswa" => htmlspecialchars($data['nama_lengkap_siswa']),
+        ":alamat_siswa" => htmlspecialchars($data['alamat_siswa']),
+        ":tanggal_lahir_siswa" => htmlspecialchars($data['tanggal_lahir_siswa']),
+        ":jenis_kelamin_siswa" => htmlspecialchars($data['jenis_kelamin_siswa']),
+        ":no_telpon_siswa" => htmlspecialchars($data['no_telp_siswa']),
+        ":foto_siswa_siswa" => uploadFileGambarSiswa(),
+        ":password_siswa" => md5($data['password_siswa']),
     ]);
-    $st = $stmnt->fetch();
-    return $st['NAMA_LENGKAP_SISWA'];
+    if ($stmnt->rowCount() > 0) {
+        header("Location: ../index.php");
+    } else {
+        echo "Gagal insert data.";
+    }
 }
 ?>

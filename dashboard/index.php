@@ -27,9 +27,21 @@ $siswa = $stmnt->fetch();
     <section class="header">
         <div class="container">
             <h2>Selamat Datang di PPDB Online</h2>
-            <p>Sekolah Berbasis Pesantren Modern, Mencetak Generasi Qur'ani dan Berprestasi.</p>
+            <p>Sekolah Berbasis Pesantren Modern yang Berkomitmen Mencetak Generasi Qur'ani, Unggul dalam Prestasi
+                Akademik, Mandiri, Berjiwa Pemimpin, dan Berakhlakul Karimah untuk Membangun Peradaban Islam yang
+                Gemilang.</p>
         </div>
     </section>
+    <div class="visi-misi">
+        <h3>🏫 Visi</h3>
+        <p>“Menjadi lembaga pendidikan berbasis pesantren modern yang unggul dalam pembentukan generasi Qur’ani,
+            berakhlak mulia, berwawasan global, dan berjiwa kepemimpinan.”</p>
+        <h3>🎯 Misi</h3>
+        <p>
+            Menanamkan nilai-nilai keislaman melalui kegiatan keagamaan yang terintegrasi dalam seluruh aspek
+            pendidikan.
+        </p>
+    </div>
 
 
 </body>

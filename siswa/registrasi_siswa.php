@@ -1,4 +1,3 @@
-<!-- Form register + proses masuk ke database. -->
 <?php
 require_once(__DIR__ . "/../config/function.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -11,99 +10,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Register Siswa</title>
+    <link rel="stylesheet" href="../source/css/style.css">
 </head>
 
-<body>
-    <section class="create_registrasi">
-        <div class="registrasi_siswa">
-            <form action="" method="POST" enctype="multipart/form-data">
-                <table border="0" cellpading="10" cellspacing="4">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <label for="nama_lengkap_siswa">Masukkan nama lengkap</label>
-                            </td>
-                            <td>
-                                <input type="text" name="nama_lengkap_siswa" id="nama_lengkap_siswa">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="nisn_siswa">Masukkan nisn</label>
-                            </td>
-                            <td>
-                                <input type="text" name="nisn_siswa" id="nisn_siswa">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="alamat_siswa">Masukkan alamat</label>
-                            </td>
-                            <td>
+<body class="login-reg">
 
-                                <input type="text" name="alamat_siswa" id="alamat_siswa">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="tanggal_lahir_siswa">Masukkan tanggal lahir</label>
-                            </td>
-                            <td>
+    <div class="login-container">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <h2>Registrasi Siswa</h2>
 
-                                <input type="date" name="tanggal_lahir_siswa" id="tanggal_lahir_siswa">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="jenis_kelamin_siswa">Jenis kelamin</label>
-                            </td>
-                            <td>
-                                <select name="jenis_kelamin_siswa" id="jenis_kelamin_siswa">
-                                    <option value="laki_laki">Laki Laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                </select>
-                            </td>
+            <div class="login-input">
+                <label for="nama_lengkap_siswa">Nama Lengkap</label>
+                <input type="text" name="nama_lengkap_siswa" id="nama_lengkap_siswa"
+                    placeholder="Masukkan nama lengkap">
+            </div>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="no_telp_siswa">Masukkan no telp</label>
-                            </td>
-                            <td>
+            <div class="login-input">
+                <label for="nisn_siswa">NISN</label>
+                <input type="text" name="nisn_siswa" id="nisn_siswa" placeholder="Masukkan NISN">
+            </div>
 
-                                <input type="text" name="no_telp_siswa" id="no_telp_siswa">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="foto_siswa">Masukkan foto siswa</label>
-                            </td>
-                            <td>
+            <div class="login-input">
+                <label for="alamat_siswa">Alamat</label>
+                <input type="text" name="alamat_siswa" id="alamat_siswa" placeholder="Masukkan alamat">
+            </div>
 
-                                <input type="file" name="foto_siswa" id="foto_siswa">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="password_siswa">Masukkan password</label>
-                            </td>
-                            <td>
+            <div class="login-input">
+                <label for="tanggal_lahir_siswa">Tanggal Lahir</label>
+                <input type="date" name="tanggal_lahir_siswa" id="tanggal_lahir_siswa"
+                    placeholder="Masukkan tangal-lahir">
+            </div>
 
-                                <input type="text" name="password_siswa" id="password_siswa">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button type="submit" name="submit_siswa_register">Kirim</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
-        </div>
-    </section>
-    ada akun? <a href="../index.php">Login</a>
+            <div class="login-input">
+                <label for="jenis_kelamin_siswa">Jenis Kelamin</label>
+                <select name="jenis_kelamin_siswa" id="jenis_kelamin_siswa">
+                    <option value="">-- Pilih Jenis Kelamin --</option>
+                    <option value="laki_laki">Laki-Laki</option>
+                    <option value="perempuan">Perempuan</option>
+                </select>
+            </div>
+
+            <div class="login-input">
+                <label for="no_telp_siswa">Nomor Telepon</label>
+                <input type="text" name="no_telp_siswa" id="no_telp_siswa" placeholder="Masukkan no telpon">
+            </div>
+
+            <div class="login-input">
+                <label for="foto_siswa">Foto Siswa</label>
+                <input type="file" name="foto_siswa" id="foto_siswa" accept="image/*">
+            </div>
+
+            <div class="login-input">
+                <label for="password_siswa">Password</label>
+                <input type="password" name="password_siswa" id="password_siswa" placeholder="Masukkan password">
+            </div>
+            <p>Sudah punya akun?<a href="../index.php"> Login</a></p>
+            <button type="submit" name="submit_siswa_register" class="btn-submit">Daftar Sekarang</button>
+        </form>
+    </div>
+
+
 </body>
 
 </html>

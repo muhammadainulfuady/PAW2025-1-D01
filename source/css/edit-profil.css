@@ -1,0 +1,108 @@
+/* === RESET DASAR === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Verdana", Geneva, Tahoma, sans-serif;
+}
+
+/* === BODY STYLE === */
+body {
+  background: #f3f6f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* === CONTAINER UTAMA === */
+.edit-container {
+  background: #ffffff;
+  max-width: 700px;
+  width: 90%;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* === JUDUL === */
+.edit-container h2 {
+  text-align: center;
+  color: #00695c;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #00796b;
+  padding-bottom: 10px;
+}
+
+/* === FORM INPUT === */
+.edit-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="date"],
+.edit-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.edit-form input:focus,
+.edit-form select:focus {
+  border-color: #00796b;
+  outline: none;
+}
+
+/* === FOTO === */
+.edit-form img {
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* === FILE INPUT === */
+.edit-form input[type="file"] {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 100%;
+  background-color: #fafafa;
+  margin-bottom: 20px;
+}
+
+/* === TOMBOL SIMPAN === */
+.edit-form button {
+  width: 100%;
+  background: #00796b;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.edit-form button:hover {
+  background: #00695c;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 480px) {
+  .edit-container {
+    padding: 25px;
+  }
+
+  .edit-container h2 {
+    font-size: 1.5rem;
+  }
+}

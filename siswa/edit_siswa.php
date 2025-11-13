@@ -34,40 +34,41 @@ if (isset($_POST['submit_edit'])) {
 <head>
     <meta charset="UTF-8">
     <title>Edit Profil Siswa</title>
+    <link rel="stylesheet" href="../source/css/edit-profil.css">
 </head>
 
 <body>
+    <div class="edit-container">
+        <h2>Edit Profil Siswa</h2>
 
-    <h2>Edit Profil</h2>
+        <form class="edit-form" action="" method="POST" enctype="multipart/form-data">
+            <label>Nama Lengkap:</label>
+            <input type="text" name="nama_lengkap_siswa" value="<?= $siswa['NAMA_LENGKAP_SISWA'] ?>">
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        <label>Nama Lengkap:</label><br>
-        <input type="text" name="nama_lengkap_siswa" value="<?= $siswa['NAMA_LENGKAP_SISWA'] ?>"><br><br>
+            <label>Alamat:</label>
+            <input type="text" name="alamat_siswa" value="<?= $siswa['ALAMAT_SISWA'] ?>">
 
-        <label>Alamat:</label><br>
-        <input type="text" name="alamat_siswa" value="<?= $siswa['ALAMAT_SISWA'] ?>"><br><br>
+            <label>Tanggal Lahir:</label>
+            <input type="date" name="tanggal_lahir_siswa" value="<?= $siswa['TANGGAL_LAHIR_SISWA'] ?>">
 
-        <label>Tanggal Lahir:</label><br>
-        <input type="date" name="tanggal_lahir_siswa" value="<?= $siswa['TANGGAL_LAHIR_SISWA'] ?>"><br><br>
+            <label>Jenis Kelamin:</label>
+            <select name="jenis_kelamin_siswa">
+                <option value="L" <?= $siswa['JENIS_KELAMIN_SISWA'] == 'L' ? 'selected' : '' ?>>Laki-Laki</option>
+                <option value="P" <?= $siswa['JENIS_KELAMIN_SISWA'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
+            </select>
 
-        <label>Jenis Kelamin:</label><br>
-        <select name="jenis_kelamin_siswa">
-            <option value="L" <?= $siswa['JENIS_KELAMIN_SISWA'] == 'L' ? 'selected' : '' ?>>Laki-Laki</option>
-            <option value="P" <?= $siswa['JENIS_KELAMIN_SISWA'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
-        </select><br><br>
+            <label>No Telp:</label>
+            <input type="text" name="no_telp_siswa" value="<?= $siswa['NO_TELPON_SISWA'] ?>">
 
-        <label>No Telp:</label><br>
-        <input type="text" name="no_telp_siswa" value="<?= $siswa['NO_TELPON_SISWA'] ?>"><br><br>
+            <label>Foto Saat Ini:</label><br>
+            <img src="../source/upload/images/<?= $siswa['FOTO_SISWA_SISWA'] ?>" width="120" alt="Foto Siswa"><br>
 
-        <label>Foto Saat Ini:</label><br>
-        <img src="../source/upload/images/<?= $siswa['FOTO_SISWA_SISWA'] ?>" width="100"><br><br>
+            <label>Ganti Foto Baru (opsional):</label>
+            <input type="file" name="foto_siswa">
 
-        <label>Ganti Foto Baru (opsional):</label><br>
-        <input type="file" name="foto_siswa"><br><br>
-
-        <button type="submit" name="submit_edit">Simpan Perubahan</button>
-    </form>
-
+            <button type="submit" name="submit_edit">💾 Simpan Perubahan</button>
+        </form>
+    </div>
 </body>
 
 </html>
