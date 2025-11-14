@@ -9,6 +9,10 @@ global $connect;
 $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
 $stmnt->execute([':nisn' => $nisn]);
 $siswa = $stmnt->fetch();
+
+$jurusan = $connect->prepare("SELECT * FROM jurusan");
+$jurusan->execute();
+$jurusan = $jurusan->fetchAll();
 require_once '../components/header.php';
 ?>
 <!DOCTYPE html>
@@ -34,24 +38,25 @@ require_once '../components/header.php';
             <label for="no_hp">No HP</label>
             <input type="text" name="no_hp" id="no_hp" placeholder="Masukkan nomor HP wali">
 
-            <label for="jurusan_pilihan">Jurusan Pilihan</label>
-            <input type="text" name="jurusan_pilihan" id="jurusan_pilihan" placeholder="contoh: IPA, IPS, Bahasa">
+            <label for="program_pondok">Pilih Program Pondok</label>
+            <select name="program_pondok" id="program_pondok">
+                <option value="">-- Program Pondok --</option>
+                <option value="tahfidz">Tahfidz Alquran</option>
+                <option value="diniyah">Diniyah</option>
+                <option value="qiroati">Qiroati</option>
+            </select>
 
-            <label for="jenjang">Jenjang</label>
-            <select name="jenjang" id="jenjang">
-                <option value="">-- Pilih Jenjang --</option>
-                <option value="Tahfidz Qur'an">Tahfidz Qur'an</option>
-                <option value="Tilawatil Qur'an">Tilawatil Qur'an</option>
-                <option value="Diniyah">Diniyah</option>
+
+            <label for="jurusan">Jurusan</label>
+            <select name="jurusan" id="jurusan">
+                <option value="">-- Pilih Jurusan --</option>
+                <?php foreach ($jurusan as $jurus): ?>
+                    <option value=" <?= $jurus['NAMA_JURUSAN'] ?> "><?= $jurus['NAMA_JURUSAN'] ?></option>
+                <?php endforeach; ?>
             </select>
 
             <div class="document-upload">
-                <label for="file_ijazah">Upload Ijazah/Surat Keterangan Lulus (SKL) *</label>
-                <input type="file" name="file_ijazah" id="file_ijazah" accept=".pdf,.jpg,.jpeg,.png">
-            </div>
-
-            <div class="document-upload">
-                <label for="file_akte">Upload Akte Kelahiran *</label>
+                <label for="file_akte">Upload Akte Kelahiran</label>
                 <input type="file" name="file_akte" id="file_akte" accept=".pdf,.jpg,.jpeg,.png">
             </div>
 

@@ -41,6 +41,16 @@ $siswa = $stmnt->fetch();
                 pendidikan.
             </p>
         </div>
+        <div class="visi-misi">
+            <h3>🏫 Visi</h3>
+            <p>“Menjadi lembaga pendidikan berbasis pesantren modern yang unggul dalam pembentukan generasi Qur’ani,
+                berakhlak mulia, berwawasan global, dan berjiwa kepemimpinan.”</p>
+            <h3>🎯 Misi</h3>
+            <p>
+                Menanamkan nilai-nilai keislaman melalui kegiatan keagamaan yang terintegrasi dalam seluruh aspek
+                pendidikan.
+            </p>
+        </div>
     </section>
 </body>
 
