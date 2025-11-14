@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/../config/function.php");
+require_once(_DIR_ . "/../config/function.php");
 if (!isset($_SESSION['NISN_SISWA'])) {
     header("Location: ../index.php");
     exit;
@@ -42,14 +42,14 @@ $siswa = $stmnt->fetch();
             </p>
         </div>
         <div class="visi-misi">
-            <h3>🏫 Visi</h3>
-            <p>“Menjadi lembaga pendidikan berbasis pesantren modern yang unggul dalam pembentukan generasi Qur’ani,
-                berakhlak mulia, berwawasan global, dan berjiwa kepemimpinan.”</p>
-            <h3>🎯 Misi</h3>
-            <p>
-                Menanamkan nilai-nilai keislaman melalui kegiatan keagamaan yang terintegrasi dalam seluruh aspek
-                pendidikan.
-            </p>
+            <h3>Cara mendaftar</h3>
+            <ol type="1">
+                <li>Klik pendaftaran di atas</li>
+                <li>Masukkan data diri kamu</li>
+                <li>Usahakan semuanya terpenuhi di pendaftaran</li>
+                
+                <button><a href="../siswa/pendaftaran.php" class="btn-dft">ayo mendaftar</a></button>
+            </ol>
         </div>
     </section>
 </body>
