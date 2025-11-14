@@ -1,168 +1,184 @@
-/* =====================================================================
-   Global Reset & Font Setting
-   ===================================================================== */
+/* --------------------------------------------------
+   GLOBAL – White Gray Soft Theme
+-------------------------------------------------- */
 * {
   margin: 0;
   padding: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-/* =====================================================================
-   Body Base Style (background lembut & teks netral)
-   ===================================================================== */
 body {
-  background-color: #00695c; /* hijau lebih gelap */
+  background: #f3f3f3; /* Putih abu */
   color: #333;
 }
 
-/* =====================================================================
-   Container Umum (Login & Register Form)
-   ===================================================================== */
-.login-container {
+/* Basic Input + Select */
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
   background: #ffffff;
-  max-width: 1000px; /* diperlebar agar tidak sempit */
-  margin: 50px auto;
-  padding: 40px 50px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  transition: 0.3s;
 }
 
-/* =====================================================================
-   Judul di Form
-   ===================================================================== */
-.login-container h2 {
-  text-align: center;
-  color: #00796b; /* hijau utama pesantren */
-  margin-bottom: 30px;
-  font-size: 2rem;
-  font-weight: bold;
+input:focus,
+select:focus {
+  border-color: #4caf50; /* Hijau soft */
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+  outline: none;
 }
 
-/* =====================================================================
-   Elemen Form Input
-   ===================================================================== */
-.login-input {
-  margin-bottom: 20px;
-}
-
-.login-input label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 6px;
-  color: #004d40; /* hijau tua */
-}
-
-.login-input input,
-.login-input select {
+/* Button */
+button {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: 0.2s ease-in-out;
-}
-
-/* Fokus pada input */
-.login-input input:focus,
-.login-input select:focus {
-  border-color: #00796b;
-  outline: none;
-  box-shadow: 0 0 4px rgba(0, 121, 107, 0.4);
-}
-
-/* =====================================================================
-   Tombol Submit
-   ===================================================================== */
-.btn-submit {
-  width: 100%;
-  background: #00796b; /* hijau utama */
-  color: #ffffff;
   border: none;
-  padding: 14px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.btn-submit:hover {
-  background: #00695c; /* hijau lebih gelap */
-}
-
-/* =====================================================================
-   Teks “Sudah punya akun?” di bawah form
-   ===================================================================== */
-body.login-reg {
-  text-align: center;
-}
-
-body.login-reg a {
-  color: #00796b;
+  border-radius: 6px;
+  background: #4caf50; /* Hijau profesional */
+  color: white;
   font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #3e8e41;
+}
+
+/* --------------------------------------------------
+   HEADER – White Clean With Shadow
+-------------------------------------------------- */
+.header-admin-siswa {
+  width: 100%;
+  padding: 15px 40px;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* NAV */
+.header-admin-siswa nav ul {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.header-admin-siswa nav ul li a {
+  color: #444;
   text-decoration: none;
-  display: inline-block;
-  margin-top: 15px;
+  font-size: 15px;
+  transition: 0.2s;
 }
 
-body.login-reg a:hover {
-  text-decoration: underline;
+.header-admin-siswa nav ul li a:hover {
+  color: #4caf50;
 }
 
-/* =====================================================================
-   HEADER (Untuk index.php)
-   ===================================================================== */
-.header {
-  position: relative;
-  overflow: hidden;
-  padding: 100px 20px;
-  text-align: center;
-  color: white;
-  height: 65vh;
+/* USER INFO */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
-/* Background blur dengan overlay hijau transparan */
-.header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("../upload/images/691567f5b92b3.jpg") center/cover no-repeat;
-  filter: blur(5px);
-  transform: scale(1.1);
-  z-index: 0;
+.user-info img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #4caf50; /* hijau tipis */
+  object-fit: cover;
 }
 
-.header::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 128, 0, 0.4);
-  z-index: 1;
+.user-info .nama-siswa {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
 }
 
-/* Teks di header */
-.header h1,
-.header p {
-  position: relative;
-  z-index: 2;
+/* --------------------------------------------------
+   CARD / FORM BOX – Abu Putih Bersih
+-------------------------------------------------- */
+.form-container,
+.container-siswa,
+.visi-misi,
+.edit-siswa,
+.login-container,
+.login-admin-siswa {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e2e2e2;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 20px auto;
 }
 
-.header h1 {
-  font-size: 2.8rem;
-  margin-bottom: 20px;
+h2,
+h3 {
+  color: #4caf50;
+  margin-bottom: 15px;
 }
 
-.header p {
-  font-size: 1.4rem;
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.6;
+/* Upload File */
+input[type="file"] {
+  background: #fff;
+  border: 1px solid #ccc;
 }
 
-/* visi misi */
-.visi-misi {
-  color: white;
-  text-align: center;
-  padding: 10px;
+/* eror */
+.error-popup-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffe3e3;
+  padding: 15px 25px;
+  border-left: 5px solid #ff4d4d;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease, fadeOut 0.5s ease 2.5s forwards;
+  z-index: 9999;
+}
+
+.eror-akun {
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: #b30000;
+}
+
+/* Animasi fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Animasi fade out */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
 }

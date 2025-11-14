@@ -27,7 +27,10 @@ function addSiswa(array $data)
         empty($data['password_siswa']) ||
         empty($_FILES['foto_siswa']['name'])
     ) {
-        echo "Semua field wajib diisi!";
+        echo "
+            <div class='error-popup-container'>
+                <p class='eror-akun'>Harap isi semuanya</p>
+            </div>";
         return;
     }
 
@@ -128,13 +131,20 @@ function loginUser($username, $password)
             header("Location:./dashboard/index.php");
             exit;
         } else {
-            echo "<script>alert('Password siswa salah!');</script>";
+            echo "
+            <div class='error-popup-container'>
+                <p class='eror-akun'>Password siswa salah</p>
+            </div>";
             return false;
         }
     }
 
     // 3️⃣ Jika tidak ditemukan di kedua tabel
-    echo "<script>alert('Akun tidak ditemukan di sistem!');</script>";
+    echo "
+            <div class='error-popup-container'>
+                <p class='eror-akun'>Akun tidak ditemukan</p>
+            </div>
+        ";
     return false;
 }
 
