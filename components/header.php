@@ -4,7 +4,7 @@
     <nav>
         <ul>
             <li><a href="../dashboard/index.php">Beranda</a></li>
-            <li><a href="../siswa/browse_calon.php">Informasi</a></li>
+            <li><a href="../siswa/browse_calon.php">Riwayat</a></li>
             <li><a href="../siswa/pendaftaran.php">Pendaftaran</a></li>
             <li><a href="../auth/logout.php">Logout</a></li>
             <li><a href="../siswa/edit_siswa.php"><?= $siswa['NAMA_LENGKAP_SISWA']; ?></a></li>

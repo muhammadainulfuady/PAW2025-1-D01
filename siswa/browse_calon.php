@@ -31,7 +31,7 @@ if (isset($id_pendaftarans['ID_PENDAFTARAN'])) {
     $showdoc->execute([':id_pendaftaran' => $id_pendaftarans['ID_PENDAFTARAN']]);
     $showdocs = $showdoc->fetchAll();
 } else {
-    displayErrorPopup("Tolong daftar terlebih dahulu");
+    displayErrorPopup("Kamu belum daftar");
 }
 require_once "../components/header.php"
     ?>
