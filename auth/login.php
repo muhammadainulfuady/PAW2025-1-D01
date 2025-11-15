@@ -40,8 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="password_login_siswa">Masukkan Password</label>
                     <input type="text" name="password_login_siswa" id="password_login_siswa">
                 </div>
-                belum punya akun? <a href="./siswa/registrasi_siswa.php">Register</a>
-
+                <p>Belum punya akun? <a href="./siswa/registrasi_siswa.php" class="btn-regis-login">Register</a></p>
                 <button type="submit" name="submit_login_siswa" class="btn-submit">login</button>
             </form>
         </div>

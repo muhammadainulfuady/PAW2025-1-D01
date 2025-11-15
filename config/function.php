@@ -328,6 +328,20 @@ function uploadDocumentFile($fileKey, $keterangan)
 // siswa melakukan pendaftaran
 // ===========================
 
+function getStatusText($status_code)
+{
+    switch ($status_code) {
+        case '0':
+            return '<span style="color: blue; font-weight: bold;">Masih Proses Verifikasi</span>';
+        case '1':
+            return '<span style="color: green; font-weight: bold;">DITERIMA</span>';
+        case '2':
+            return '<span style="color: red; font-weight: bold;">DITOLAK</span>';
+        default:
+            return 'Status Tidak Diketahui';
+    }
+}
+
 function insertDocument($id_pendaftaran, $keterangan, $jenis, $path)
 {
     global $connect;

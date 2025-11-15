@@ -8,6 +8,10 @@ if (!isset($_SESSION['NISN_SISWA'])) {
     header("Location: ../index.php");
     exit;
 }
+function getStickyValue($fieldName)
+{
+    return isset($_POST[$fieldName]) ? htmlspecialchars(trim($_POST[$fieldName])) : '';
+}
 
 $nisn = $_SESSION['NISN_SISWA'];
 global $connect;
@@ -22,10 +26,11 @@ $jurusan_stmnt = $connect->prepare("SELECT * FROM jurusan");
 $jurusan_stmnt->execute();
 $jurusans = $jurusan_stmnt->fetchAll();
 
-// --- TANGANI SUBMISSION FORM ---
+
+
 if (isset($_POST['submit_pendaftaran'])) {
-    // Panggil fungsi pendaftaran yang ada di config/function.php
     addPendaftaran($_POST, $nisn);
+
 }
 require_once '../components/header.php';
 ?>
@@ -44,12 +49,14 @@ require_once '../components/header.php';
         <h2>Formulir Pendaftaran Siswa</h2>
         <form action="" method="POST" enctype="multipart/form-data">
             <label for="nama_wali">Nama Wali</label>
-            <input type="text" name="nama_wali" id="nama_wali" placeholder="Masukkan nama wali">
+            <input type="text" name="nama_wali" id="nama_wali" placeholder="Masukkan nama wali"
+                value="<?= getStickyValue('nama_wali') ?>">
 
-            <label for="no_hp">No HP</label>
-            <input type="text" name="no_hp" id="no_hp" placeholder="Masukkan nomor HP wali">
+            <label for="no_hp">No HP Wali</label>
+            <input type="text" name="no_hp" id="no_hp" placeholder="Masukkan nomor HP wali"
+                value="<?= getStickyValue('nama_wali') ?>">
 
-            <label for="program_pondok">Pilih Program Pondok</label>
+            <label for=" program_pondok">Pilih Program Pondok</label>
             <select name="program_pondok" id="program_pondok">
                 <option value="">-- Program Pondok --</option>
                 <option value="Tahfidz Alquran">Tahfidz Alquran</option>

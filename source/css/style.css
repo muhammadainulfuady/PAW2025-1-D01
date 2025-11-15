@@ -124,8 +124,13 @@ button:hover {
   max-width: 800px;
   margin: 20px auto;
 }
+
+.form-container h2.judul-riwayat {
+  text-align: center;
+}
+
 .btn-dft {
-  color: #ccc !important;
+  color: #ffffff !important;
   text-decoration: none;
 }
 h2,
@@ -140,6 +145,12 @@ input[type="file"] {
   border: 1px solid #ccc;
 }
 
+/* foto img pendaftaran */
+img.img-daftar {
+  width: 100px;
+  display: inline-block;
+  margin: 0 auto;
+}
 /* eror */
 .error-popup-container {
   position: fixed;
@@ -252,4 +263,9 @@ input[type="file"] {
     opacity: 0;
     transform: translateX(-50%) translateY(-10px);
   }
+}
+
+.btn-regis-login {
+  text-decoration: none;
+  color: #007f3b;
 }

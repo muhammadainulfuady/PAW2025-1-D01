@@ -7,7 +7,7 @@ function getStickyValue($fieldName)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     addSiswa($_POST);
 }
-
+// $nisn = $_SESSION['NISN_SISWA'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="login-input">
                     <label for="jenis_kelamin_siswa">Jenis Kelamin</label>
                     <select name="jenis_kelamin_siswa" id="jenis_kelamin_siswa">
+                        <option value="laki_laki">-- Pilih Jenis Kelamin --</option>
                         <option value="laki_laki">Laki-Laki</option>
                         <option value="perempuan">Perempuan</option>
                     </select>
@@ -69,9 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="login-input">
                     <label for="password_siswa">Password</label>
-                    <input type="password" name="password_siswa" id="password_siswa" <?= getStickyValue('password_siswa') ?> placeholder="Masukkan password">
+                    <input type="password" name="password_siswa" id="password_siswa"
+                        value="<?= getStickyValue('password_siswa') ?>" placeholder="Masukkan password">
                 </div>
-                <p>Sudah punya akun?<a href="../index.php"> Login</a></p>
+                <p>Sudah punya akun? <a href="../index.php" class="btn-regis-login">Login</a></p>
                 <button type="submit" name="submit_siswa_register" class="btn-submit">Daftar Sekarang</button>
             </form>
         </div>

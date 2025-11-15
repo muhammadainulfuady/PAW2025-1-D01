@@ -47,8 +47,7 @@ $siswa = $stmnt->fetch();
                 <li>Klik pendaftaran di atas</li>
                 <li>Masukkan data diri kamu</li>
                 <li>Usahakan semuanya terpenuhi di pendaftaran</li>
-
-                <button><a href="../siswa/pendaftaran.php" class="btn-dft">ayo mendaftar</a></button>
+                <button><a href="../siswa/pendaftaran.php" class="btn-dft">Ayo mendaftar</a></button>
             </ol>
         </div>
     </section>
