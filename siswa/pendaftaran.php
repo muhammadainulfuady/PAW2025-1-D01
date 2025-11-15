@@ -16,7 +16,7 @@ function getStickyValue($fieldName)
 $nisn = $_SESSION['NISN_SISWA'];
 global $connect;
 
-$stmnt_check_enroll = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE NISN_SISWA = :nisn AND STATUS = '0' OR '1' OR '2'");
+$stmnt_check_enroll = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE NISN_SISWA = :nisn AND STATUS = '0'");
 $stmnt_check_enroll->execute([':nisn' => $nisn]);
 
 if ($stmnt_check_enroll->fetchColumn() > 0) {
@@ -25,8 +25,6 @@ if ($stmnt_check_enroll->fetchColumn() > 0) {
     header("Location: browse_calon.php");
     exit;
 }
-
-
 
 // Ambil data siswa
 $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
@@ -80,8 +78,9 @@ require_once '../components/header.php';
             <select name="jurusan" id="jurusan">
                 <option value="">-- Pilih Jurusan --</option>
                 <?php foreach ($jurusans as $jurusan): ?>
-                    <?= getStickyValue('jurusan') == trim($jurusan['NAMA_JURUSAN']) ? 'selected' : '' ?>>
-                    <?= $jurusan['NAMA_JURUSAN'] ?> </option>
+                    <option>
+                        <?= $jurusan['NAMA_JURUSAN'] ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
 

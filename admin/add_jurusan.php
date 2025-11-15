@@ -1,0 +1,53 @@
+<?php
+require_once(__DIR__ . "/../config/function.php");
+
+if (session_status() === PHP_SESSION_NONE)
+    session_start();
+
+if (!isset($_SESSION['ADMIN_ID'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+global $connect;
+
+if (isset($_POST['submit'])) {
+    $nama_jurusan = trim($_POST['nama_jurusan']);
+
+    if ($nama_jurusan != "") {
+        $stmnt = $connect->prepare("INSERT INTO jurusan (nama_jurusan) VALUES (:nama)");
+        $stmnt->bindParam(":nama", $nama_jurusan);
+        $stmnt->execute();
+
+        // Redirect setelah berhasil tambah
+        header("Location: jurusan.php");
+        exit;
+    }
+}
+
+require_once "../components/header_admin.php";
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../source/css/style.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+        <h2 class="judul-riwayat">Tambah Jurusan</h2>
+
+        <form method="POST">
+            <label>Nama Jurusan</label>
+            <input type="text" name="nama_jurusan" required>
+
+            <button type="submit" name="submit" class="btn-simpan">Simpan</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

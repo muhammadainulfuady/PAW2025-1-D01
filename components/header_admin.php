@@ -5,7 +5,7 @@
         <ul>
             <li><a href="../admin/index.php">Beranda</a></li>
             <li><a href="../admin/browse_calon.php">Status</a></li>
-            <li><a href="../admin/manajement_jurusan.php">Jurusan</a></li>
+            <li><a href="../admin/jurusan.php">Jurusan</a></li>
             <li><a href="../auth/logout.php">Logout</a></li>
             <li class="user-info">
                 <img src="../source/images/admin.png" alt="Foto admin">

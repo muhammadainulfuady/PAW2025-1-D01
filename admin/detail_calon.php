@@ -12,6 +12,7 @@ if (!isset($_SESSION['ADMIN_ID'])) {
 
 // Ambil semua siswa dari database
 global $connect;
+$nisn = $_GET['nisn'];
 $stmnt = $connect->prepare("
     SELECT 
         NISN_SISWA,
@@ -20,8 +21,7 @@ $stmnt = $connect->prepare("
         NO_TELPON_SISWA,
         ALAMAT_SISWA,
         JENIS_KELAMIN_SISWA
-    FROM siswa
-    ORDER BY NAMA_LENGKAP_SISWA ASC
+    FROM siswa WHERE NISN_SISWA = $nisn
 ");
 $stmnt->execute();
 $siswas = $stmnt->fetchAll();
