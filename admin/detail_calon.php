@@ -16,6 +16,9 @@ $stmnt = $connect->prepare("
     SELECT 
         NISN_SISWA,
         NAMA_LENGKAP_SISWA,
+        TANGGAL_LAHIR_SISWA,
+        NO_TELPON_SISWA,
+        ALAMAT_SISWA,
         JENIS_KELAMIN_SISWA
     FROM siswa
     ORDER BY NAMA_LENGKAP_SISWA ASC
@@ -33,8 +36,6 @@ require_once "../components/header_admin.php";
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../source/css/style.css">
-
     <title></title>
 </head>
 
@@ -46,25 +47,27 @@ require_once "../components/header_admin.php";
             <tr>
                 <th>NISN</th>
                 <th>Nama Lengkap</th>
-                <th>Kelamin</th>
-                <th>Aksi</th>
+                <th>Asal</th>
+                <th>Tanggal Lahir</th>
+                <th>No Telepon</th>
+                <th>Jenis Kelamin</th>
             </tr>
 
             <?php foreach ($siswas as $siswa): ?>
                 <tr>
-                    <td class="nisn_td"><?= $siswa['NISN_SISWA'] ?></td>
+                    <td><?= $siswa['NISN_SISWA'] ?></td>
                     <td><?= $siswa['NAMA_LENGKAP_SISWA'] ?></td>
+                    <td><?= $siswa['ALAMAT_SISWA'] ?></td>
+                    <td><?= $siswa['TANGGAL_LAHIR_SISWA'] ?></td>
+                    <td><?= $siswa['NO_TELPON_SISWA'] ?></td>
                     <td><?= $siswa['JENIS_KELAMIN_SISWA'] ?></td>
-                    <!-- Tombol Detail -->
-                    <td>
-                        <a href="detail_calon.php?nisn=<?= $siswa['NISN_SISWA'] ?>" class="btn-detail">
-                            Show Detail
-                        </a>
-                    </td>
+
                 </tr>
             <?php endforeach; ?>
         </table>
-    </div>
+        <div class="btn-kembali">
+            <a href="browse_calon.php">Kembali</a>
+        </div>
 
 </body>
 

@@ -51,7 +51,7 @@ require_once "../components/header.php"
                     <span class="status-badge status-proses">Proses Verifikasi</span>
 
                 <?php elseif ($sis['STATUS'] === "1"): ?>
-                    <span class="status-badge status-pending">Pending</span>
+                    <span class="status-badge status-pending">Ditolak</span>
 
                 <?php else: ?>
                     <span class="status-badge status-diterima">Diterima</span>

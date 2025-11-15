@@ -16,6 +16,18 @@ function getStickyValue($fieldName)
 $nisn = $_SESSION['NISN_SISWA'];
 global $connect;
 
+$stmnt_check_enroll = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE NISN_SISWA = :nisn AND STATUS = '0' OR '1' OR '2'");
+$stmnt_check_enroll->execute([':nisn' => $nisn]);
+
+if ($stmnt_check_enroll->fetchColumn() > 0) {
+    $ini = $_SESSION['pendaftaran_info'] = "Maaf, kamu sudah memiliki pendaftaran yang masih diproses. Silakan cek status pendaftaran Anda.";
+    echo $ini;
+    header("Location: browse_calon.php");
+    exit;
+}
+
+
+
 // Ambil data siswa
 $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
 $stmnt->execute([':nisn' => $nisn]);
@@ -26,11 +38,8 @@ $jurusan_stmnt = $connect->prepare("SELECT * FROM jurusan");
 $jurusan_stmnt->execute();
 $jurusans = $jurusan_stmnt->fetchAll();
 
-
-
 if (isset($_POST['submit_pendaftaran'])) {
     addPendaftaran($_POST, $nisn);
-
 }
 require_once '../components/header.php';
 ?>
@@ -54,21 +63,25 @@ require_once '../components/header.php';
 
             <label for="no_hp">No HP Wali</label>
             <input type="text" name="no_hp" id="no_hp" placeholder="Masukkan nomor HP wali"
-                value="<?= getStickyValue('nama_wali') ?>">
+                value="<?= getStickyValue('no_hp') ?>">
 
             <label for=" program_pondok">Pilih Program Pondok</label>
             <select name="program_pondok" id="program_pondok">
                 <option value="">-- Program Pondok --</option>
-                <option value="Tahfidz Alquran">Tahfidz Alquran</option>
-                <option value="Diniyah">Diniyah</option>
-                <option value="Qiroati">Qiroati</option>
+                <option value="Tahfidz Alquran" <?= getStickyValue('program_pondok') == 'Tahfidz Alquran' ? 'selected' : '' ?>>Tahfidz
+                    Alquran</option>
+                <option value="Diniyah" <?= getStickyValue('program_pondok') == 'Diniyah' ? 'selected' : '' ?>>Diniyah
+                </option>
+                <option value="Qiroati" <?= getStickyValue('program_pondok') == 'Qiroati' ? 'selected' : '' ?>>Qiroati
+                </option>
             </select>
 
             <label for="jurusan">Jurusan</label>
             <select name="jurusan" id="jurusan">
                 <option value="">-- Pilih Jurusan --</option>
                 <?php foreach ($jurusans as $jurusan): ?>
-                    <option value="<?= trim($jurusan['NAMA_JURUSAN']) ?>"><?= $jurusan['NAMA_JURUSAN'] ?></option>
+                    <?= getStickyValue('jurusan') == trim($jurusan['NAMA_JURUSAN']) ? 'selected' : '' ?>>
+                    <?= $jurusan['NAMA_JURUSAN'] ?> </option>
                 <?php endforeach; ?>
             </select>
 

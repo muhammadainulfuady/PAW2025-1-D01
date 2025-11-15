@@ -24,9 +24,9 @@ function displayErrorPopup($message)
 function displaySuccesPopup($message)
 {
     echo "
-        <div class='error-popup-container'>
-            <span class='error-icon'>✔️<span>
-            <p class='eror-akun'>{$message}</p>
+        <div class='succes-popup-container'>
+            <span class='succes-icon'>✔️<span>
+            <p class='succes-akun'>{$message}</p>
         </div>";
     return false;
 }
