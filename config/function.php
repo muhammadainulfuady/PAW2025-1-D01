@@ -47,6 +47,7 @@ function addSiswa(array $data)
         'no_telp_siswa',
         'password_siswa'
     ];
+
     $has_empty_field = false;
 
     foreach ($required_fields as $field) {

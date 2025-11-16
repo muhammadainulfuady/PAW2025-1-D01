@@ -50,6 +50,7 @@ $siswa = $stmnt->fetch();
                 <button><a href="../siswa/pendaftaran.php" class="btn-dft">Ayo mendaftar</a></button>
             </ol>
         </div>
+        <?php require_once "../components/footer.php" ?>
     </section>
 </body>
 

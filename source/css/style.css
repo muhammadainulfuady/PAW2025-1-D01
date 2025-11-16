@@ -444,3 +444,15 @@ img.img-daftar {
   text-decoration: none;
   color: white;
 }
+
+footer.main-footer {
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+footer.main-footer p {
+  text-align: center;
+  color: #101010;
+}

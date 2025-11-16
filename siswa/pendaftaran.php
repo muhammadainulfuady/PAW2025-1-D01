@@ -19,12 +19,6 @@ global $connect;
 $stmnt_check_enroll = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE NISN_SISWA = :nisn AND STATUS = '0'");
 $stmnt_check_enroll->execute([':nisn' => $nisn]);
 
-if ($stmnt_check_enroll->fetchColumn() > 0) {
-    $ini = $_SESSION['pendaftaran_info'] = "Maaf, kamu sudah memiliki pendaftaran yang masih diproses. Silakan cek status pendaftaran Anda.";
-    echo $ini;
-    header("Location: browse_calon.php");
-    exit;
-}
 
 // Ambil data siswa
 $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
