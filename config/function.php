@@ -347,7 +347,7 @@ function insertDocument($id_pendaftaran, $keterangan, $jenis, $path)
 {
     global $connect;
     $stmnt = $connect->prepare("
-        INSERT INTO dokumen (ID_PENDAFTARAN, KETERANGAN, JENIS_DOKUMEM, PATH_FILE)
+        INSERT INTO dokumen (ID_PENDAFTARAN, KETERANGAN, JENIS_DOKUMEN, PATH_FILE)
         VALUES (:id_pendaftaran, :keterangan, :jenis, :path_file)
     ");
     return $stmnt->execute([

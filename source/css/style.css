@@ -605,3 +605,70 @@ footer.main-footer p {
   padding: 4px 8px;
   font-size: 12px;
 }
+
+/* tombol edit delet */
+.btn-edit {
+  color: #ffffff !important;
+  text-decoration: none;
+  margin-top: 10px;
+  background-color: #1aff89;
+  text-align: center;
+  padding: 6px 12px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+.btn-delete {
+  color: #ffffff !important;
+  text-decoration: none;
+  margin-top: 10px;
+  background-color: #ff1a1a;
+  text-align: center;
+  padding: 6px 12px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.btn-tambah {
+  color: #ffffff !important;
+  text-decoration: none;
+  margin-top: 10px;
+  background-color: #4caf50;
+  text-align: center;
+  padding: 6px 12px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+/* dasbor admin */
+.dashboard-card {
+  background: #13da6d;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #ababab;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  margin: 20px auto;
+  display: flex;
+  width: 200px;
+  flex-wrap: wrap;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-container {
+  gap: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-card .img-dashboard-admin img {
+  width: 150px;
+  border-radius: 10px;
+}

@@ -22,7 +22,7 @@ if (isset($_GET['delete'])) {
     $delete->execute([':id' => $id]);
 
     // Kembali ke halaman jurusan.php setelah delete
-    header("Location: jurusan.php");
+    header("Location: Ddelete_jurusan.php");
     exit;
 }
 
@@ -59,10 +59,10 @@ require_once "../components/header_admin.php";
 
                     <td>
                         <!-- Edit -->
-                        <a href="edit_jurusan.php?id=<?= $j['id_jurusan'] ?>" class="btn-edit">Edit</a>
+                        <a href="Cupdate_jurusan.php?id=<?= $j['id_jurusan'] ?>" class="btn-edit">Edit</a>
 
                         <!-- Delete tanpa file lain -->
-                        <a href="jurusan.php?delete=<?= $j['id_jurusan'] ?>" class="btn-delete">
+                        <a href="Ddelete_jurusan.php?delete=<?= $j['id_jurusan'] ?>" class="btn-delete">
                             Delete
                         </a>
                     </td>
@@ -70,7 +70,7 @@ require_once "../components/header_admin.php";
             <?php endforeach; ?>
         </table>
 
-        <a href="add_jurusan.php" class="btn-tambah">+ Tambah Jurusan</a>
+        <a href="Acreate_jurusan.php" class="btn-tambah">+ Tambah Jurusan</a>
 
     </div>
 

@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
         $stmnt->execute();
 
         // Redirect setelah berhasil tambah
-        header("Location: jurusan.php");
+        header("Location: Ddelete_jurusan.php");
         exit;
     }
 }
@@ -42,9 +42,9 @@ require_once "../components/header_admin.php";
 
         <form method="POST">
             <label>Nama Jurusan</label>
-            <input type="text" name="nama_jurusan" required>
-
+            <input type="text" name="nama_jurusan">
             <button type="submit" name="submit" class="btn-simpan">Simpan</button>
+            <a href="Ddelete_jurusan.php">Batal</a>
         </form>
     </div>
 

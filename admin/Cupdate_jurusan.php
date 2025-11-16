@@ -4,6 +4,7 @@ require_once(__DIR__ . "/../config/function.php");
 if (session_status() === PHP_SESSION_NONE)
     session_start();
 
+// pastikan admin sudah login
 if (!isset($_SESSION['ADMIN_ID'])) {
     header("Location: ../index.php");
     exit;
@@ -46,7 +47,7 @@ if (isset($_POST['submit'])) {
         $update->execute();
 
         // Redirect setelah update
-        header("Location: jurusan.php");
+        header("Location: Ddelete_jurusan.php");
         exit;
     }
 }
@@ -69,10 +70,10 @@ require_once "../components/header_admin.php";
 
         <form method="POST">
             <label>Nama Jurusan</label>
-            <input type="text" name="nama_jurusan" placeholder="<?php echo htmlspecialchars($data['nama_jurusan']); ?>"
-                required>
+            <input type="text" name="nama_jurusan" value="<?php echo htmlspecialchars($data['nama_jurusan']); ?>">
 
             <button type="submit" name="submit" class="btn-simpan">Update</button>
+            <a href="Ddelete_jurusan.php">Batal</a>
         </form>
     </div>
 
