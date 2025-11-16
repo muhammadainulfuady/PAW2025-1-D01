@@ -21,7 +21,7 @@ $stmnt = $connect->prepare("
         NO_TELPON_SISWA,
         ALAMAT_SISWA,
         JENIS_KELAMIN_SISWA
-    FROM siswa WHERE NISN_SISWA = $nisn
+    FROM siswa WHERE NISN_SISWA = '$nisn'
 ");
 $stmnt->execute();
 $siswas = $stmnt->fetchAll();

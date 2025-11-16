@@ -241,6 +241,72 @@ img.img-daftar {
   letter-spacing: 0.3px;
 }
 
+/* siswa di ditolak dan tidak bisa lihat form pendaftaran */
+.text-tolak {
+  background-color: #d81e1e;
+  text-align: center;
+  margin: 10px auto;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.tolak-icon {
+  font-size: 20px;
+  color: #ff3b3b;
+}
+
+.text-tolak p {
+  color: white;
+}
+
+/* siswa diterima */
+.text-terima {
+  background-color: #15d22b;
+  text-align: center;
+  margin: 10px auto;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.terima-icon {
+  font-size: 20px;
+  color: #37e215;
+}
+
+.text-terima p {
+  color: white;
+}
+
+/* siswa di proses */
+.text-proses {
+  background-color: #f6f60b;
+  text-align: center;
+  margin: 10px auto;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.proses-icon {
+  font-size: 20px;
+  color: #cee83f;
+}
+
+.text-proses p {
+  color: white;
+}
+
 /* Animasi slide turun + fade in */
 @keyframes slideDown {
   from {
@@ -360,7 +426,7 @@ img.img-daftar {
   background: #4caf50;
   color: white;
   text-decoration: none;
-  padding: 8px 14px;
+  padding: 8px;
   border-radius: 6px;
   font-size: 14px;
   transition: 0.3s;
@@ -455,4 +521,87 @@ footer.main-footer {
 footer.main-footer p {
   text-align: center;
   color: #101010;
+}
+
+/* --------------------------------------------------
+   CUSTOM BUTTON - CENTERING (btn-kembali-pusat)
+-------------------------------------------------- */
+.btn-kembali-pusat {
+  /* Logic untuk mengubah link menjadi blok */
+  display: block;
+  width: 200px; /* Atur lebar tombol */
+
+  /* Centering Tombol di Tengah */
+  margin: 20px auto;
+  text-align: center;
+
+  /* Gaya Tombol (menggunakan tema hijau yang sudah ada) */
+  padding: 12px 20px;
+  border-radius: 6px;
+  background: #4caf50;
+  color: white !important; /* Pastikan warna teks putih */
+  font-weight: 600;
+  text-decoration: none; /* Hapus garis bawah link */
+  transition: 0.3s;
+}
+
+.btn-kembali-pusat:hover {
+  background: #3e8e41; /* Efek hover */
+}
+
+/* table siswa melihat riwayatnya */
+/* --------------------------------------------------
+   TABLE BROWSE SISWA - RIWAYAT TABLE STYLE
+-------------------------------------------------- */
+.table-browse-siswa {
+  /* Menggunakan lebar 100% dari form-container */
+  width: 100%;
+  border-collapse: collapse; /* Menyatukan border */
+  margin-top: 15px;
+  /* Memastikan konten tidak terpotong, penting untuk kolom dokumen */
+  table-layout: auto;
+}
+
+/* Styling Headers (TH) dan Cells (TD) */
+.table-browse-siswa th,
+.table-browse-siswa td {
+  border: 1px solid #e0e0e0; /* Border abu-abu muda */
+  padding: 10px 8px;
+  font-size: 13px;
+  vertical-align: top; /* Konten rata atas */
+  text-align: center; /* Pusatkan teks di tengah sel */
+}
+
+/* Styling Header */
+.table-browse-siswa th {
+  background: #f4f4f4;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+}
+
+/* Styling untuk Dokumen Links (agar tidak merusak layout sel) */
+.table-browse-siswa .dokumen-list {
+  display: flex;
+  flex-direction: column; /* Tumpuk link ke bawah */
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Menyesuaikan foto agar terlihat rapi di dalam sel */
+.table-browse-siswa .riwayat-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid #4caf50;
+  margin: 5px auto;
+  display: block;
+}
+
+/* Memastikan badge status tetap bekerja dengan baik */
+.table-browse-siswa .status-badge {
+  padding: 4px 8px;
+  font-size: 12px;
 }

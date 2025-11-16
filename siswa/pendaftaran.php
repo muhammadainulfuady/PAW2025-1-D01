@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../source/css/style.css">
 <?php
 require_once(__DIR__ . "/../config/function.php");
 if (session_status() === PHP_SESSION_NONE)
@@ -29,7 +30,48 @@ $siswa = $stmnt->fetch();
 $jurusan_stmnt = $connect->prepare("SELECT * FROM jurusan");
 $jurusan_stmnt->execute();
 $jurusans = $jurusan_stmnt->fetchAll();
+// Ambil status pendaftaran siswa
+$check = $connect->prepare("
+    SELECT STATUS 
+    FROM pendaftaran 
+    WHERE NISN_SISWA = :nisn
+    ORDER BY ID_PENDAFTARAN DESC
+    LIMIT 1
+");
+$check->execute([':nisn' => $nisn]);
+$status = $check->fetchColumn();
 
+// verifikasi
+if ($status === "0") {
+    $message = "Pendaftaran Anda Di Proses";
+    echo "
+        <div class='text-proses'>
+            <span class='proses-icon'>⚠️⚠️<span>
+            <p class='proses-siswa'>{$message}</p>
+        </div>";
+    echo "<a href='browse_calon.php' class='btn-kembali-pusat'>Kembali</a>";
+    die;
+} elseif ($status === "1") {
+    $message = "Pendaftaran Anda Di Tolak";
+    echo "
+        <div class='text-tolak'>
+            <span class='tolak-icon'>⚠️⚠️<span>
+            <p class='tolak-siswa'>{$message}</p>
+        </div>";
+    echo "<a href='browse_calon.php' class='btn-kembali-pusat'>Kembali</a>";
+    die;
+} elseif ($status === "2") {
+    $message = "Pendaftaran Anda Diterima.";
+    echo "
+        <div class='text-terima'>
+            <span class='terima-icon'>✔️✔️<span>
+            <p class='terima-siswa'>{$message}</p>
+        </div>";
+    echo "<a href='browse_calon.php' class='btn-kembali-pusat'>Kembali</a>";
+    die;
+} else {
+
+}
 if (isset($_POST['submit_pendaftaran'])) {
     addPendaftaran($_POST, $nisn);
 }

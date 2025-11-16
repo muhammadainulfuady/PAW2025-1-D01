@@ -37,43 +37,71 @@ require_once "../components/header.php"
     ?>
 <div class="form-container">
     <h2 class="judul-riwayat">Riwayat Pendaftaran dan Status</h2>
-    <?php foreach ($siswas as $sis): ?>
-        <div class="riwayat-item">
+    <table class="table-browse-siswa">
+        <?php foreach ($siswas as $sis): ?>
+            <div class="riwayat-item">
+                <img src="../source/upload/images/<?= $siswa['FOTO_SISWA_SISWA'] ?>" alt="Foto">
+                <tr>
+                    <th>Tanggal Pendaftaran</th>
+                    <th>Nama Wali</th>
+                    <th>No Hp Wali</th>
+                    <th>Status</th>
+                    <th>Jurusan</th>
+                    <th>Program</th>
+                    <th>Dokumen Akte</th>
+                    <th>Dokumen KK</th>
+                </tr>
+                <tr>
+                    <td>
+                        <?= $sis['TANGGAL_PENDAFTARAN'] ?>
+                    </td>
+                    <td>
+                        <?= $sis['NAMA_WALI'] ?>
+                    </td>
+                    <td>
+                        <?= $sis['NO_HP_WALI'] ?>
+                    </td>
+                    <td>
+                        <?php if ($sis['STATUS'] === "0"): ?>
+                            <span class="status-badge status-proses">Proses Verifikasi</span>
 
-            <img src="../source/upload/images/<?= $siswa['FOTO_SISWA_SISWA'] ?>" alt="Foto">
+                        <?php elseif ($sis['STATUS'] === "1"): ?>
+                            <span class="status-badge status-pending">Ditolak</span>
 
-            <p><b>Tanggal:</b> <?= $sis['TANGGAL_PENDAFTARAN'] ?></p>
-            <p><b>Nama Wali:</b> <?= $sis['NAMA_WALI'] ?></p>
-            <p><b>No HP Wali:</b> <?= $sis['NO_HP_WALI'] ?></p>
+                        <?php else: ?>
+                            <span class="status-badge status-diterima">Diterima</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?= $sis['JURUSAN'] ?>
+                    </td>
+                    <td>
+                        <?= $sis['JENJANG'] ?>
+                    </td>
+                    <td>
+                        <?php if (isset($showdocs)): ?>
+                            <div class="dokumen-list">
+                                <?php foreach ($showdocs as $showdocument): ?>
+                                    <?php if ($showdocument['JENIS_DOKUMEN'] === "Akte Kelahiran"): ?>
+                                        <a class="link-doc" href="../source/upload/documents/<?= $showdocument['PATH_FILE'] ?>"
+                                            target="_blank">
+                                            Lihat Akte
+                                        </a>
+                                </td>
+                                <td>
+                                <?php elseif ($showdocument['JENIS_DOKUMEN'] === "Kartu Keluarga"): ?>
+                                    <a class="link-doc" href="../source/upload/documents/<?= $showdocument['PATH_FILE'] ?>"
+                                        target="_blank">
+                                        Lihat KK
+                                    </a>
+                                <?php endif ?>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </td>
+                </tr>
+            </div>
+        <?php endforeach ?>
 
-            <p><b>Status:</b>
-                <?php if ($sis['STATUS'] === "0"): ?>
-                    <span class="status-badge status-proses">Proses Verifikasi</span>
+    </table>
 
-                <?php elseif ($sis['STATUS'] === "1"): ?>
-                    <span class="status-badge status-pending">Ditolak</span>
-
-                <?php else: ?>
-                    <span class="status-badge status-diterima">Diterima</span>
-                <?php endif; ?>
-            </p>
-
-            <p><b>Jurusan:</b> <?= $sis['JURUSAN'] ?></p>
-            <p><b>Program:</b> <?= $sis['JENJANG'] ?></p>
-        </div>
-    <?php endforeach ?>
-    <?php if (isset($showdocs)): ?>
-        <div class="dokumen-list">
-            <?php foreach ($showdocs as $showdocument): ?>
-                <?php if ($showdocument['JENIS_DOKUMEM'] === "Akte Kelahiran"): ?>
-                    <a class="link-doc" href="../source/upload/documents/<?= $showdocument['PATH_FILE'] ?>" target="_blank">
-                        Lihat Akte
-                    </a>
-                <?php elseif ($showdocument['JENIS_DOKUMEM'] === "Kartu Keluarga"): ?>
-                    <a class="link-doc" href="../source/upload/documents/<?= $showdocument['PATH_FILE'] ?>" target="_blank">
-                        Lihat KK
-                    </a>
-                <?php endif ?>
-            <?php endforeach ?>
-        <?php endif ?>
-    </div>
+</div>
