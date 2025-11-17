@@ -32,7 +32,7 @@ require_once "../components/header.php"
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit Profil Siswa</title>
+    <title>Edit | Siswa</title>
     <link rel="stylesheet" href="../source/css/style.css">
 </head>
 
@@ -69,7 +69,7 @@ require_once "../components/header.php"
             </form>
         </div>
     </section>
-
+    <?php require_once "../components/footer.php" ?>
 </body>
 
 </html>

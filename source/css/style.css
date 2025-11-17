@@ -11,6 +11,13 @@
 body {
   background: #f3f3f3; /* Putih abu */
   color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 /* Basic Input + Select */
@@ -651,7 +658,7 @@ footer.main-footer p {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
   margin: 20px auto;
   display: flex;
-  width: 200px;
+  width: 300px;
   flex-wrap: wrap;
   color: #ffffff !important;
   text-decoration: none;
@@ -669,6 +676,28 @@ footer.main-footer p {
 }
 
 .dashboard-card .img-dashboard-admin img {
+  margin-top: 10px;
   width: 150px;
   border-radius: 10px;
+}
+/* footer */
+footer.main-footer {
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin-top: auto;
+}
+
+footer.main-footer p {
+  text-align: center;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.eror-jurusan {
+  text-align: center;
+  color: red;
+  width: 250px;
+  margin: 10px auto;
 }

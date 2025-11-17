@@ -3,7 +3,7 @@
 
 // koneksi ke database
 $host = "localhost";
-$dbname = "ppdb";
+$dbname = "ppdb2";
 $username = "root";
 $password = "";
 try {

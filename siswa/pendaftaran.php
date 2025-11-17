@@ -44,6 +44,7 @@ $status = $check->fetchColumn();
 // verifikasi
 if ($status === "0") {
     $message = "Pendaftaran Anda Di Proses";
+    echo "<title>Siswaa proses</title>";
     echo "
         <div class='text-proses'>
             <span class='proses-icon'>⚠️⚠️<span>
@@ -52,6 +53,7 @@ if ($status === "0") {
     echo "<a href='browse_calon.php' class='btn-kembali-pusat'>Kembali</a>";
     die;
 } elseif ($status === "1") {
+    echo "<title>Siswaa ditolak</title>";
     $message = "Pendaftaran Anda Di Tolak";
     echo "
         <div class='text-tolak'>
@@ -61,6 +63,7 @@ if ($status === "0") {
     echo "<a href='browse_calon.php' class='btn-kembali-pusat'>Kembali</a>";
     die;
 } elseif ($status === "2") {
+    echo "<title>Siswaa diterima</title>";
     $message = "Pendaftaran Anda Diterima.";
     echo "
         <div class='text-terima'>
@@ -83,7 +86,7 @@ require_once '../components/header.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Siswa</title>
+    <title>Pendaftaran | Siswa</title>
     <link rel="stylesheet" href="../source/css/style.css">
 </head>
 

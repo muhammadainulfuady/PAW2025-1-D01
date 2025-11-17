@@ -409,8 +409,8 @@ function addPendaftaran(array $data, $nisn)
 
     $status_penerimaan = "0";
     $stmnt_pendaftaran = $connect->prepare("
-        INSERT INTO pendaftaran (NISN_SISWA, ID_JURUSAN, TANGGAL_PENDAFTARAN, NAMA_WALI, NO_HP_WALI, STATUS, JURUSAN, JENJANG)
-        VALUES (:nisn, :id_jurusan, NOW(), :wali, :hp, :status, :jurusan, :jenjang)
+        INSERT INTO pendaftaran (NISN_SISWA, ID_JURUSAN, TANGGAL_PENDAFTARAN, NAMA_WALI, NO_HP_WALI, STATUS, JURUSAN, PROGRAM)
+        VALUES (:nisn, :id_jurusan, NOW(), :wali, :hp, :status, :jurusan, :program)
     ");
 
     $result_pendaftaran = $stmnt_pendaftaran->execute([
@@ -420,7 +420,7 @@ function addPendaftaran(array $data, $nisn)
         ":hp" => htmlspecialchars($data['no_hp']),
         ":status" => $status_penerimaan,
         ":jurusan" => $nama_jurusan_input,
-        ":jenjang" => htmlspecialchars($data['program_pondok']),
+        ":program" => htmlspecialchars($data['program_pondok']),
     ]);
 
     $id_pendaftaran = $connect->lastInsertId();

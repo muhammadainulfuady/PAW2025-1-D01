@@ -35,6 +35,7 @@ if (isset($id_pendaftarans['ID_PENDAFTARAN'])) {
 }
 require_once "../components/header.php"
     ?>
+<title>Riwayat | Siswa</title>
 <div class="form-container">
     <h2 class="judul-riwayat">Riwayat Pendaftaran dan Status</h2>
     <table class="table-browse-siswa">
@@ -76,7 +77,7 @@ require_once "../components/header.php"
                         <?= $sis['JURUSAN'] ?>
                     </td>
                     <td>
-                        <?= $sis['JENJANG'] ?>
+                        <?= $sis['PROGRAM'] ?>
                     </td>
                     <td>
                         <?php if (isset($showdocs)): ?>
@@ -101,7 +102,6 @@ require_once "../components/header.php"
                 </tr>
             </div>
         <?php endforeach ?>
-
     </table>
-
 </div>
+<?php require_once "../components/footer.php" ?>

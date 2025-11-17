@@ -29,7 +29,7 @@ $counts_jurusan = $count_jurusan_->fetch();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard Admin</title>
     <link rel="stylesheet" href="../source/css/style.css">
 </head>
 
@@ -37,21 +37,22 @@ $counts_jurusan = $count_jurusan_->fetch();
     <div class="container-siswa">
         <h2>Selamat datang di beranda admin</h2>
         <p>kelola data,edit jurusan siswa baru Pesantern AL - AMIN </p>
-        <div>
-            <div class="dashboard-container">
-                <a href="../admin/riwayat_calon_siswa.php" class="dashboard-card">
-                    Siswa <?= $counts_siswa['BANYAK_SISWA'] ?>
-                    <div class="img-dashboard-admin">
-                        <img src="../source/images/siswa_sekolah.png" alt="">
-                    </div>
-                </a>
-                <a href="../admin/Ddelete_jurusan.php" class="dashboard-card">
-                    Jurusan <?= $counts_jurusan['BANYAK_JURUSAN'] ?>
-                    <div class="img-dashboard-admin">
-                        <img src="../source/images/siswa_sekolah.png" alt="">
-                    </div>
-                </a>
-            </div>
+        <div class="dashboard-container">
+            <a href="../admin/riwayat_calon_siswa.php" class="dashboard-card">
+                Siswa : <?= $counts_siswa['BANYAK_SISWA'] ?>
+                <div class="img-dashboard-admin">
+                    <img src="../source/images/siswa_sekolah.png" alt="">
+                </div>
+            </a>
+            <a href="../admin/Ddelete_jurusan.php" class="dashboard-card">
+                Jurusan : <?= $counts_jurusan['BANYAK_JURUSAN'] ?>
+                <div class="img-dashboard-admin">
+                    <img src="../source/images/siswa_sekolah.png" alt="">
+                </div>
+            </a>
+        </div>
+    </div>
+    <?php require_once "../components/footer.php" ?>
 </body>
 
 </html>

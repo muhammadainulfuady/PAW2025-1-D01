@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Siswa</title>
+    <title>Register | Siswa</title>
     <link rel="stylesheet" href="../source/css/style.css">
 </head>
 
@@ -77,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </section>
+    <?php require_once "../components/footer.php" ?>
 
 </body>
 

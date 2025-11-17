@@ -6,7 +6,6 @@ if (!isset($_SESSION['NISN_SISWA'])) {
 }
 $nisn = $_SESSION['NISN_SISWA'];
 global $connect;
-
 // Ambil data siswa
 $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
 $stmnt->execute([':nisn' => $nisn]);

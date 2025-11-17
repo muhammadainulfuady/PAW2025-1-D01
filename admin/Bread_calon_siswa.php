@@ -68,7 +68,6 @@ require_once "../components/header_admin.php";
         <div class="btn-kembali">
             <a href="riwayat_calon_siswa.php">Kembali</a>
         </div>
-
 </body>
 
 </html>

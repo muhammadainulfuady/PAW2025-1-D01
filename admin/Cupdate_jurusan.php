@@ -35,20 +35,30 @@ if (!$data) {
 // Proses update data
 if (isset($_POST['submit'])) {
     $nama_jurusan = trim($_POST['nama_jurusan']);
-
     if ($nama_jurusan != "") {
+        $cek = $connect->prepare("
+        SELECT COUNT(*) 
+        FROM pendaftaran 
+        WHERE id_jurusan = :id");
+        $cek->execute([':id' => $id]);
+        $dipakai = $cek->fetchColumn();
+
+        if ($dipakai > 0) {
+            $_SESSION['eror_update_jurusan'] = "Jurusan sudah ada yang punya tidak bisa di edit";
+            header("Location: Ddelete_jurusan.php");
+            exit;
+        }
+
+        // Lanjut update jika aman
         $update = $connect->prepare("
-            UPDATE jurusan 
-            SET nama_jurusan = :nama 
-            WHERE id_jurusan = :id
-        ");
+        UPDATE jurusan 
+        SET nama_jurusan = :nama 
+        WHERE id_jurusan = :id
+    ");
         $update->bindParam(":nama", $nama_jurusan);
         $update->bindParam(":id", $id);
         $update->execute();
-
-        // Redirect setelah update
         header("Location: Ddelete_jurusan.php");
-        exit;
     }
 }
 
@@ -66,6 +76,7 @@ require_once "../components/header_admin.php";
 <body>
 
     <div class="admin-container">
+
         <h2 class="judul-riwayat">Edit Jurusan</h2>
 
         <form method="POST">

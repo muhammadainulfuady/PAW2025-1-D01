@@ -45,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </section>
+    <?php require_once "./components/footer.php" ?>
+
 </body>
 
 </html>

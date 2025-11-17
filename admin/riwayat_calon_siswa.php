@@ -75,6 +75,7 @@ require_once "../components/header_admin.php";
             <?php endforeach; ?>
         </table>
     </div>
+    <?php require_once "../components/footer.php" ?>
 </body>
 
 </html>
