@@ -11,7 +11,7 @@
             <li><a href="../auth/logout.php">Logout</a></li>
             <li></li>
             <li class="user-info">
-                <img src="../source/images/admin.png" alt="Foto admin">
+                <img src="../siswa/default.jpg" alt="Foto admin">
             </li>
         </ul>
     </nav>

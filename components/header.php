@@ -12,7 +12,8 @@
             <!-- FOTO + NAMA -->
             <li class="user-info">
                 <a href="../siswa/edit_siswa.php" class="user-link">
-                    <img src="../source/upload/images/<?= $siswa['FOTO_SISWA_SISWA']; ?>" alt="Foto Siswa">
+                    <!-- <img src="../source/upload/images/<?= $siswa['FOTO_SISWA']; ?>" alt="Foto Siswa"> -->
+                    <img src="../siswa/default.jpg" alt="Foto Siswa">
                 </a>
             </li>
         </ul>

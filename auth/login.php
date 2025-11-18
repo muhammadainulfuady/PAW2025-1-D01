@@ -3,10 +3,14 @@ Proses cek username & password
 Session set -->
 <?php
 require_once(__DIR__ . "/../config/function.php");
+function getStickyValue($fieldName)
+{
+    return isset($_POST[$fieldName]) ? htmlspecialchars(trim($_POST[$fieldName])) : '';
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Ambil input dan bersihkan dari karakter berbahaya
-    $username = htmlspecialchars(trim($_POST['nisn_login_siswa']));
+    $username = htmlspecialchars(trim($_POST['username_login_siswa']));
     $password = htmlspecialchars(trim($_POST['password_login_siswa']));
 
     // Enkripsi password (pastikan di database juga tersimpan dalam md5)
@@ -32,13 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="login">
             <form action="" method="POST">
                 <div class="login-admin-siswa-input">
-                    <label for="nisn_login_siswa">Masukkan NISN</label>
-                    <input type="text" name="nisn_login_siswa" id="nisn_login_siswa">
+                    <label for="username_login_siswa">Masukkan Username</label>
+                    <input type="text" name="username_login_siswa" id="username_login_siswa"
+                        placeholder="Masukkan username" value="<?= getStickyValue('username_login_siswa') ?>">
                 </div>
 
                 <div class="login-admin-siswa-input">
                     <label for="password_login_siswa">Masukkan Password</label>
-                    <input type="text" name="password_login_siswa" id="password_login_siswa">
+                    <input type="password" name="password_login_siswa" id="password_login_siswa"
+                        placeholder="Masukkan password" value="<?= getStickyValue('password_login_siswa') ?>">
                 </div>
                 <p>Belum punya akun? <a href="./siswa/registrasi_siswa.php" class="btn-regis-login">Register</a></p>
                 <button type="submit" name="submit_login_siswa" class="btn-submit">login</button>

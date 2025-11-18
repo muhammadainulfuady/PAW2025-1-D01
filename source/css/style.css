@@ -338,6 +338,52 @@ img.img-daftar {
   }
 }
 
+/* siswa tidak diketahu */
+.text-none {
+  background-color: #1c1c1a;
+  text-align: center;
+  margin: 10px auto;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.none-icon {
+  font-size: 20px;
+  color: #cee83f;
+}
+
+.text-none p {
+  color: white;
+}
+
+/* Animasi slide turun + fade in */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Animasi fade out */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
 .btn-regis-login {
   text-decoration: none;
   color: #007f3b;
@@ -560,57 +606,133 @@ footer.main-footer p {
 /* --------------------------------------------------
    TABLE BROWSE SISWA - RIWAYAT TABLE STYLE
 -------------------------------------------------- */
-.table-browse-siswa {
-  /* Menggunakan lebar 100% dari form-container */
-  width: 100%;
-  border-collapse: collapse; /* Menyatukan border */
+/* Container utama untuk menampung semua kartu siswa */
+.siswa-container {
+  /* Menggunakan Flexbox atau Grid untuk tata letak yang responsif */
+  display: grid;
+  /* Membuat kartu berjejer ke samping dan otomatis pindah baris jika layar sempit */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; /* Jarak antar kartu */
   margin-top: 15px;
-  /* Memastikan konten tidak terpotong, penting untuk kolom dokumen */
-  table-layout: auto;
 }
 
-/* Styling Headers (TH) dan Cells (TD) */
-.table-browse-siswa th,
-.table-browse-siswa td {
-  border: 1px solid #e0e0e0; /* Border abu-abu muda */
-  padding: 10px 8px;
-  font-size: 13px;
-  vertical-align: top; /* Konten rata atas */
-  text-align: center; /* Pusatkan teks di tengah sel */
+/* Styling untuk setiap kartu siswa (riwayat-item) */
+.riwayat-item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex; /* Untuk menyusun header, detail, dan dokumen */
+  flex-direction: column;
 }
 
-/* Styling Header */
-.table-browse-siswa th {
-  background: #f4f4f4;
-  font-weight: 700;
-  color: #333;
+/* Bagian Header (Foto dan Status) */
+.riwayat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+/* Styling Foto Siswa */
+.siswa-foto {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* Membuat foto bulat */
+  object-fit: cover;
+  border: 3px solid #4caf50; /* Border hijau */
+}
+
+/* Styling untuk status badge (menggunakan warna yang Anda definisikan) */
+.status-badge {
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
   text-transform: uppercase;
 }
+.status-proses {
+  background-color: #ffc107; /* Kuning - Proses Verifikasi */
+  color: #333;
+}
+.status-tolak {
+  background-color: #dc3545; /* Merah - Ditolak */
+  color: white;
+}
+.status-diterima {
+  background-color: #28a745; /* Hijau - Diterima */
+  color: white;
+}
+.status-none {
+  background-color: #000000; /* Hitam - None */
+  color: white;
+}
 
-/* Styling untuk Dokumen Links (agar tidak merusak layout sel) */
-.table-browse-siswa .dokumen-list {
+/* Styling Detail Siswa */
+.riwayat-detail {
+  flex-grow: 1; /* Memastikan detail mengambil ruang sebanyak mungkin */
+  margin-bottom: 15px;
+}
+
+.detail-row {
   display: flex;
-  flex-direction: column; /* Tumpuk link ke bawah */
-  gap: 4px;
-  margin: 0;
-  padding: 0;
+  justify-content: space-between; /* Membuat Label dan Value bersebelahan */
+  padding: 5px 0;
+  border-bottom: 1px dotted #e0e0e0;
 }
 
-/* Menyesuaikan foto agar terlihat rapi di dalam sel */
-.table-browse-siswa .riwayat-item img {
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
-  object-fit: cover;
-  border: 1px solid #4caf50;
-  margin: 5px auto;
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #555;
+  flex-basis: 40%; /* Mengatur lebar label */
+  text-align: left;
+}
+
+.detail-value {
+  color: #333;
+  flex-basis: 60%; /* Mengatur lebar nilai */
+  text-align: right; /* Rata kanan untuk nilai */
+}
+
+/* Styling Dokumen */
+.riwayat-dokumen {
+  padding-top: 10px;
+  border-top: 1px solid #f4f4f4;
+}
+
+.dokumen-label {
+  font-weight: 600;
+  color: #555;
   display: block;
+  margin-bottom: 5px;
 }
 
-/* Memastikan badge status tetap bekerja dengan baik */
-.table-browse-siswa .status-badge {
-  padding: 4px 8px;
-  font-size: 12px;
+.dokumen-list {
+  display: flex;
+  flex-wrap: wrap; /* Memastikan link dokumen pindah baris jika terlalu banyak */
+  gap: 8px;
+}
+
+.link-doc {
+  /* Gaya link dokumen Anda, disarankan menggunakan gaya tombol */
+  background-color: #0dd26c; /* Biru */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.link-doc:hover {
+  background-color: #1aff89;
 }
 
 /* tombol edit delet */

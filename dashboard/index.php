@@ -1,14 +1,14 @@
 <?php
 require_once(__DIR__ . "/../config/function.php");
-if (!isset($_SESSION['NISN_SISWA'])) {
+if (!isset($_SESSION['USERNAME_SISWA'])) {
     header("Location: ../index.php");
     exit;
 }
-$nisn = $_SESSION['NISN_SISWA'];
+$username_siswa = $_SESSION['USERNAME_SISWA'];
 global $connect;
 // Ambil data siswa
-$stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
-$stmnt->execute([':nisn' => $nisn]);
+$stmnt = $connect->prepare("SELECT * FROM siswa WHERE USERNAME_SISWA = :username_siswa");
+$stmnt->execute([':username_siswa' => $username_siswa]);
 $siswa = $stmnt->fetch();
 ?>
 <?php include '../components/header.php'; ?>

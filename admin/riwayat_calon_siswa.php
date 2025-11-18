@@ -14,11 +14,8 @@ if (!isset($_SESSION['ADMIN_ID'])) {
 global $connect;
 $stmnt = $connect->prepare("
     SELECT 
-        NISN_SISWA,
-        NAMA_LENGKAP_SISWA,
-        JENIS_KELAMIN_SISWA
-    FROM siswa
-    ORDER BY NAMA_LENGKAP_SISWA ASC
+        NAMA_LENGKAP_SISWA
+        FROM siswa
 ");
 $stmnt->execute();
 $siswas = $stmnt->fetchAll();

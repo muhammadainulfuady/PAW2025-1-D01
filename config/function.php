@@ -39,13 +39,9 @@ function addSiswa(array $data)
 {
     global $connect;
     $required_fields = [
+        'username_siswa',
         'nama_lengkap_siswa',
-        'nisn_siswa',
-        'alamat_siswa',
-        'tanggal_lahir_siswa',
-        'jenis_kelamin_siswa',
-        'no_telp_siswa',
-        'password_siswa'
+        'password_siswa',
     ];
 
     $has_empty_field = false;
@@ -57,37 +53,24 @@ function addSiswa(array $data)
         }
     }
 
-    if (empty($_FILES['foto_siswa']['name'])) {
-        $has_empty_field = true;
-    }
-
     if ($has_empty_field) {
         return displayErrorPopup("Harap isi semua field pendaftaran!");
     }
 
-    $nisn_input = trim($data['nisn_siswa']);
-    if (checkNisnDuplication($nisn_input)) {
-        return displayErrorPopup("NISN ({$nisn_input}) sudah terdaftar. Silakan login atau gunakan NISN lain.");
-    }
-
-    $foto_siswa = uploadFileGambarSiswa();
-    if ($foto_siswa === false) {
-        return;
+    $username_input = trim($data['username_siswa']);
+    if (checkUsernameDuplication($username_input)) {
+        return displayErrorPopup("username ({$username_input}) sudah terdaftar. Silakan login atau gunakan username lain.");
     }
 
     $stmnt = $connect->prepare("
-        INSERT INTO siswa (NISN_SISWA, NAMA_LENGKAP_SISWA, ALAMAT_SISWA, TANGGAL_LAHIR_SISWA, JENIS_KELAMIN_SISWA, NO_TELPON_SISWA, FOTO_SISWA_SISWA, PASSWORD_SISWA)
-        VALUES (:nisn_siswa, :nama_lengkap_siswa, :alamat_siswa, :tanggal_lahir_siswa, :jenis_kelamin_siswa, :no_telpon_siswa, :foto_siswa_siswa, :password_siswa)
+        INSERT INTO siswa (USERNAME_SISWA, NAMA_LENGKAP_SISWA, FOTO_SISWA, PASSWORD_SISWA)
+        VALUES (:username_siswa, :nama_lengkap_siswa, :foto_siswa, :password_siswa)
     ");
 
     $result = $stmnt->execute([
-        ":nisn_siswa" => htmlspecialchars($data['nisn_siswa']),
+        ":username_siswa" => htmlspecialchars($data['username_siswa']),
         ":nama_lengkap_siswa" => htmlspecialchars($data['nama_lengkap_siswa']),
-        ":alamat_siswa" => htmlspecialchars($data['alamat_siswa']),
-        ":tanggal_lahir_siswa" => htmlspecialchars($data['tanggal_lahir_siswa']),
-        ":jenis_kelamin_siswa" => htmlspecialchars($data['jenis_kelamin_siswa']),
-        ":no_telpon_siswa" => htmlspecialchars($data['no_telp_siswa']),
-        ":foto_siswa_siswa" => $foto_siswa,
+        ":foto_siswa" => 'default.jpg',
         ":password_siswa" => md5($data['password_siswa']),
     ]);
 
@@ -103,13 +86,13 @@ function addSiswa(array $data)
 // cek duplikasi nisn
 // ===================
 
-function checkNisnDuplication(string $nisn_input)
+function checkUsernameDuplication(string $username_input)
 {
     global $connect;
 
-    $stmntDbl = $connect->prepare("SELECT COUNT(*) FROM siswa WHERE NISN_SISWA = :nisn");
+    $stmntDbl = $connect->prepare("SELECT COUNT(*) FROM siswa WHERE USERNAME_SISWA = :username_siswa");
     $stmntDbl->execute([
-        ":nisn" => $nisn_input,
+        ":username_siswa" => $username_input,
     ]);
     return $stmntDbl->fetchColumn() > 0;
 }
@@ -154,15 +137,15 @@ function uploadFileGambarSiswa()
 // fungsi login admin
 // ===================
 
-function handleAdminLogin($username, $password)
+function handleAdminLogin($username_admin, $password_admin)
 {
     global $connect;
     $stmntAdmin = $connect->prepare("SELECT * FROM admin WHERE USERNAME_ADMIN = :username");
-    $stmntAdmin->execute([':username' => $username]);
+    $stmntAdmin->execute([':username' => $username_admin]);
     $admin = $stmntAdmin->fetch();
 
     if ($admin) {
-        if ($admin['PASSWORD_ADMIN'] === $password) {
+        if ($admin['PASSWORD_ADMIN'] === $password_admin) {
             $_SESSION['LOGIN_ROLE'] = 'admin';
             $_SESSION['ADMIN_ID'] = $admin['ID_ADMIN'];
             $_SESSION['NAMA_ADMIN'] = $admin['NAMA_ADMIN'];
@@ -179,17 +162,17 @@ function handleAdminLogin($username, $password)
 // fungsi login siswa
 // ===================
 
-function handleSiswaLogin($username, $password)
+function handleSiswaLogin($username_siswa, $password_siswa)
 {
     global $connect;
-    $stmntSiswa = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
-    $stmntSiswa->execute([':nisn' => $username]);
+    $stmntSiswa = $connect->prepare("SELECT * FROM siswa WHERE USERNAME_SISWA = :username_siswa");
+    $stmntSiswa->execute([':username_siswa' => $username_siswa]);
     $siswa = $stmntSiswa->fetch();
 
     if ($siswa) {
-        if ($siswa['PASSWORD_SISWA'] === $password) {
+        if ($siswa['PASSWORD_SISWA'] === $password_siswa) {
             $_SESSION['LOGIN_ROLE'] = 'siswa';
-            $_SESSION['NISN_SISWA'] = $siswa['NISN_SISWA'];
+            $_SESSION['USERNAME_SISWA'] = $siswa['USERNAME_SISWA'];
             $_SESSION['NAMA_SISWA'] = $siswa['NAMA_LENGKAP_SISWA'];
             header("Location:./dashboard/index.php");
             exit;
@@ -218,31 +201,28 @@ function loginUser($username, $password)
 // siswa update profile
 // ====================
 
-function updateSiswa($nisn, $data)
+function updateSiswa($username, $data)
 {
     global $connect;
 
     $required_fields = [
         'nama_lengkap_siswa',
-        'alamat_siswa',
-        'tanggal_lahir_siswa',
-        'jenis_kelamin_siswa',
-        'no_telp_siswa'
+        'foto_siswa',
     ];
     foreach ($required_fields as $field) {
         if (empty(trim($data[$field]))) {
             return displayErrorPopup("Semua field wajib diisi untuk update profile!");
         }
     }
-    $stmnt = $connect->prepare("SELECT * FROM siswa WHERE NISN_SISWA = :nisn");
-    $stmnt->execute([':nisn' => $nisn]);
+    $stmnt = $connect->prepare("SELECT * FROM siswa WHERE USERNAME_SISWA = :username_siswa");
+    $stmnt->execute([':username_siswa' => $username]);
     $siswaLama = $stmnt->fetch();
 
     if (!$siswaLama) {
-        return displayErrorPopup("Data siswa tidak ditemukan untuk NISN ini!");
+        return displayErrorPopup("Data siswa tidak ditemukan untuk USERNAME ini!");
     }
 
-    $fotoBaru = $siswaLama['FOTO_SISWA_SISWA'];
+    $fotoBaru = $siswaLama['FOTO_SISWA'];
 
     if (isset($_FILES['foto_siswa']) && $_FILES['foto_siswa']['error'] === 0) {
 
@@ -252,35 +232,26 @@ function updateSiswa($nisn, $data)
             return;
         }
 
-        if (!empty($siswaLama['FOTO_SISWA_SISWA'])) {
-            $oldPath = "../source/upload/images/" . $siswaLama['FOTO_SISWA_SISWA'];
+        if (!empty($siswaLama['FOTO_SISWA'])) {
+            $oldPath = "../source/upload/images/" . $siswaLama['FOTO_SISWA'];
             if (file_exists($oldPath)) {
                 unlink($oldPath);
             }
         }
-
         $fotoBaru = $uploadedFileName;
     }
 
     $stmnt = $connect->prepare("
         UPDATE siswa SET
             NAMA_LENGKAP_SISWA = :nama,
-            ALAMAT_SISWA = :alamat,
-            TANGGAL_LAHIR_SISWA = :tgl,
-            JENIS_KELAMIN_SISWA = :jk,
-            NO_TELPON_SISWA = :telp,
-            FOTO_SISWA_SISWA = :foto
-        WHERE NISN_SISWA = :nisn
+            FOTO_SISWA = :foto
+        WHERE USERNAME_SISWA = :username
     ");
 
     $update = $stmnt->execute([
         ':nama' => htmlspecialchars($data['nama_lengkap_siswa']),
-        ':alamat' => htmlspecialchars($data['alamat_siswa']),
-        ':tgl' => $data['tanggal_lahir_siswa'],
-        ':jk' => $data['jenis_kelamin_siswa'],
-        ':telp' => htmlspecialchars($data['no_telp_siswa']),
         ':foto' => $fotoBaru,
-        ':nisn' => $nisn
+        ':username' => $username
     ]);
 
     if ($update) {
@@ -383,11 +354,11 @@ function processDocumentUploads($id_pendaftaran, $fileKey, $keterangan, $jenis)
     return true;
 }
 
-function addPendaftaran(array $data, $nisn)
+function addPendaftaran(array $data, $username_siswa)
 {
     global $connect;
 
-    $required_fields = ['nama_wali', 'no_hp', 'program_pondok', 'jurusan'];
+    $required_fields = ['id_jurusan', 'nisn_siswa', 'jenis_kelamin', 'tanggal_lahir', 'tempat_lahir', 'no_hp_siswa', 'asal_sekolah', 'alamat', 'nama_wali', 'no_hp_wali', 'program_pondok'];
     foreach ($required_fields as $field) {
         if (empty(trim($data[$field]))) {
             return displayErrorPopup("Harap isi semua field pendaftaran!");
@@ -398,29 +369,35 @@ function addPendaftaran(array $data, $nisn)
         return displayErrorPopup("Harap upload semua dokumen wajib (Akte & Kartu Keluarga)!");
     }
 
-    $stmnt_check = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE NISN_SISWA = :nisn AND STATUS = '0'");
-    $stmnt_check->execute([':nisn' => $nisn]);
-    if ($stmnt_check->fetchColumn() > 0) {
-        return displayErrorPopup("Anda sudah memiliki pendaftaran dengan status 'Masih Proses'.");
-    }
+    // $stmnt_check = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE USERNAME_SISWA = :username_siswa AND STATUS = '0'");
+    // $stmnt_check->execute([':username_siswa' => $username_siswa]);
+    // if ($stmnt_check->fetchColumn() > 0) {
+    //     return displayErrorPopup("Anda sudah memiliki pendaftaran dengan status 'Masih Proses'.");
+    // }
 
-    $nama_jurusan_input = trim($data['jurusan']);
+    $nama_jurusan_input = trim($data['id_jurusan']);
     $id_jurusan = getJurusanIdByName($nama_jurusan_input);
 
     $status_penerimaan = "0";
     $stmnt_pendaftaran = $connect->prepare("
-        INSERT INTO pendaftaran (NISN_SISWA, ID_JURUSAN, TANGGAL_PENDAFTARAN, NAMA_WALI, NO_HP_WALI, STATUS, JURUSAN, PROGRAM)
-        VALUES (:nisn, :id_jurusan, NOW(), :wali, :hp, :status, :jurusan, :program)
+        INSERT INTO pendaftaran (ID_JURUSAN, USERNAME_SISWA, NISN, JENIS_KELAMIN, TANGGAL_LAHIR, TEMPAT_LAHIR, NO_HP_SISWA, ASAL_SEKOLAH, ALAMAT, NAMA_WALI, NO_HP_WALI, STATUS, PROGRAM_PONDOK)
+        VALUES (:id_jurusan, :username_siswa, :nisn_siswa, :jenis_kelamin, :tanggal_lahir, :tempat_lahir, :no_hp_siswa, :asal_sekolah, :alamat, :nama_wali, :no_hp_wali, :status, :program_pondok)
     ");
 
     $result_pendaftaran = $stmnt_pendaftaran->execute([
-        ":nisn" => $nisn,
         ":id_jurusan" => $id_jurusan,
-        ":wali" => htmlspecialchars($data['nama_wali']),
-        ":hp" => htmlspecialchars($data['no_hp']),
+        ":username_siswa" => $username_siswa,
+        ":nisn_siswa" => htmlspecialchars($data['nisn_siswa']),
+        ":jenis_kelamin" => htmlspecialchars($data['jenis_kelamin']),
+        ":tanggal_lahir" => htmlspecialchars($data['tanggal_lahir']),
+        ":tempat_lahir" => htmlspecialchars($data['tempat_lahir']),
+        ":no_hp_siswa" => htmlspecialchars($data['no_hp_siswa']),
+        ":asal_sekolah" => htmlspecialchars($data['asal_sekolah']),
+        ":alamat" => htmlspecialchars($data['alamat']),
+        ":nama_wali" => htmlspecialchars($data['nama_wali']),
+        ":no_hp_wali" => htmlspecialchars($data['no_hp_wali']),
         ":status" => $status_penerimaan,
-        ":jurusan" => $nama_jurusan_input,
-        ":program" => htmlspecialchars($data['program_pondok']),
+        ":program_pondok" => htmlspecialchars($data['program_pondok']),
     ]);
 
     $id_pendaftaran = $connect->lastInsertId();
