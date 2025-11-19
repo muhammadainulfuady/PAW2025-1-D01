@@ -72,11 +72,40 @@ if ($status === "0") {
         </div>";
     echo "<a href='browse_calon.php' class='btn-kembali-pusat'>Kembali</a>";
     die;
-} else {
-
 }
-if (isset($_POST['submit_pendaftaran'])) {
-    addPendaftaran($_POST, $username_siswa);
+$eror = [];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nisn_siswa = $_POST['nisn_siswa'] ?? '';
+    $jenis_kelamin = $_POST['jenis_kelamin'] ?? '';
+    $tanggal_lahir = $_POST['tanggal_lahir'] ?? '';
+    $tempat_lahir = $_POST['tempat_lahir'] ?? '';
+    $no_hp_siswa = $_POST['no_hp_siswa'] ?? '';
+    $asal_sekolah = $_POST['asal_sekolah'] ?? '';
+    $alamat = $_POST['alamat'] ?? '';
+    $nama_wali = $_POST['nama_wali'] ?? '';
+    $no_hp_wali = $_POST['no_hp_wali'] ?? '';
+    $program_pondok = $_POST['program_pondok'] ?? '';
+    $id_jurusan = $_POST['id_jurusan'] ?? '';
+    valNisn($nisn_siswa, $eror);
+    valJenisKelamin($jenis_kelamin, $eror);
+    valTempatLahir($tempat_lahir, $eror);
+    valNoHpSiswa($no_hp_siswa, $eror);
+    valAsalSekolah($asal_sekolah, $eror);
+    valAlamat($alamat, $eror);
+    valNamaWali($nama_wali, $eror);
+    valNoHpWali($no_hp_wali, $eror);
+    valProgramPondok($program_pondok, $eror);
+    valJurusan($id_jurusan, $eror);
+
+    if (empty($_FILES['file_akte']['name']) && empty($eror['file_akte'])) {
+        $eror['file_akte'] = "Akte Kelahiran wajib diunggah.";
+    }
+    if (empty($_FILES['file_kk']['name']) && empty($eror['file_kk'])) {
+        $eror['file_kk'] = "Kartu Keluarga wajib diunggah.";
+    }
+    if (empty($eror)) {
+        addPendaftaran($_POST, $username_siswa);
+    }
 }
 require_once '../components/header.php';
 ?>
@@ -95,9 +124,12 @@ require_once '../components/header.php';
         <h2>Formulir Pendaftaran Siswa</h2>
         <form action="" method="POST" enctype="multipart/form-data">
             <label for="nisn_siswa">NISN</label>
-            <input type="text" name="nisn_siswa" id="nisn_siswa" placeholder="Masukkan nisn"
-                value="<?= getStickyValue('nisn_siswa') ?>">
-
+            <input type="text" name="nisn_siswa" id="nisn_siswa" placeholder="Masukkan nisn" value="<?php if (!isset($eror['nisn_siswa'])) {
+                echo getStickyValue('nisn_siswa');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["nisn_siswa"] ?? "" ?></p>
+            </span>
             <label for="jenis_kelamin">Jenis kelamin siswa</label>
             <select name="jenis_kelamin" id="jenis_kelamin">
                 <option value="L" <?= getStickyValue('jenis_kelaim') == 'Laki - Laki' ? 'selected' : '' ?>>
@@ -130,7 +162,7 @@ require_once '../components/header.php';
             <input type="text" name="nama_wali" id="nama_wali" placeholder="Masukkan nama wali"
                 value="<?= getStickyValue("nama_wali") ?>">
 
-            <label for="no_hp_wali">No hp wali</label>
+            <label for="no_hp_wali">No pp wali</label>
             <input type="text" name="no_hp_wali" id="no_hp_wali" placeholder="Masukkan no wali"
                 value="<?= getStickyValue("no_hp_wali") ?>">
 

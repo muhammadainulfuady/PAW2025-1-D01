@@ -1,4 +1,6 @@
 <?php
+if (session_status() === PHP_SESSION_NONE)
+    session_start();
 require_once(__DIR__ . "/../config/function.php");
 if (!isset($_SESSION['USERNAME_SISWA'])) {
     header("Location: ../index.php");
@@ -23,6 +25,21 @@ $siswa = $stmnt->fetch();
 </head>
 
 <body>
+    <!-- jika berhasil login -->
+    <?php if (isset($_SESSION['BERHASIL_LOGIN'])): ?>
+        <div class='popup-success'>
+            <?= $_SESSION['BERHASIL_LOGIN'] ?>
+        </div>
+        <?php unset($_SESSION['BERHASIL_LOGIN']); ?>
+    <?php endif ?>
+
+    <!-- jika update profile siswa -->
+    <?php if (isset($_SESSION['BERHASIL_EDIT'])): ?>
+        <div class='popup-success'>
+            <?= $_SESSION['BERHASIL_EDIT'] ?>
+        </div>
+        <?php unset($_SESSION['BERHASIL_EDIT']); ?>
+    <?php endif ?>
     <section class="dashboard-siswa">
         <div class="container-siswa">
             <h2>Selamat Datang di PPDB Online</h2>
@@ -46,6 +63,7 @@ $siswa = $stmnt->fetch();
                 <li>Klik pendaftaran di atas</li>
                 <li>Masukkan data diri kamu</li>
                 <li>Usahakan semuanya terpenuhi di pendaftaran</li>
+                <li>Tungu di proses oleh piahk pengurus pondok</li>
                 <button><a href="../siswa/pendaftaran.php" class="btn-dft">Ayo mendaftar</a></button>
             </ol>
         </div>

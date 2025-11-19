@@ -1,4 +1,6 @@
 <?php
+if (session_status() === PHP_SESSION_NONE)
+    session_start();
 require_once(__DIR__ . "/../config/function.php");
 function getStickyValue($fieldName)
 {
@@ -33,10 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="login-container">
             <form action="" method="POST" enctype="multipart/form-data">
                 <h2>Registrasi Calon Siswa</h2>
-
                 <div class="login-input">
                     <label for="username_siswa">Username</label>
-                    <input type="text" name="username_siswa" id="username_siswa" placeholder="Contoh : loremIpsum09"
+                    <input type="text" name="username_siswa" id="username_siswa" placeholder="Contoh : YourName_2404"
                         value="<?php
                         if (!isset($eror['username_siswa'])) {
                             echo getStickyValue('username_siswa');
@@ -50,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="login-input">
                     <label for="nama_lengkap_siswa">Nama Lengkap</label>
                     <input type="text" name="nama_lengkap_siswa" id="nama_lengkap_siswa"
-                        placeholder="Contoh : Lorem Ipsum" value="<?php
+                        placeholder="Contoh : Your Name" value="<?php
                         if (!isset($eror['nama_lengkap_siswa'])) {
                             echo getStickyValue('nama_lengkap_siswa');
                         }
@@ -62,18 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="login-input">
                     <label for="password_siswa">Password</label>
-                    <input type="password" name="password_siswa" id="password_siswa" placeholder="Contoh Lorem234"
-                        value="<?php
-                        if (!isset($eror['password_siswa'])) {
-                            echo getStickyValue('password_siswa');
-                        }
-                        ?>">
-                    <span class="eror-validasi">
+                    <input type="password" name="password_siswa" id="password_siswa"
+                        placeholder="Contoh : YourPassword2404" value="">
+                    <span class=" eror-validasi">
                         <p><?= $eror["password_siswa"] ?? "" ?></p>
                     </span>
                 </div>
                 <p>Sudah punya akun? <a href="../index.php" class="btn-regis-login">Login</a></p>
-                <p class="nb">NB : Catat username dan pasword anda biar tidak lupa😊😊</p>
+                <p class="nb">NB : Catat username dan password anda biar tidak lupa😊😊</p>
                 <button type="submit" name="submit_siswa_register" class="btn-submit">Registrasi</button>
             </form>
         </div>

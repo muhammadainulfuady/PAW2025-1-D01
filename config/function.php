@@ -15,15 +15,12 @@ function requiredCheck($field)
 
 function valUsername($field, &$eror)
 {
-    // Pola: Hanya huruf (a-z), angka (0-9), atau underscore/dot. Minimal 5 karakter.
-    $ptUsername = "/^[a-zA-Z0-9_\.]{5,}$/";
+    $ptUsername = "/^[a-zA-Z0-9._]{5,}$/";
 
     if (requiredCheck($field)) {
         $eror['username_siswa'] = "Kolom username wajib di isi.";
     } elseif (!preg_match($ptUsername, $field)) {
-        $eror['username_siswa'] = "Username harus alphanumeric (a-z, 0-9) dan minimal 5 karakter.";
-    } elseif (!preg_match($ptUsername, $field)) {
-        $eror['username_siswa'] = "Username tidak boleh mengandung simbol.  ";
+        $eror['username_siswa'] = "Username harus alphanumeric dan minimal 5 karakter tidak boleh spasi.";
     }
 }
 
@@ -33,7 +30,7 @@ function valName($field, &$eror)
     if (requiredCheck($field)) {
         $eror['nama_lengkap_siswa'] = "Kolom nama lengkap wajib di isi.";
     } elseif (!preg_match($ptNamaLengkap, $field)) {
-        $eror['nama_lengkap_siswa'] = "Nama lengkap harus berisi huruf dan spasi, minimal 5 karakter.";
+        $eror['nama_lengkap_siswa'] = "Nama lengkap harus berisi alfabet, minimal 3 karakter.";
     }
 }
 
@@ -43,9 +40,114 @@ function valPassword($field, &$eror)
     if (requiredCheck($field)) {
         $eror['password_siswa'] = "Kolom password wajib di isi.";
     } elseif (!preg_match($ptPassword, $field)) {
-        $eror['password_siswa'] = "Username harus alphanumeric (a-z, 0-9) dan minimal 5 karakter.";
+        $eror['password_siswa'] = "Password harus alphanumeric huruf besar kecil dan minimal 8 karakter.";
     }
 }
+
+function valNisn($field, &$eror)
+{
+    $ptNisn = "/^[0-9]{10}$/";
+    if (requiredCheck($field)) {
+        $eror['nisn_siswa'] = "Kolom NISN wajib di isi.";
+    } elseif (!preg_match($ptNisn, $field)) {
+        $eror['nisn_siswa'] = "NISN wajib numeric 10 angka.";
+    }
+}
+
+function valJenisKelamin($field, &$eror)
+{
+    $ptJenisKelamin = "/^[LP]$/";
+    if (requiredCheck($field)) {
+        $eror['jenis_kelamin'] = "Kolom jenis kelamin wajib di isi.";
+    } elseif (!preg_match($ptJenisKelamin, $field)) {
+        $eror['jenis_kelamin'] = "Jenis kelamin tidak valid.";
+    }
+}
+
+
+function valTempatLahir($field, &$eror)
+{
+    $ptTempatLahir = "/^[a-zA-Z\s]+$/";
+    if (requiredCheck($field)) {
+        $eror['tempat_lahir'] = "Tempat lahir wajib di isi.";
+    } elseif (!preg_match($ptTempatLahir, $field)) {
+        $eror['tempat_lahir'] = "Tempat lahir hanya boleh huruf dan spasi.";
+    } elseif (strlen($field) > 20) {
+        $eror['tempat_lahir'] = "Tempat lahir tidak boleh lebih dari 20 huruf.";
+    }
+}
+
+
+function valNoHpSiswa($field, &$eror)
+{
+    $ptNoHpSiswa = "/^\+?[0-9]{10,15}$/";
+    if (requiredCheck($field)) {
+        $eror['no_hp_siswa'] = "Nomor HP siswa wajib di isi.";
+    } elseif (!preg_match($ptNoHpSiswa, $field)) {
+        $eror['no_hp_siswa'] = "Nomor HP harus angka 10-15 digit.";
+    }
+}
+
+function valAsalSekolah($field, &$eror)
+{
+    $ptAsalSekolah = "/^[a-zA-Z0-9\s]+$/";
+    if (requiredCheck($field)) {
+        $eror['asal_sekolah'] = "Asal sekolah wajib di isi.";
+    } elseif (!preg_match($ptAsalSekolah, $field)) {
+        $eror['asal_sekolah'] = "Asal sekolah hanya boleh huruf, angka, dan spasi.";
+    } elseif (strlen($field) > 30) {
+        $eror['asal_sekolah'] = "Asal sekolah tidak boleh lebih dari 30 huruf.";
+    }
+}
+
+
+function valAlamat($field, &$eror)
+{
+    $ptAlamat = "/^[a-zA-Z0-9\s.,-]+$/";
+    if (requiredCheck($field)) {
+        $eror['alamat'] = "Alamat wajib di isi.";
+    } elseif (!preg_match($ptAlamat, $field)) {
+        $eror['alamat'] = "Alamat hanya boleh huruf, angka, spasi, koma, titik, dan strip.";
+    }
+}
+
+
+function valNamaWali($field, &$eror)
+{
+    $ptNamaWali = "/^[a-zA-Z\s]{3,}$/";
+    if (requiredCheck($field)) {
+        $eror['nama_wali'] = "Nama wali wajib di isi.";
+    } elseif (!preg_match($ptNamaWali, $field)) {
+        $eror['nama_wali'] = "Nama wali hanya boleh huruf, spasi dan minimal 3 huruf.";
+    }
+}
+
+function valNoHpWali($field, &$eror)
+{
+    $ptNoHpWali = "/^\+?[0-9]{10,15}$/";
+    if (requiredCheck($field)) {
+        $eror['no_hp_wali'] = "Nomor HP wali wajib di isi.";
+    } elseif (!preg_match($ptNoHpWali, $field)) {
+        $eror['no_hp_wali'] = "Nomor HP wali harus angka 10-15 digit.";
+    }
+}
+
+
+function valProgramPondok($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['program_pondok'] = "Program pondok wajib dipilih.";
+    }
+}
+
+
+function valJurusan($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['jurusan'] = "Jurusan wajib dipilih.";
+    }
+}
+
 
 function displayErrorPopup($message)
 {
@@ -79,11 +181,6 @@ function addSiswa(array $data)
 {
     global $connect;
 
-    // $username_input = trim($data['username_siswa']);
-    // if (checkUsernameDuplication($username_input)) {
-    //     return displayErrorPopup("username ({$username_input}) sudah terdaftar. Silakan login atau gunakan username lain.");
-    // }
-
     $stmnt = $connect->prepare("
         INSERT INTO siswa (USERNAME_SISWA, NAMA_LENGKAP_SISWA, FOTO_SISWA, PASSWORD_SISWA)
         VALUES (:username_siswa, :nama_lengkap_siswa, :foto_siswa, :password_siswa)
@@ -97,6 +194,7 @@ function addSiswa(array $data)
     ]);
 
     if ($result && $stmnt->rowCount() > 0) {
+        $_SESSION['BERHASIL_REGISTER'] = "Anda berhasil register";
         header("Location: ../index.php");
         exit;
     } else {
@@ -196,6 +294,7 @@ function handleSiswaLogin($username_siswa, $password_siswa)
             $_SESSION['LOGIN_ROLE'] = 'siswa';
             $_SESSION['USERNAME_SISWA'] = $siswa['USERNAME_SISWA'];
             $_SESSION['NAMA_SISWA'] = $siswa['NAMA_LENGKAP_SISWA'];
+            $_SESSION['BERHASIL_LOGIN'] = "Anda Berhasil Login";
             header("Location:./dashboard/index.php");
             exit;
         }
@@ -216,7 +315,6 @@ function loginUser($username, $password)
     if (handleSiswaLogin($username, $password)) {
         return true;
     }
-    return displayErrorPopup('Akun tidak ditemukan');
 }
 
 // ====================
@@ -268,6 +366,7 @@ function updateSiswa($username, $data)
 
     if ($update) {
         header("Location: ../dashboard/index.php");
+        $_SESSION['BERHASIL_EDIT'] = "Siswa berhasil di edit";
         exit;
     } else {
         return displayErrorPopup("Gagal memperbarui data siswa Silakan coba lagi.");
@@ -312,20 +411,6 @@ function uploadDocumentFile($fileKey, $keterangan)
 // siswa melakukan pendaftaran
 // ===========================
 
-function getStatusText(string $status_code)
-{
-    switch ($status_code) {
-        case '0':
-            return '<span style="color: blue; font-weight: bold;">Masih Proses Verifikasi</span>';
-        case '1':
-            return '<span style="color: green; font-weight: bold;">DITERIMA</span>';
-        case '2':
-            return '<span style="color: red; font-weight: bold;">DITOLAK</span>';
-        default:
-            return 'Status Tidak Diketahui';
-    }
-}
-
 function insertDocument($id_pendaftaran, $keterangan, $jenis, $path)
 {
     global $connect;
@@ -369,23 +454,6 @@ function processDocumentUploads($id_pendaftaran, $fileKey, $keterangan, $jenis)
 function addPendaftaran(array $data, $username_siswa)
 {
     global $connect;
-
-    $required_fields = ['id_jurusan', 'nisn_siswa', 'jenis_kelamin', 'tanggal_lahir', 'tempat_lahir', 'no_hp_siswa', 'asal_sekolah', 'alamat', 'nama_wali', 'no_hp_wali', 'program_pondok'];
-    foreach ($required_fields as $field) {
-        if (empty(trim($data[$field]))) {
-            return displayErrorPopup("Harap isi semua field pendaftaran!");
-        }
-    }
-
-    if (empty($_FILES['file_akte']['name']) || empty($_FILES['file_kk']['name'])) {
-        return displayErrorPopup("Harap upload semua dokumen wajib (Akte & Kartu Keluarga)!");
-    }
-
-    // $stmnt_check = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE USERNAME_SISWA = :username_siswa AND STATUS = '0'");
-    // $stmnt_check->execute([':username_siswa' => $username_siswa]);
-    // if ($stmnt_check->fetchColumn() > 0) {
-    //     return displayErrorPopup("Anda sudah memiliki pendaftaran dengan status 'Masih Proses'.");
-    // }
 
     $nama_jurusan_input = trim($data['id_jurusan']);
     $id_jurusan = getJurusanIdByName($nama_jurusan_input);
