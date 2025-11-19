@@ -114,7 +114,7 @@ require_once '../components/header.php';
             <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Gresik"
                 value="<?= getStickyValue("tempat_lahir") ?>">
 
-            <label for="no_hp_siswa">No hp siswa</label>
+            <label for="no_hp_siswa">No Hp siswa</label>
             <input type="text" name="no_hp_siswa" id="no_hp_siswa" placeholder="Masukkan no siswa"
                 value="<?= getStickyValue("no_hp_siswa") ?>">
 

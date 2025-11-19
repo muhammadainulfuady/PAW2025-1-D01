@@ -889,3 +889,9 @@ footer.main-footer p {
   font-size: 12px;
   text-align: right;
 }
+
+.nb {
+  font-size: 12px;
+  color: red;
+  font-style: italic;
+}

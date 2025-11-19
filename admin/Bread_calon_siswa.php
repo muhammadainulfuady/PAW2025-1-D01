@@ -57,7 +57,7 @@ require_once "../components/header_admin.php";
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>calon siswa</title>
+        <title>Calon siswa</title>
 </head>
 
 <body>
@@ -90,7 +90,7 @@ require_once "../components/header_admin.php";
                                                         class="detail-value"><?= $siswa['TANGGAL_LAHIR'] ?? '-' ?></span></div>
                                         <div class="detail-row"><span class="detail-label">Tempat Lahir:</span> <span
                                                         class="detail-value"><?= $siswa['TEMPAT_LAHIR'] ?? '-' ?></span></div>
-                                        <div class="detail-row"><span class="detail-label">No Telepon Siswa:</span> <span
+                                        <div class="detail-row"><span class="detail-label">No Hp Siswa:</span> <span
                                                         class="detail-value"><?= $siswa['NO_HP_SISWA'] ?? '-' ?></span></div>
                                         <div class="detail-row"><span class="detail-label">Asal Sekolah:</span> <span
                                                         class="detail-value"><?= $siswa['ASAL_SEKOLAH'] ?? '-' ?></span></div>
@@ -108,7 +108,7 @@ require_once "../components/header_admin.php";
                         <?php endforeach ?>
                 </div>
                 <?php
-                $has_pendaftaran = !empty($siswas) && !empty($siswas[0]['USERNAME_SISWA']);
+                $has_pendaftaran = !empty($siswas) && !empty($siswas[0]['NISN']);
                 if ($has_pendaftaran):
                         ?>
                         <h3 class="judul-riwayat" style="margin-top: 20px;">Ubah Status Pendaftaran</h3>

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <section class="registrasi-siswa">
         <div class="login-container">
             <form action="" method="POST" enctype="multipart/form-data">
-                <h2>Registrasi Siswa</h2>
+                <h2>Registrasi Calon Siswa</h2>
 
                 <div class="login-input">
                     <label for="username_siswa">Username</label>
@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </span>
                 </div>
                 <p>Sudah punya akun? <a href="../index.php" class="btn-regis-login">Login</a></p>
+                <p class="nb">NB : Catat username dan pasword anda biar tidak lupa😊😊</p>
                 <button type="submit" name="submit_siswa_register" class="btn-submit">Registrasi</button>
             </form>
         </div>
