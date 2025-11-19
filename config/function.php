@@ -140,11 +140,31 @@ function valProgramPondok($field, &$eror)
     }
 }
 
-
 function valJurusan($field, &$eror)
 {
     if (requiredCheck($field)) {
-        $eror['jurusan'] = "Jurusan wajib dipilih.";
+        $eror['id_jurusan'] = "Jurusan wajib dipilih.";
+    }
+}
+
+function valFileAkte($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['file_akte'] = "File akte wajib diisi.";
+    }
+}
+
+function valFileKK($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['file_kk'] = "File KK wajib diisi.";
+    }
+}
+
+function valTanggalLahir($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['tanggal_lahir'] = "Tanggal lahir wajib diisi.";
     }
 }
 
@@ -455,8 +475,7 @@ function addPendaftaran(array $data, $username_siswa)
 {
     global $connect;
 
-    $nama_jurusan_input = trim($data['id_jurusan']);
-    $id_jurusan = getJurusanIdByName($nama_jurusan_input);
+    $id_jurusan = $data['id_jurusan'];
 
     $status_penerimaan = "0";
     $stmnt_pendaftaran = $connect->prepare("
@@ -488,6 +507,7 @@ function addPendaftaran(array $data, $username_siswa)
 
         if ($akte_success && $kk_success) {
             header("Location: browse_calon.php");
+            $_SESSION['BERHASIL_DAFTAR'] = "Selamat anda berhasil daftar";
             exit;
         } else {
             return displayErrorPopup("Pendaftaran gagal di tingkat dokumen.");

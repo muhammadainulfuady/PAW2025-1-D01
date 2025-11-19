@@ -42,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class='popup-succes'>
                 <?= $_SESSION['BERHASIL_REGISTER'] ?>
             </div>
-            <?php unset($_SESSION['BERHASIL_REGISTER']); endif ?>
+            <?php unset($_SESSION['BERHASIL_REGISTER']) ?>
+        <?php endif ?>
         <div class="login">
             <form action="" method="POST">
                 <div class="login-admin-siswa-input">

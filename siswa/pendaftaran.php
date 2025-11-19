@@ -86,7 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $no_hp_wali = $_POST['no_hp_wali'] ?? '';
     $program_pondok = $_POST['program_pondok'] ?? '';
     $id_jurusan = $_POST['id_jurusan'] ?? '';
+    $file_akte = $_FILES['file_akte']['name'] ?? '';
+    $file_kk = $_FILES['file_kk']['name'] ?? '';
     valNisn($nisn_siswa, $eror);
+    valTanggalLahir($tanggal_lahir, $eror);
     valJenisKelamin($jenis_kelamin, $eror);
     valTempatLahir($tempat_lahir, $eror);
     valNoHpSiswa($no_hp_siswa, $eror);
@@ -96,13 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     valNoHpWali($no_hp_wali, $eror);
     valProgramPondok($program_pondok, $eror);
     valJurusan($id_jurusan, $eror);
+    valFileAkte($file_akte, $eror);
+    valFileKK($file_kk, $eror);
 
-    if (empty($_FILES['file_akte']['name']) && empty($eror['file_akte'])) {
-        $eror['file_akte'] = "Akte Kelahiran wajib diunggah.";
-    }
-    if (empty($_FILES['file_kk']['name']) && empty($eror['file_kk'])) {
-        $eror['file_kk'] = "Kartu Keluarga wajib diunggah.";
-    }
     if (empty($eror)) {
         addPendaftaran($_POST, $username_siswa);
     }
@@ -123,6 +122,7 @@ require_once '../components/header.php';
     <div class="form-container">
         <h2>Formulir Pendaftaran Siswa</h2>
         <form action="" method="POST" enctype="multipart/form-data">
+
             <label for="nisn_siswa">NISN</label>
             <input type="text" name="nisn_siswa" id="nisn_siswa" placeholder="Masukkan nisn" value="<?php if (!isset($eror['nisn_siswa'])) {
                 echo getStickyValue('nisn_siswa');
@@ -130,43 +130,82 @@ require_once '../components/header.php';
             <span class="eror-validasi">
                 <p><?= $eror["nisn_siswa"] ?? "" ?></p>
             </span>
+
             <label for="jenis_kelamin">Jenis kelamin siswa</label>
             <select name="jenis_kelamin" id="jenis_kelamin">
-                <option value="L" <?= getStickyValue('jenis_kelaim') == 'Laki - Laki' ? 'selected' : '' ?>>
+                <option value="">-- Jenis Kelamin --</option>
+                <option value="L" <?= getStickyValue('jenis_kelamin') == 'Laki - Laki' ? 'selected' : '' ?>>
                     Laki - Laki</option>
-                <option value="P" <?= getStickyValue('jenis_kelaim') == 'Perempuan' ? 'selected' : '' ?>>
+                <option value="P" <?= getStickyValue('jenis_kelmin') == 'Perempuan' ? 'selected' : '' ?>>
                     Perempuan</option>
             </select>
+            <span class="eror-validasi">
+                <p><?= $eror["jenis_kelamin"] ?? "" ?></p>
+            </span>
 
-            <label for="tanggal_lahir">Masukkan tanggal lahir</label>
-            <input type="date" name="tanggal_lahir" id="tanggal_lahir" placeholder="Contoh 12-05-2021"
-                value="<?= getStickyValue("tanggal_lahir") ?>">
+            <label for="tanggal_lahir">Tanggal Lahir</label>
+            <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="<?php if (!isset($eror['tanggal_lahir'])) {
+                echo getStickyValue('tanggal_lahir');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["tanggal_lahir"] ?? "" ?></p>
+            </span>
 
-            <label for="tempat_lahir">Masukkan tempat lahir</label>
-            <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Gresik"
-                value="<?= getStickyValue("tempat_lahir") ?>">
 
-            <label for="no_hp_siswa">No Hp siswa</label>
-            <input type="text" name="no_hp_siswa" id="no_hp_siswa" placeholder="Masukkan no siswa"
-                value="<?= getStickyValue("no_hp_siswa") ?>">
+            <label for="tempat_lahir">Tempat Lahir</label>
+            <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Contoh : Bungah Gresik" value="<?php if (!isset($eror['tempat_lahir'])) {
+                echo getStickyValue('tempat_lahir');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["tempat_lahir"] ?? "" ?></p>
+            </span>
 
-            <label for="asal_sekolah">Asal sekolah</label>
-            <input type="text" name="asal_sekolah" id="asal_sekolah" placeholder="Masukkan asal sekolah"
-                value="<?= getStickyValue("asal_sekolah") ?>">
+
+            <label for="no_hp_siswa">Nomor HP Siswa</label>
+            <input type="text" name="no_hp_siswa" id="no_hp_siswa" placeholder="08123456789 atau +62812..." value="<?php if (!isset($eror['no_hp_siswa'])) {
+                echo getStickyValue('no_hp_siswa');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["no_hp_siswa"] ?? "" ?></p>
+            </span>
+
+
+            <label for="asal_sekolah">Asal Sekolah</label>
+            <input type="text" name="asal_sekolah" id="asal_sekolah" placeholder="Masukkan asal sekolah" value="<?php if (!isset($eror['asal_sekolah'])) {
+                echo getStickyValue('asal_sekolah');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["asal_sekolah"] ?? "" ?></p>
+            </span>
 
             <label for="alamat">Alamat</label>
-            <input type="text" name="alamat" id="alamat" placeholder="Masukkan alamat"
-                value="<?= getStickyValue("alamat") ?>">
+            <input type="text" name="alamat" id="alamat" placeholder="Masukkan alamat lengkap" value="<?php if (!isset($eror['alamat'])) {
+                echo getStickyValue('alamat');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["alamat"] ?? "" ?></p>
+            </span>
 
-            <label for="nama_wali">Nama wali</label>
-            <input type="text" name="nama_wali" id="nama_wali" placeholder="Masukkan nama wali"
-                value="<?= getStickyValue("nama_wali") ?>">
 
-            <label for="no_hp_wali">No pp wali</label>
-            <input type="text" name="no_hp_wali" id="no_hp_wali" placeholder="Masukkan no wali"
-                value="<?= getStickyValue("no_hp_wali") ?>">
+            <label for="nama_wali">Nama Wali</label>
+            <input type="text" name="nama_wali" id="nama_wali" placeholder="Masukkan nama wali" value="<?php if (!isset($eror['nama_wali'])) {
+                echo getStickyValue('nama_wali');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["nama_wali"] ?? "" ?></p>
+            </span>
 
-            <label for="program_pondok">Pilih Program Pondok</label>
+
+            <label for="no_hp_wali">Nomor HP Wali</label>
+            <input type="text" name="no_hp_wali" id="no_hp_wali" placeholder="08123456789 atau +62812..." value="<?php if (!isset($eror['no_hp_wali'])) {
+                echo getStickyValue('no_hp_wali');
+            } ?>">
+            <span class="eror-validasi">
+                <p><?= $eror["no_hp_wali"] ?? "" ?></p>
+            </span>
+
+
+            <label for="program_pondok">Program Pondok</label>
             <select name="program_pondok" id="program_pondok">
                 <option value="">-- Program Pondok --</option>
                 <option value="Tahfidz Alquran" <?= getStickyValue('program_pondok') == 'Tahfidz Alquran' ? 'selected' : '' ?>>Tahfidz
@@ -176,26 +215,40 @@ require_once '../components/header.php';
                 <option value="Qiroati" <?= getStickyValue('program_pondok') == 'Qiroati' ? 'selected' : '' ?>>Qiroati
                 </option>
             </select>
+            <span class="eror-validasi">
+                <p><?= $eror["program_pondok"] ?? "" ?></p>
+            </span>
+
 
             <label for="id_jurusan">Jurusan</label>
             <select name="id_jurusan" id="id_jurusan">
                 <option value="">-- Pilih Jurusan --</option>
                 <?php foreach ($jurusans as $jurusan): ?>
-                    <option>
+                    <option value="<?= $jurusan['ID_JURUSAN'] ?>" <?= getStickyValue('id_jurusan') == $jurusan['ID_JURUSAN'] ? 'selected' : '' ?>>
                         <?= $jurusan['NAMA_JURUSAN'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>
+            <span class="eror-validasi">
+                <p><?= $eror["id_jurusan"] ?? "" ?></p>
+            </span>
+
 
             <div class="document-upload">
                 <label for="file_akte">Upload Akte Kelahiran *</label>
                 <input type="file" name="file_akte" id="file_akte" accept=".pdf,.jpg,.jpeg,.png">
             </div>
+            <span class="eror-validasi">
+                <p><?= $eror["file_akte"] ?? "" ?></p>
+            </span>
 
             <div class="document-upload">
                 <label for="file_kk">Upload Kartu Keluarga (KK) *</label>
                 <input type="file" name="file_kk" id="file_kk" accept=".pdf,.jpg,.jpeg,.png">
             </div>
+            <span class="eror-validasi">
+                <p><?= $eror["file_kk"] ?? "" ?></p>
+            </span>
 
             <button type="submit" name="submit_pendaftaran">Daftar</button>
         </form>

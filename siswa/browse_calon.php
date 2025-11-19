@@ -54,11 +54,17 @@ require_once "../components/header.php"
     ?>
 <title>Riwayat | Siswa</title>
 <div class="form-container">
+    <?php if (isset($_SESSION['BERHASIL_DAFTAR'])): ?>
+        <div class='popup-success'>
+            <?= $_SESSION['BERHASIL_DAFTAR'] ?>
+        </div>
+        <?php unset($_SESSION['BERHASIL_DAFTAR']) ?>
+    <?php endif ?>
     <h2 class="judul-riwayat">Riwayat Pendaftaran dan Status</h2>
     <?php foreach ($siswas as $data_pendaftaran): ?>
         <div class="riwayat-item">
-            <div class="riwayat-header">
-                <div class="siswa-container">
+            <div class="siswa-container">
+                <div class="riwayat-header">
                     <?php if ($siswa['FOTO_SISWA'] === "default.jpg"): ?>
                         <img src="default.jpg" alt="Foto Siswa">
                     <?php else: ?>
