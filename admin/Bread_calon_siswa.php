@@ -13,6 +13,12 @@ if (!isset($_SESSION['ADMIN_ID'])) {
 // Ambil semua siswa dari database
 global $connect;
 $username_siswa = $_GET['username'];
+$foto_siswa = $connect->prepare("SELECT FOTO_SISWA FROM siswa WHERE USERNAME_SISWA = :username_siswa");
+$foto_siswa->execute([
+        ':username_siswa' => $username_siswa,
+]);
+$foto_siswas = $foto_siswa->fetch();
+
 if (isset($_POST['update_status']) && isset($_POST['new_status'])) {
         $new_status = $_POST['new_status'];
         updatePendaftaranStatus($username_siswa, $new_status);
@@ -51,7 +57,7 @@ require_once "../components/header_admin.php";
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
+        <title>calon siswa</title>
 </head>
 
 <body>
@@ -60,7 +66,12 @@ require_once "../components/header_admin.php";
 
                 <div class="riwayat-item">
                         <div class="riwayat-header">
-                                <img src="../siswa/default.jpg" alt="Foto Siswa" class="siswa-foto">
+                                <?php if ($foto_siswas['FOTO_SISWA'] === 'default.jpg'): ?>
+                                        <img src="../siswa/default.jpg" alt="Foto Siswa"><br>
+                                <?php else: ?>
+                                        <img src="../source/upload/images/<?= $foto_siswas['FOTO_SISWA'] ?>"
+                                                alt="Foto Siswa"><br>
+                                <?php endif ?>
                                 <?php foreach ($siswas as $siswa): ?>
                                         <span
                                                 class="status-badge status-<?= ($siswa['STATUS'] === "0" ? 'proses' : ($siswa['STATUS'] === "1" ? 'diterima' : ($siswa['STATUS'] === "2" ? 'pending' : 'none'))) ?>">
@@ -103,26 +114,23 @@ require_once "../components/header_admin.php";
                         <h3 class="judul-riwayat" style="margin-top: 20px;">Ubah Status Pendaftaran</h3>
                         <div style="display: flex; gap: 10px; margin-bottom: 20px;">
 
-                                <form method="POST" style="display:inline;">
+                                <form method="POST">
                                         <input type="hidden" name="new_status" value="1">
-                                        <button type="submit" name="update_status" class="btn-detail"
-                                                style="background-color: #28a745; width: auto; cursor: pointer;">
+                                        <button type="submit" name="update_status" class="btn-detail btn-terima">
                                                 ✅ Terima (Status 1)
                                         </button>
                                 </form>
 
-                                <form method="POST" style="display:inline;">
+                                <form method="POST">
                                         <input type="hidden" name="new_status" value="2">
-                                        <button type="submit" name="update_status" class="btn-detail"
-                                                style="background-color: #dc3545; width: auto; cursor: pointer;">
+                                        <button type="submit" name="update_status" class="btn-detail btn-tolak">
                                                 ❌ Tolak (Status 2)
                                         </button>
                                 </form>
 
-                                <form method="POST" style="display:inline;">
+                                <form method="POST">
                                         <input type="hidden" name="new_status" value="0">
-                                        <button type="submit" name="update_status" class="btn-detail"
-                                                style="background-color: #ffc107; color: #333; width: auto; cursor: pointer;">
+                                        <button type="submit" name="update_status" class="btn-detail btn-proses">
                                                 ⚠️ Proses (Status 0)
                                         </button>
                                 </form>

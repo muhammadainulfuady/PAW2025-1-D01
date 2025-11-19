@@ -564,6 +564,10 @@ img.img-daftar {
   color: white;
 }
 
+.btn-kembali:hover {
+  background-color: #0cca68;
+}
+
 footer.main-footer {
   background: #ffffff;
   border-top: 1px solid #ddd;
@@ -831,4 +835,50 @@ footer.main-footer p {
   border-radius: 20%;
   border: 2px solid #4caf50; /* hijau tipis */
   object-fit: cover;
+}
+
+/* Styling for Admin Status Update Buttons */
+.status-update-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Base button style for these specific actions, overriding default button/btn-detail */
+.status-update-container button.btn-detail {
+  width: auto;
+  cursor: pointer;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Button style for DITERIMA (Status 1) */
+.btn-terima {
+  background-color: #28a745;
+}
+.btn-terima:hover {
+  background-color: #1c6e2f;
+}
+/* Button style for DITOLAK (Status 2) */
+.btn-tolak {
+  background-color: #dc3545;
+}
+.btn-tolak:hover {
+  background-color: #c12736;
+}
+
+/* Button style for PROSES (Status 0) */
+.btn-proses {
+  background-color: #ffc107;
+  color: #333; /* Warna teks gelap untuk latar belakang terang */
+}
+.btn-proses:hover {
+  background-color: #e3ad0a;
+  color: #333; /* Warna teks gelap untuk latar belakang terang */
+}
+
+/* Utility Class for Margin */
+.mt-20 {
+  margin-top: 20px;
 }
