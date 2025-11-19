@@ -29,7 +29,6 @@ if (isset($_GET['delete'])) {
     }
     $delete = $connect->prepare("DELETE FROM jurusan WHERE id_jurusan = :id");
     $delete->execute([':id' => $id]);
-    header("Location: Ddelete_jurusan.php");
     exit;
 }
 
@@ -61,14 +60,12 @@ require_once "../components/header_admin.php";
                 <th>Aksi</th>
             </tr>
 
-
             <?php foreach ($jurusans as $j): ?>
                 <tr>
                     <td><?= $j['nama_jurusan'] ?></td>
                     <td>
                         <!-- Edit -->
                         <a href="Cupdate_jurusan.php?id=<?= $j['id_jurusan'] ?>" class="btn-edit">Edit</a>
-
 
                         <!-- Delete tanpa file lain -->
                         <a href="Ddelete_jurusan.php?delete=<?= $j['id_jurusan'] ?>" class="btn-delete">
