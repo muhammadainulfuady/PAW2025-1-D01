@@ -204,16 +204,15 @@ function loginUser($username, $password)
 function updateSiswa($username, $data)
 {
     global $connect;
-
-    $required_fields = [
-        'nama_lengkap_siswa',
-        'foto_siswa',
-    ];
-    foreach ($required_fields as $field) {
-        if (empty(trim($data[$field]))) {
-            return displayErrorPopup("Semua field wajib diisi untuk update profile!");
-        }
-    }
+    // $required_fields = [
+    //     'nama_lengkap_siswa',
+    //     'foto_siswa',
+    // ];
+    // foreach ($required_fields as $field) {
+    //     if (empty(trim($data[$field]))) {
+    //         return displayErrorPopup("Semua field wajib diisi untuk update profile!");
+    //     }
+    // }
     $stmnt = $connect->prepare("SELECT * FROM siswa WHERE USERNAME_SISWA = :username_siswa");
     $stmnt->execute([':username_siswa' => $username]);
     $siswaLama = $stmnt->fetch();

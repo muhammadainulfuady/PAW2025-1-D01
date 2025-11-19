@@ -13,9 +13,16 @@ if (!isset($_SESSION['ADMIN_ID'])) {
 // Ambil semua siswa dari database
 global $connect;
 $stmnt = $connect->prepare("
-    SELECT 
-        NAMA_LENGKAP_SISWA
-        FROM siswa
+    SELECT
+        p.NISN,
+        s.USERNAME_SISWA,
+        s.NAMA_LENGKAP_SISWA, 
+        p.JENIS_KELAMIN,
+        p.STATUS,
+        p.ID_PENDAFTARAN
+    FROM siswa s
+    LEFT JOIN pendaftaran p ON s.USERNAME_SISWA = p.USERNAME_SISWA
+    ORDER BY s.NAMA_LENGKAP_SISWA ASC
 ");
 $stmnt->execute();
 $siswas = $stmnt->fetchAll();
@@ -52,21 +59,20 @@ require_once "../components/header_admin.php";
             <tr>
                 <th>NISN</th>
                 <th>Nama Lengkap</th>
-                <th>Kelamin</th>
+                <th>Jenis Kelamin</th>
                 <th>Aksi</th>
             </tr>
 
             <?php foreach ($siswas as $siswa): ?>
                 <tr>
-                    <td class="nisn_td"><?= $siswa['NISN_SISWA'] ?></td>
+                    <td class="nisn_td"><?= $siswa['NISN'] ?></td>
                     <td><?= $siswa['NAMA_LENGKAP_SISWA'] ?></td>
-                    <td><?= $siswa['JENIS_KELAMIN_SISWA'] ?></td>
+                    <td><?= $siswa['JENIS_KELAMIN'] ?></td>
                     <!-- Tombol Detail -->
                     <td>
-                        <a href="Bread_calon_siswa.php?nisn=<?= $siswa['NISN_SISWA'] ?>" class="btn-detail">
+                        <a href="Bread_calon_siswa.php?username=<?= $siswa['USERNAME_SISWA'] ?>" class="btn-detail">
                             Show Detail
                         </a>
-                        <a href="">Tolak</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

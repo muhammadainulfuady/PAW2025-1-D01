@@ -22,7 +22,7 @@ if (!$siswa) {
 }
 
 if (isset($_POST['submit_edit'])) {
-    updateSiswa($nisn, $_POST);
+    updateSiswa($username, $_POST);
 }
 require_once "../components/header.php"
     ?>
@@ -45,11 +45,13 @@ require_once "../components/header.php"
                 <input type="text" name="nama_lengkap_siswa" value="<?= $siswa['NAMA_LENGKAP_SISWA'] ?>">
 
                 <label>Foto Saat Ini:</label><br>
-                <img src="../source/upload/images/<?= $siswa['FOTO_SISWA_SISWA'] ?>" width="120" alt="Foto Siswa"><br>
-
+                <?php if (isset($_POST['submit_edit'])): ?>
+                    <img src="default.jpg" alt="Foto Siswa">
+                <?php else: ?>
+                    <img src="../source/upload/images/<?= $siswa['FOTO_SISWA'] ?>" alt="Foto Siswa" name="foto"><br>
+                <?php endif ?>
                 <label>Ganti Foto Baru (opsional):</label>
                 <input type="file" name="foto_siswa">
-
                 <button type="submit" name="submit_edit">💾 Simpan Perubahan</button>
             </form>
         </div>

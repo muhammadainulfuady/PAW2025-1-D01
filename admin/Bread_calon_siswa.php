@@ -12,16 +12,27 @@ if (!isset($_SESSION['ADMIN_ID'])) {
 
 // Ambil semua siswa dari database
 global $connect;
-$nisn = $_GET['nisn'];
+$username_siswa = $_GET['username'];
 $stmnt = $connect->prepare("
-    SELECT 
-        NISN_SISWA,
-        NAMA_LENGKAP_SISWA,
-        TANGGAL_LAHIR_SISWA,
-        NO_TELPON_SISWA,
-        ALAMAT_SISWA,
-        JENIS_KELAMIN_SISWA
-    FROM siswa WHERE NISN_SISWA = '$nisn'
+SELECT 
+        p.NISN,
+        s.USERNAME_SISWA,
+        s.NAMA_LENGKAP_SISWA,
+        p.TANGGAL_LAHIR,
+        p.NO_HP_SISWA,
+        p.ALAMAT,
+        p.JENIS_KELAMIN,
+        p.TEMPAT_LAHIR,
+        p.ASAL_SEKOLAH,
+        p.NAMA_WALI,
+        p.NO_HP_WALI,
+        p.PROGRAM_PONDOK,
+        p.STATUS,
+        j.NAMA_JURUSAN
+    FROM siswa s
+    LEFT JOIN pendaftaran p ON s.USERNAME_SISWA = p.USERNAME_SISWA
+    LEFT JOIN jurusan j ON p.ID_JURUSAN = j.ID_JURUSAN
+    WHERE s.USERNAME_SISWA = '$username_siswa'
 ");
 $stmnt->execute();
 $siswas = $stmnt->fetchAll();
@@ -41,33 +52,51 @@ require_once "../components/header_admin.php";
 
 <body>
     <div class="admin-container">
-        <h2 class="judul-riwayat">Daftar Calon Siswa</h2>
+        <h2 class="judul-riwayat">Detail Calon Siswa</h2>
 
-        <table class="tabel-siswa">
-            <tr>
-                <th>NISN</th>
-                <th>Nama Lengkap</th>
-                <th>Asal</th>
-                <th>Tanggal Lahir</th>
-                <th>No Telepon</th>
-                <th>Jenis Kelamin</th>
-            </tr>
+        <div class="riwayat-item">
+            <div class="riwayat-header">
+                <img src="../siswa/default.jpg" alt="Foto Siswa" class="siswa-foto">
+                <?php foreach ($siswas as $siswa): ?>
+                    <span
+                        class="status-badge status-<?= ($siswa['STATUS'] === "0" ? 'proses' : ($siswa['STATUS'] === "1" ? 'diterima' : ($siswa['STATUS'] === "2" ? 'pending' : 'none'))) ?>">
+                        <?= ($siswa['STATUS'] === "0" ? 'Proses Verifikasi' : ($siswa['STATUS'] === "1" ? 'Diterima' : ($siswa['STATUS'] === "2" ? 'Ditolak' : 'Belum Daftar'))) ?>
+                    </span>
+                </div>
 
-            <?php foreach ($siswas as $siswa): ?>
-                <tr>
-                    <td><?= $siswa['NISN_SISWA'] ?></td>
-                    <td><?= $siswa['NAMA_LENGKAP_SISWA'] ?></td>
-                    <td><?= $siswa['ALAMAT_SISWA'] ?></td>
-                    <td><?= $siswa['TANGGAL_LAHIR_SISWA'] ?></td>
-                    <td><?= $siswa['NO_TELPON_SISWA'] ?></td>
-                    <td><?= $siswa['JENIS_KELAMIN_SISWA'] ?></td>
-
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <div class="btn-kembali">
-            <a href="riwayat_calon_siswa.php">Kembali</a>
+                <div class="riwayat-detail">
+                    <div class="detail-row"><span class="detail-label">NISN:</span> <span
+                            class="detail-value"><?= $siswa['NISN'] ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Nama Lengkap:</span> <span
+                            class="detail-value"><?= $siswa['NAMA_LENGKAP_SISWA'] ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Jenis Kelamin:</span> <span
+                            class="detail-value"><?= $siswa['JENIS_KELAMIN'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Tanggal Lahir:</span> <span
+                            class="detail-value"><?= $siswa['TANGGAL_LAHIR'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Tempat Lahir:</span> <span
+                            class="detail-value"><?= $siswa['TEMPAT_LAHIR'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">No Telepon Siswa:</span> <span
+                            class="detail-value"><?= $siswa['NO_HP_SISWA'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Asal Sekolah:</span> <span
+                            class="detail-value"><?= $siswa['ASAL_SEKOLAH'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Alamat:</span> <span
+                            class="detail-value"><?= $siswa['ALAMAT'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Nama Wali:</span> <span
+                            class="detail-value"><?= $siswa['NAMA_WALI'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">No HP Wali:</span> <span
+                            class="detail-value"><?= $siswa['NO_HP_WALI'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Jurusan:</span> <span
+                            class="detail-value"><?= $siswa['NAMA_JURUSAN'] ?? '-' ?></span></div>
+                    <div class="detail-row"><span class="detail-label">Program Pondok:</span> <span
+                            class="detail-value"><?= $siswa['PROGRAM_PONDOK'] ?? '-' ?></span></div>
+                </div>
+            <?php endforeach ?>
         </div>
+
+        <div class="btn-kembali">
+            <a href="riwayat_calon_siswa.php">Kembali ke Daftar</a>
+        </div>
+    </div>
 </body>
 
 </html>
