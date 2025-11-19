@@ -12,8 +12,8 @@
             <!-- FOTO + NAMA -->
             <li class="user-info">
                 <a href="../siswa/edit_siswa.php" class="user-link">
-                    <?php if (isset($_POST['submit_edit'])): ?>
-                        <img src="default.jpg" alt="Foto Siswa"><br>
+                    <?php if ($siswa['FOTO_SISWA'] === 'default.jpg'): ?>
+                        <img src="../siswa/default.jpg" alt="Foto Siswa"><br>
                     <?php else: ?>
                         <img src="../source/upload/images/<?= $siswa['FOTO_SISWA'] ?>" alt="Foto Siswa"><br>
                     <?php endif ?>

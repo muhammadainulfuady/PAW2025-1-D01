@@ -57,17 +57,13 @@ require_once "../components/header_admin.php";
 
         <table class="tabel-siswa">
             <tr>
-                <th>NISN</th>
                 <th>Nama Lengkap</th>
-                <th>Jenis Kelamin</th>
                 <th>Aksi</th>
             </tr>
 
             <?php foreach ($siswas as $siswa): ?>
                 <tr>
-                    <td class="nisn_td"><?= $siswa['NISN'] ?></td>
                     <td><?= $siswa['NAMA_LENGKAP_SISWA'] ?></td>
-                    <td><?= $siswa['JENIS_KELAMIN'] ?></td>
                     <!-- Tombol Detail -->
                     <td>
                         <a href="Bread_calon_siswa.php?username=<?= $siswa['USERNAME_SISWA'] ?>" class="btn-detail">

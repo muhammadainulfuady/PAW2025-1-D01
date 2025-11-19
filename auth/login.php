@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         placeholder="Masukkan password" value="<?= getStickyValue('password_login_siswa') ?>">
                 </div>
                 <p>Belum punya akun? <a href="./siswa/registrasi_siswa.php" class="btn-regis-login">Register</a></p>
-                <button type="submit" name="submit_login_siswa" class="btn-submit">login</button>
+                <button type="submit" name="submit_login_siswa" class="btn-submit">Login</button>
             </form>
         </div>
     </section>

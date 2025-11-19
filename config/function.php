@@ -204,15 +204,6 @@ function loginUser($username, $password)
 function updateSiswa($username, $data)
 {
     global $connect;
-    // $required_fields = [
-    //     'nama_lengkap_siswa',
-    //     'foto_siswa',
-    // ];
-    // foreach ($required_fields as $field) {
-    //     if (empty(trim($data[$field]))) {
-    //         return displayErrorPopup("Semua field wajib diisi untuk update profile!");
-    //     }
-    // }
     $stmnt = $connect->prepare("SELECT * FROM siswa WHERE USERNAME_SISWA = :username_siswa");
     $stmnt->execute([':username_siswa' => $username]);
     $siswaLama = $stmnt->fetch();
@@ -413,5 +404,40 @@ function addPendaftaran(array $data, $username_siswa)
         }
     } else {
         return displayErrorPopup("Gagal menyimpan data pendaftaran utama.");
+    }
+}
+
+// ===============================
+// Admin Update Status Pendaftaran
+// ===============================
+function updatePendaftaranStatus($username_siswa, $new_status)
+{
+    global $connect;
+
+    $valid_statuses = ['0', '1', '2'];
+    if (!in_array($new_status, $valid_statuses)) {
+        // Asumsi displayErrorPopup ada di file ini
+        return displayErrorPopup("Status yang dimasukkan tidak valid (hanya 0, 1, atau 2).");
+    }
+
+    $stmnt = $connect->prepare("
+        UPDATE pendaftaran
+        SET STATUS = :status
+        WHERE USERNAME_SISWA = :username
+        ORDER BY ID_PENDAFTARAN DESC
+        LIMIT 1
+    ");
+
+    $result = $stmnt->execute([
+        ':status' => $new_status,
+        ':username' => $username_siswa
+    ]);
+
+    if ($result) {
+        $_SESSION['success_message'] = "Status pendaftaran berhasil diperbarui.";
+        header("Location: Bread_calon_siswa.php?username=" . urlencode($username_siswa));
+        exit;
+    } else {
+        return displayErrorPopup("Gagal memperbarui status pendaftaran.");
     }
 }

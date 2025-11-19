@@ -23,18 +23,24 @@ $siswa_qry = $connect->prepare("SELECT * FROM pendaftaran WHERE USERNAME_SISWA =
 $siswa_qry->execute([':username_siswa' => $username_siswa]);
 $siswas = $siswa_qry->fetchAll();
 
+// query untuk menampilkan jurusan
+global $connect;
+$jurusan_qry = $connect->prepare("
+SELECT 
+        p.*, 
+        j.NAMA_JURUSAN
+    FROM pendaftaran p
+    INNER JOIN jurusan j ON p.ID_JURUSAN = j.ID_JURUSAN
+    WHERE p.USERNAME_SISWA = :username_siswa
+    ORDER BY p.TANGGAL_PENDAFTARAN DESC");
+$jurusan_qry->execute([':username_siswa' => $username_siswa]);
+$jurusans = $jurusan_qry->fetch();
+
 // query untuk menampilkan id pendaftaran
 global $connect;
 $id_pendaftaran = $connect->prepare("SELECT ID_PENDAFTARAN FROM pendaftaran WHERE USERNAME_SISWA = :username_siswa");
 $id_pendaftaran->execute([':username_siswa' => $username_siswa]);
 $id_pendaftarans = $id_pendaftaran->fetch();
-
-$jurusan_qry = $connect->prepare("SELECT j.nama_jurusan
-FROM pendaftaran p
-INNER JOIN jurusan j ON p.id_jurusan = j.id_jurusan
-WHERE p.username_siswa = :username_siswa");
-$jurusan_qry->execute([':username_siswa' => $username_siswa]);
-$jurusans = $jurusan_qry->fetch();
 
 if (isset($id_pendaftarans['ID_PENDAFTARAN'])) {
     global $connect;
@@ -49,13 +55,17 @@ require_once "../components/header.php"
 <title>Riwayat | Siswa</title>
 <div class="form-container">
     <h2 class="judul-riwayat">Riwayat Pendaftaran dan Status</h2>
-    <div class="siswa-container">
-        <?php foreach ($siswas as $siswa): ?>
-            <div class="riwayat-item">
-                <div class="riwayat-header">
-                    <img src="../siswa/default.jpg" alt="Foto Siswa" class="siswa-foto">
+    <div class="riwayat-item">
+        <div class="siswa-container">
+            <div class="riwayat-header">
+                <?php if ($siswa['FOTO_SISWA'] === "default.jpg"): ?>
+                    <img src="default.jpg" alt="Foto Siswa">
+                <?php else: ?>
+                    <img src="../source/upload/images/<?= $siswa['FOTO_SISWA'] ?>" alt="Foto Siswa" name="foto"><br>
+                <?php endif ?>
+                <?php foreach ($siswas as $siswa): ?>
                     <span
-                        class="status-badge status-<?= ($siswa['STATUS'] === "0" ? 'proses' : ($siswa['STATUS'] === "1" ? 'terima' : "tolak")) ?>">
+                        class="status-badge status-<?= ($siswa['STATUS'] === "0" ? 'proses' : ($siswa['STATUS'] === "1" ? 'diterima' : "tolak")) ?>">
                         <?= ($siswa['STATUS'] === "0" ? 'Proses Verifikasi' : ($siswa['STATUS'] === "1" ? 'Diterima' : "Ditolak")) ?>
                     </span>
                 </div>
@@ -104,9 +114,7 @@ require_once "../components/header.php"
                     <div class="detail-row">
                         <span class="detail-label">Jurusan:</span>
                         <span class="detail-value">
-                            <?php foreach ($jurusans as $jurusan): ?>
-                            <?php endforeach ?>
-                            <?= $jurusan ?>
+                            <?= $jurusans['NAMA_JURUSAN'] ?>
                         </span>
                     </div>
                     <div class="detail-row">
@@ -131,7 +139,6 @@ require_once "../components/header.php"
                         </div>
                     <?php endif ?>
                 </div>
-
             </div>
         <?php endforeach ?>
     </div>

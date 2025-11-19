@@ -45,11 +45,12 @@ require_once "../components/header.php"
                 <input type="text" name="nama_lengkap_siswa" value="<?= $siswa['NAMA_LENGKAP_SISWA'] ?>">
 
                 <label>Foto Saat Ini:</label><br>
-                <?php if (isset($_POST['submit_edit'])): ?>
+                <?php if ($siswa['FOTO_SISWA'] === "default.jpg"): ?>
                     <img src="default.jpg" alt="Foto Siswa">
                 <?php else: ?>
                     <img src="../source/upload/images/<?= $siswa['FOTO_SISWA'] ?>" alt="Foto Siswa" name="foto"><br>
                 <?php endif ?>
+                <br>
                 <label>Ganti Foto Baru (opsional):</label>
                 <input type="file" name="foto_siswa">
                 <button type="submit" name="submit_edit">💾 Simpan Perubahan</button>

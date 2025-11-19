@@ -675,13 +675,15 @@ footer.main-footer p {
 .riwayat-detail {
   flex-grow: 1; /* Memastikan detail mengambil ruang sebanyak mungkin */
   margin-bottom: 15px;
+  border: 1px solid #28a745;
+  padding: 10px;
 }
 
 .detail-row {
   display: flex;
   justify-content: space-between; /* Membuat Label dan Value bersebelahan */
   padding: 5px 0;
-  border-bottom: 1px dotted #e0e0e0;
+  border: 1px dotted #e0e0e0;
 }
 
 .detail-row:last-child {
@@ -826,4 +828,7 @@ footer.main-footer p {
 
 .edit-form-siswa img {
   width: 100px;
+  border-radius: 20%;
+  border: 2px solid #4caf50; /* hijau tipis */
+  object-fit: cover;
 }
