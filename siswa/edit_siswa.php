@@ -21,7 +21,7 @@ if (!$siswa) {
     exit;
 }
 
-if (isset($_POST['submit_edit'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     updateSiswa($username, $_POST);
 }
 require_once "../components/header.php"

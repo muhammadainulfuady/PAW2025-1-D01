@@ -882,3 +882,10 @@ footer.main-footer p {
 .mt-20 {
   margin-top: 20px;
 }
+
+.eror-validasi {
+  margin-bottom: 10px;
+  color: red;
+  font-size: 12px;
+  text-align: right;
+}

@@ -7,6 +7,46 @@ if (session_status() === PHP_SESSION_NONE)
 // eror validasi
 // =====================
 
+function requiredCheck($field)
+{
+    $field = trim($field);
+    return empty($field);
+}
+
+function valUsername($field, &$eror)
+{
+    // Pola: Hanya huruf (a-z), angka (0-9), atau underscore/dot. Minimal 5 karakter.
+    $ptUsername = "/^[a-zA-Z0-9_\.]{5,}$/";
+
+    if (requiredCheck($field)) {
+        $eror['username_siswa'] = "Kolom username wajib di isi.";
+    } elseif (!preg_match($ptUsername, $field)) {
+        $eror['username_siswa'] = "Username harus alphanumeric (a-z, 0-9) dan minimal 5 karakter.";
+    } elseif (!preg_match($ptUsername, $field)) {
+        $eror['username_siswa'] = "Username tidak boleh mengandung simbol.  ";
+    }
+}
+
+function valName($field, &$eror)
+{
+    $ptNamaLengkap = "/^[a-zA-Z\s]{5,}$/";
+    if (requiredCheck($field)) {
+        $eror['nama_lengkap_siswa'] = "Kolom nama lengkap wajib di isi.";
+    } elseif (!preg_match($ptNamaLengkap, $field)) {
+        $eror['nama_lengkap_siswa'] = "Nama lengkap harus berisi huruf dan spasi, minimal 5 karakter.";
+    }
+}
+
+function valPassword($field, &$eror)
+{   // Pola: Minimum 8 karakter, harus mengandung (setidaknya satu lowercase, satu uppercase, dan satu digit).
+    $ptPassword = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/";
+    if (requiredCheck($field)) {
+        $eror['password_siswa'] = "Kolom password wajib di isi.";
+    } elseif (!preg_match($ptPassword, $field)) {
+        $eror['password_siswa'] = "Username harus alphanumeric (a-z, 0-9) dan minimal 5 karakter.";
+    }
+}
+
 function displayErrorPopup($message)
 {
     echo "
@@ -38,29 +78,11 @@ function displaySuccesPopup($message)
 function addSiswa(array $data)
 {
     global $connect;
-    $required_fields = [
-        'username_siswa',
-        'nama_lengkap_siswa',
-        'password_siswa',
-    ];
 
-    $has_empty_field = false;
-
-    foreach ($required_fields as $field) {
-        if (empty(trim($data[$field]))) {
-            $has_empty_field = true;
-            break;
-        }
-    }
-
-    if ($has_empty_field) {
-        return displayErrorPopup("Harap isi semua field pendaftaran!");
-    }
-
-    $username_input = trim($data['username_siswa']);
-    if (checkUsernameDuplication($username_input)) {
-        return displayErrorPopup("username ({$username_input}) sudah terdaftar. Silakan login atau gunakan username lain.");
-    }
+    // $username_input = trim($data['username_siswa']);
+    // if (checkUsernameDuplication($username_input)) {
+    //     return displayErrorPopup("username ({$username_input}) sudah terdaftar. Silakan login atau gunakan username lain.");
+    // }
 
     $stmnt = $connect->prepare("
         INSERT INTO siswa (USERNAME_SISWA, NAMA_LENGKAP_SISWA, FOTO_SISWA, PASSWORD_SISWA)
@@ -410,6 +432,7 @@ function addPendaftaran(array $data, $username_siswa)
 // ===============================
 // Admin Update Status Pendaftaran
 // ===============================
+
 function updatePendaftaranStatus($username_siswa, $new_status)
 {
     global $connect;
