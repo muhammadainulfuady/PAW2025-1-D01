@@ -29,6 +29,7 @@ if (isset($_GET['delete'])) {
     }
     $delete = $connect->prepare("DELETE FROM jurusan WHERE id_jurusan = :id");
     $delete->execute([':id' => $id]);
+    header("Location: Ddelete_jurusan.php");
     exit;
 }
 
@@ -54,6 +55,18 @@ $jurusans = $stmnt->fetchAll();
     <?php require_once "../components/header_admin.php";
     ?>
     <div class="admin-container">
+        <?php if (isset($_SESSION['BERHASIL_TAMBAH_JURUSAN'])): ?>
+            <div class='popup-success'>
+                <?= $_SESSION['BERHASIL_TAMBAH_JURUSAN'] ?>
+            </div>
+            <?php unset($_SESSION['BERHASIL_TAMBAH_JURUSAN']) ?>
+        <?php endif ?>
+        <?php if (isset($_SESSION['BERHASIL_TAMBAH_JURUSAN'])): ?>
+            <div class='popup-success'>
+                <?= $_SESSION['BERHASIL_TAMBAH_JURUSAN'] ?>
+            </div>
+            <?php unset($_SESSION['BERHASIL_TAMBAH_JURUSAN']) ?>
+        <?php endif ?>
         <h2 class="judul-riwayat">Daftar Jurusan</h2>
 
         <table class="tabel-siswa">

@@ -10,15 +10,16 @@ if (!isset($_SESSION['ADMIN_ID'])) {
 }
 
 global $connect;
+$eror = [];
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $nama_jurusan = htmlspecialchars($_POST['nama_jurusan']);
+    valCreateJurusan($nama_jurusan, $eror);
 
-if (isset($_POST['submit'])) {
-    $nama_jurusan = trim($_POST['nama_jurusan']);
-
-    if ($nama_jurusan != "") {
+    if (empty($eror)) {
         $stmnt = $connect->prepare("INSERT INTO jurusan (nama_jurusan) VALUES (:nama)");
         $stmnt->bindParam(":nama", $nama_jurusan);
         $stmnt->execute();
-
+        $_SESSION['BERHASIL_TAMBAH_JURUSAN'] = "Jurusan $nama_jurusan berhasil di tambah.";
         // Redirect setelah berhasil tambah
         header("Location: Ddelete_jurusan.php");
         exit;
@@ -44,6 +45,7 @@ if (isset($_POST['submit'])) {
 
         <form method="POST">
             <label>Nama Jurusan</label>
+            <p class="eror-validasi"><?= $eror["nama_jurusan"] ?? "" ?></p>
             <input type="text" name="nama_jurusan">
             <button type="submit" name="submit" class="btn-simpan">Simpan</button>
             <a href="Ddelete_jurusan.php">Batal</a>

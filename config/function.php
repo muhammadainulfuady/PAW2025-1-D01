@@ -188,6 +188,19 @@ function valTanggalLahir($field, &$eror)
     }
 }
 
+function valUpdateJurusan($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['nama_jurusan'] = "Nama jurusan tidak boleh kosong";
+    }
+}
+function valCreateJurusan($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['nama_jurusan'] = "Nama jurusan tidak boleh kosong";
+    }
+}
+
 
 function displayErrorPopup($message)
 {

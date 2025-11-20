@@ -28,13 +28,15 @@ $data = $stmnt->fetch(PDO::FETCH_ASSOC);
 
 // Jika ID tidak ditemukan
 if (!$data) {
-    header("Location: jurusan.php");
+    header("Location: Ddelete_jurusan.php");
     exit;
 }
 
 // Proses update data
-if (isset($_POST['submit'])) {
-    $nama_jurusan = trim($_POST['nama_jurusan']);
+$eror = [];
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $nama_jurusan = htmlspecialchars($_POST['nama_jurusan']);
+    valUpdateJurusan($nama_jurusan, $eror);
     if ($nama_jurusan != "") {
         $cek = $connect->prepare("
         SELECT COUNT(*) 
@@ -46,7 +48,6 @@ if (isset($_POST['submit'])) {
         if ($dipakai > 0) {
             $_SESSION['eror_update_jurusan'] = "Jurusan sudah ada yang punya tidak bisa di edit";
             header("Location: Ddelete_jurusan.php");
-            exit;
         }
 
         // Lanjut update jika aman
@@ -58,6 +59,7 @@ if (isset($_POST['submit'])) {
         $update->bindParam(":nama", $nama_jurusan);
         $update->bindParam(":id", $id);
         $update->execute();
+        $_SESSION['BERHASIL_UPDATE_JURUSAN'] = "Jurusan berhasil di update";
         header("Location: Ddelete_jurusan.php");
     }
 }
@@ -81,8 +83,8 @@ if (isset($_POST['submit'])) {
 
         <form method="POST">
             <label>Nama Jurusan</label>
+            <p class="eror-validasi"><?= $eror["nama_jurusan"] ?? "" ?></p>
             <input type="text" name="nama_jurusan" value="<?php echo htmlspecialchars($data['nama_jurusan']); ?>">
-
             <button type="submit" name="submit" class="btn-simpan">Update</button>
             <a href="Ddelete_jurusan.php">Batal</a>
         </form>
