@@ -63,10 +63,11 @@ $pendaftars = $pendaftaran->fetchAll();
 
             <?php foreach ($siswas as $siswa): ?>
                 <tr>
-                    <td><?= $siswa['NAMA_LENGKAP_SISWA'] ?></td>
+                    <td><?= htmlspecialchars($siswa['NAMA_LENGKAP_SISWA']) ?></td>
                     <!-- Tombol Detail -->
                     <td>
-                        <a href="Bread_calon_siswa.php?username=<?= $siswa['USERNAME_SISWA'] ?>" class="btn-detail">
+                        <a href="Bread_calon_siswa.php?username=<?= urlencode($siswa['USERNAME_SISWA']) ?>"
+                            class="btn-detail">
                             Show Detail
                         </a>
                     </td>

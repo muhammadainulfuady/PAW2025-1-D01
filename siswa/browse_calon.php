@@ -95,53 +95,54 @@ $id_pendaftarans = $id_pendaftaran->fetch();
                     <div class="riwayat-detail">
                         <div class="detail-row">
                             <span class="detail-label">NISN:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['NISN'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['NISN']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Jenis Kelamin:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['JENIS_KELAMIN'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['JENIS_KELAMIN']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Tanggal Lahir:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['TANGGAL_LAHIR'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['TANGGAL_LAHIR']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Tempat Lahir:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['TEMPAT_LAHIR'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['TEMPAT_LAHIR']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">NO HP Siswa:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['NO_HP_SISWA'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['NO_HP_SISWA']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Tanggal Pendaftaran:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['TANGGAL_PENDAFTARAN'] ?></span>
+                            <span
+                                class="detail-value"><?= htmlspecialchars($data_pendaftaran['TANGGAL_PENDAFTARAN']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Asal Sekolah:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['ASAL_SEKOLAH'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['ASAL_SEKOLAH']) ?></span>
                         </div>
                         <div class="detail-row detail-alamat">
                             <span class="detail-label">Alamat:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['ALAMAT'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['ALAMAT']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Nama Wali:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['NAMA_WALI'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['NAMA_WALI']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">NO HP Wali:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['NO_HP_WALI'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['NO_HP_WALI']) ?></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Jurusan:</span>
                             <span class="detail-value">
-                                <?= $jurusans['NAMA_JURUSAN'] ?>
+                                <?= htmlspecialchars($jurusans['NAMA_JURUSAN']) ?>
                             </span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Program Pondok:</span>
-                            <span class="detail-value"><?= $data_pendaftaran['PROGRAM_PONDOK'] ?></span>
+                            <span class="detail-value"><?= htmlspecialchars($data_pendaftaran['PROGRAM_PONDOK']) ?></span>
                         </div>
                     </div>
 

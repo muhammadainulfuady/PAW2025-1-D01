@@ -26,13 +26,13 @@ $siswa = $stmnt->fetch();
     <section class="dashboard-siswa">
         <?php if (isset($_SESSION['BERHASIL_LOGIN'])): ?>
             <div class='popup-success'>
-                <?= $_SESSION['BERHASIL_LOGIN'] ?>
+                <?= htmlspecialchars($_SESSION['BERHASIL_LOGIN']) ?>
             </div>
             <?php unset($_SESSION['BERHASIL_LOGIN']) ?>
         <?php endif ?>
         <?php if (isset($_SESSION['BERHASIL_EDIT'])): ?>
             <div class='popup-success'>
-                <?= $_SESSION['BERHASIL_EDIT'] ?>
+                <?= htmlspecialchars($_SESSION['BERHASIL_EDIT']) ?>
             </div>
             <?php unset($_SESSION['BERHASIL_EDIT']) ?>
         <?php endif ?>

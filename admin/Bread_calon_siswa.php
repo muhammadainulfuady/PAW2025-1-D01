@@ -82,29 +82,29 @@ $siswas = $stmnt->fetchAll();
 
                                 <div class="riwayat-detail">
                                         <div class="detail-row"><span class="detail-label">NISN:</span> <span
-                                                        class="detail-value"><?= $siswa['NISN'] ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['NISN'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Nama Lengkap:</span> <span
-                                                        class="detail-value"><?= $siswa['NAMA_LENGKAP_SISWA'] ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['NAMA_LENGKAP_SISWA'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Jenis Kelamin:</span> <span
-                                                        class="detail-value"><?= $siswa['JENIS_KELAMIN'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['JENIS_KELAMIN'] ?? '-')?></span></div>
                                         <div class="detail-row"><span class="detail-label">Tanggal Lahir:</span> <span
-                                                        class="detail-value"><?= $siswa['TANGGAL_LAHIR'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['TANGGAL_LAHIR'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Tempat Lahir:</span> <span
-                                                        class="detail-value"><?= $siswa['TEMPAT_LAHIR'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['TEMPAT_LAHIR'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">No Hp Siswa:</span> <span
-                                                        class="detail-value"><?= $siswa['NO_HP_SISWA'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['NO_HP_SISWA'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Asal Sekolah:</span> <span
-                                                        class="detail-value"><?= $siswa['ASAL_SEKOLAH'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['ASAL_SEKOLAH'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Alamat:</span> <span
-                                                        class="detail-value"><?= $siswa['ALAMAT'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['ALAMAT'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Nama Wali:</span> <span
-                                                        class="detail-value"><?= $siswa['NAMA_WALI'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['NAMA_WALI'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">No HP Wali:</span> <span
-                                                        class="detail-value"><?= $siswa['NO_HP_WALI'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['NO_HP_WALI'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Jurusan:</span> <span
-                                                        class="detail-value"><?= $siswa['NAMA_JURUSAN'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['NAMA_JURUSAN'] ?? '-' )?></span></div>
                                         <div class="detail-row"><span class="detail-label">Program Pondok:</span> <span
-                                                        class="detail-value"><?= $siswa['PROGRAM_PONDOK'] ?? '-' ?></span></div>
+                                                        class="detail-value"><?= htmlspecialchars($siswa['PROGRAM_PONDOK'] ?? '-' )?></span></div>
                                 </div>
                         <?php endforeach ?>
                 </div>
@@ -112,8 +112,8 @@ $siswas = $stmnt->fetchAll();
                 $has_pendaftaran = !empty($siswas) && !empty($siswas[0]['NISN']);
                 if ($has_pendaftaran):
                         ?>
-                        <h3 class="judul-riwayat" style="margin-top: 20px;">Ubah Status Pendaftaran</h3>
-                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <h3 class="judul-riwayat">Ubah Status Pendaftaran</h3>
+                        <div class="verif-siswa">
 
                                 <form method="POST">
                                         <input type="hidden" name="new_status" value="1">

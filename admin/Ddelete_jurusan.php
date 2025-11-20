@@ -77,7 +77,7 @@ $jurusans = $stmnt->fetchAll();
 
             <?php foreach ($jurusans as $j): ?>
                 <tr>
-                    <td><?= $j['nama_jurusan'] ?></td>
+                    <td><?= htmlspecialchars($j['nama_jurusan']) ?></td>
                     <td>
                         <!-- Edit -->
                         <a href="Cupdate_jurusan.php?id=<?= $j['id_jurusan'] ?>" class="btn-edit">Edit</a>
@@ -89,13 +89,13 @@ $jurusans = $stmnt->fetchAll();
                     </td>
                     <?php if (isset($_SESSION['eror_update_jurusan'])): ?>
                         <div class="eror-jurusan">
-                            <?= $_SESSION['eror_update_jurusan'] ?>
+                            <?= htmlspecialchars($_SESSION['eror_update_jurusan']) ?>
                         </div>
                         <?php unset($_SESSION['eror_update_jurusan']); ?>
                     <?php endif ?>
                     <?php if (isset($_SESSION['eror_delete_jurusan'])): ?>
                         <div class="eror-jurusan">
-                            <?= $_SESSION['eror_delete_jurusan']; ?>
+                            <?= htmlspecialchars($_SESSION['eror_delete_jurusan']); ?>
                         </div>
                         <?php unset($_SESSION['eror_delete_jurusan']); ?>
                     <?php endif ?>

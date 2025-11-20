@@ -877,6 +877,16 @@ footer.main-footer p {
   font-style: italic;
 }
 
+.judul-riwayat {
+  margin-top: 20px;
+}
+
+.verif-siswa {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 /* =========================================
    RESPONSIVE MEDIA QUERIES (TAMBAHAN)
    ========================================= */

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Login Calon Siswa</h2>
         <?php if (isset($_SESSION['BERHASIL_REGISTER'])): ?>
             <div class='popup-success'>
-                <?= $_SESSION['BERHASIL_REGISTER'] ?>
+                <?= htmlspecialchars($_SESSION['BERHASIL_REGISTER']) ?>
             </div>
             <?php unset($_SESSION['BERHASIL_REGISTER']) ?>
         <?php endif ?>

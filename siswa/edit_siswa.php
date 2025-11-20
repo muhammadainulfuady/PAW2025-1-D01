@@ -60,7 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="edit-form-siswa">
             <form action="#" method="POST" enctype="multipart/form-data">
                 <label>Nama Lengkap:</label>
-                <input type="text" name="nama_lengkap_siswa" value="<?= $siswa['NAMA_LENGKAP_SISWA'] ?>">
+                <input type="text" name="nama_lengkap_siswa"
+                    value="<?= htmlspecialchars($siswa['NAMA_LENGKAP_SISWA']) ?>">
 
                 <label>Foto Saat Ini:</label><br>
                 <?php if ($siswa['FOTO_SISWA'] === "default.jpg"): ?>
