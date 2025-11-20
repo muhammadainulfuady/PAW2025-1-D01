@@ -9,6 +9,7 @@
             <li><a href="../admin/riwayat_calon_siswa.php">Calon siswa</a></li>
             <li><a href="../admin/Ddelete_jurusan.php">Kelola jurusan</a></li>
             <li><a href="../auth/logout.php">Logout</a></li>
+            <li>Admin PPDB</li>
             <li></li>
             <li class="user-info">
                 <img src="../siswa/default.jpg" alt="Foto admin">

@@ -189,26 +189,11 @@ function valTanggalLahir($field, &$eror)
 }
 
 
-
 function displayErrorPopup($message)
 {
     echo "
         <div class='error-popup-container'>
             <p class='eror-akun'>⚠️⚠️ {$message}</p>
-        </div>";
-    return false;
-}
-
-// ===============
-// succes validasi
-// ===============
-
-function displaySuccesPopup($message)
-{
-    echo "
-        <div class='succes-popup-container'>
-            <span class='succes-icon'>✔️<span>
-            <p class='succes-akun'>{$message}</p>
         </div>";
     return false;
 }
@@ -343,7 +328,7 @@ function handleSiswaLogin($username_siswa, $password_siswa)
         }
         return displayErrorPopup('Password siswa salah');
     }
-    return displayErrorPopup('Username belum ada silahkan registrasi dulu');
+    return false;
 }
 
 // ===================

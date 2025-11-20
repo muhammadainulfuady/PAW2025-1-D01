@@ -17,7 +17,24 @@ $stmnt->execute([':username' => $username]);
 $siswa = $stmnt->fetch();
 
 if (!$siswa) {
-    echo "Data siswa tidak ditemukan!";
+    $message = "Akun tidak ditemukan";
+    echo "
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' href='../source/css/style.css'>
+        <title>Siswa | None</title>
+    </head>
+    <body>
+    <div class='text-tolak'>
+        <p class='tolak-siswa tolak-iscon'>⚠️⚠️ {$message}</p>
+    </div>
+        <a href='../dashboard/index.php' class='btn-kembali-pusat'>Kembali</a>
+    </body>
+    </html>
+";
     exit;
 }
 
@@ -31,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit | Siswa</title>
     <link rel="stylesheet" href="../source/css/style.css">
 </head>

@@ -450,27 +450,6 @@ img.img-daftar {
   margin: 6px 0;
 }
 
-/* 0 = Proses */
-.status-proses {
-  background: #fff7d1;
-  color: #a67c00;
-  border: 1px solid #e2c04b;
-}
-
-/* 1 = Pending */
-.status-pending {
-  background: #ffe0e0;
-  color: #cc2e2e;
-  border: 1px solid #ff8a8a;
-}
-
-/* 2 = Diterima */
-.status-diterima {
-  background: #d9ffe5;
-  color: #0f8a3a;
-  border: 1px solid #7be6a3;
-}
-
 /* --------------------------------------------------
    LINK DOKUMEN
 -------------------------------------------------- */
@@ -896,4 +875,117 @@ footer.main-footer p {
   font-size: 12px;
   color: red;
   font-style: italic;
+}
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES (TAMBAHAN)
+   ========================================= */
+
+/* --- Tablet & Layar Kecil (Max Width 768px) --- */
+@media screen and (max-width: 768px) {
+  /* 1. Header menjadi tumpuk (Stack) */
+  .header-admin-siswa {
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .header-admin-siswa nav ul {
+    gap: 10px;
+    flex-wrap: wrap; /* Agar menu turun ke bawah jika sempit */
+    justify-content: center;
+  }
+
+  /* 2. Container agar tidak terlalu mepet layar */
+  .form-container,
+  .container-siswa,
+  .visi-misi,
+  .edit-siswa,
+  .login-container,
+  .login-admin-siswa,
+  .admin-container {
+    width: 95%; /* Gunakan persentase, bukan fixed width */
+    margin: 15px auto;
+    padding: 15px;
+  }
+
+  /* 3. Dashboard Admin (Kartu menjadi vertikal) */
+  .dashboard-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .dashboard-card {
+    width: 100%; /* Kartu memenuhi lebar container */
+    max-width: 400px; /* Batasi agar tidak terlalu lebar */
+  }
+
+  /* 4. Perbaikan Tabel Admin agar bisa di-scroll horizontal */
+  .admin-container {
+    width: 95%;
+    display: block; /* Override flex/max-content */
+    overflow-x: auto; /* Scrollbar horizontal jika tabel kepanjangan */
+  }
+
+  .tabel-siswa {
+    width: 100%;
+  }
+}
+
+/* --- HP / Layar Sangat Kecil (Max Width 480px) --- */
+@media screen and (max-width: 480px) {
+  /* 1. Font lebih kecil sedikit agar muat */
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+
+  /* 2. Navigasi Header lebih rapi di HP */
+  .header-admin-siswa nav ul li a {
+    font-size: 13px;
+    padding: 5px;
+  }
+
+  /* 3. Detail Riwayat (Label dan Isi menjadi atas-bawah) */
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-label {
+    flex-basis: 100%;
+    margin-bottom: 2px;
+    color: #4caf50; /* Highlight label sedikit */
+  }
+
+  .detail-value {
+    flex-basis: 100%;
+    text-align: left; /* Rata kiri untuk nilai */
+  }
+
+  /* 4. Tombol di halaman detail (Terima/Tolak) menjadi vertikal */
+  .status-update-container {
+    flex-direction: column;
+  }
+
+  .status-update-container button {
+    width: 100%;
+  }
+
+  /* 5. Popup Eror/Sukses agar tidak kepotong */
+  .error-popup-container,
+  .popup-success {
+    min-width: 90%;
+    width: 90%;
+    font-size: 14px;
+  }
+
+  /* 6. Login Form Image/Input */
+  .login-admin-siswa-input input {
+    font-size: 14px;
+  }
 }

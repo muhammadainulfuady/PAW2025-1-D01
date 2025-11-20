@@ -75,7 +75,7 @@ $siswas = $stmnt->fetchAll();
                                 <?php endif ?>
                                 <?php foreach ($siswas as $siswa): ?>
                                         <span
-                                                class="status-badge status-<?= ($siswa['STATUS'] === "0" ? 'proses' : ($siswa['STATUS'] === "1" ? 'diterima' : ($siswa['STATUS'] === "2" ? 'pending' : 'none'))) ?>">
+                                                class="status-badge status-<?= ($siswa['STATUS'] === "0" ? 'proses' : ($siswa['STATUS'] === "1" ? 'diterima' : ($siswa['STATUS'] === "2" ? 'tolak' : 'none'))) ?>">
                                                 <?= ($siswa['STATUS'] === "0" ? 'Proses Verifikasi' : ($siswa['STATUS'] === "1" ? 'Diterima' : ($siswa['STATUS'] === "2" ? 'Ditolak' : 'Belum Daftar'))) ?>
                                         </span>
                                 </div>

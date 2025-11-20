@@ -45,6 +45,8 @@ $counts_jurusan = $count_jurusan_->fetch();
                     <img src="../source/images/siswa_sekolah.png" alt="">
                 </div>
             </a>
+        </div>
+        <div class="dashboard-container">
             <a href="../admin/Ddelete_jurusan.php" class="dashboard-card">
                 Jurusan : <?= $counts_jurusan['BANYAK_JURUSAN'] ?>
                 <div class="img-dashboard-admin">

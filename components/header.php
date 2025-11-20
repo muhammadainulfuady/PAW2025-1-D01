@@ -6,12 +6,18 @@
             <li><a href="../siswa/browse_calon.php">Riwayat</a></li>
             <li><a href="../siswa/pendaftaran.php">Pendaftaran</a></li>
             <li><a href="../auth/logout.php">Logout</a></li>
-            <li><a href="../siswa/edit_siswa.php"><?= $siswa['NAMA_LENGKAP_SISWA']; ?></a></li>
+            <li><a href="../siswa/edit_siswa.php">
+                    <?php if (empty($siswa['NAMA_LENGKAP_SISWA']) || $siswa['NAMA_LENGKAP_SISWA'] === ''): ?>
+                        <p>None</p>
+                    <?php else: ?>
+                        <?= $siswa['NAMA_LENGKAP_SISWA']; ?>
+                    <?php endif ?>
+                </a></li>
 
             <!-- FOTO + NAMA -->
             <li class="user-info">
                 <a href="../siswa/edit_siswa.php" class="user-link">
-                    <?php if ($siswa['FOTO_SISWA'] === 'default.jpg'): ?>
+                    <?php if (empty($siswa['FOTO_SISWA']) || $siswa['FOTO_SISWA'] === 'default.jpg'): ?>
                         <img src="../siswa/default.jpg" alt="Foto Siswa"><br>
                     <?php else: ?>
                         <img src="../source/upload/images/<?= $siswa['FOTO_SISWA'] ?>" alt="Foto Siswa"><br>
