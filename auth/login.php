@@ -1,6 +1,3 @@
-<!-- Form login siswa/admin
-Proses cek username & password
-Session set -->
 <?php
 if (session_status() === PHP_SESSION_NONE)
     session_start();
@@ -13,8 +10,8 @@ function getStickyValue($fieldName)
 $eror = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Ambil input dan bersihkan dari karakter berbahaya
-    $username = $_POST['username_siswa'] ?? '';
-    $password = $_POST['password_siswa'] ?? '';
+    $username = htmlspecialchars($_POST['username_siswa'] ?? '');
+    $password = htmlspecialchars($_POST['password_siswa'] ?? '');
     valUsername($username, $eror);
     valPassword($password, $eror);
     if (empty($eror)) {
@@ -25,53 +22,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Siswa / Admin</title>
-    <link rel="stylesheet" href="./source/css/style.css">
-</head>
-
-<body>
+<form action="#" method="POST">
     <section class="login-admin-siswa">
+        <h2>Login Calon Siswa</h2>
         <?php if (isset($_SESSION['BERHASIL_REGISTER'])): ?>
-            <div class='popup-succes'>
+            <div class='popup-success'>
                 <?= $_SESSION['BERHASIL_REGISTER'] ?>
             </div>
             <?php unset($_SESSION['BERHASIL_REGISTER']) ?>
         <?php endif ?>
         <div class="login">
-            <form action="" method="POST">
-                <div class="login-admin-siswa-input">
-                    <label for="username_siswa">Masukkan Username</label>
-                    <input type="text" name="username_siswa" id="username_siswa" placeholder="Masukkan username" value="<?php
-                    if (!isset($eror['username_siswa'])) {
-                        echo getStickyValue('username_siswa');
-                    } ?>">
-                    <span class=" eror-validasi">
-                        <p><?= $eror["username_siswa"] ?? "" ?></p>
-                    </span>
-                </div>
+            <div class="login-admin-siswa-input">
+                <label for="username_siswa">Masukkan Username</label>
+                <input type="text" name="username_siswa" id="username_siswa" placeholder="Masukkan username" value="<?php
+                if (!isset($eror['username_siswa'])) {
+                    echo getStickyValue('username_siswa');
+                } ?>">
+                <p class="eror-validasi"><?= $eror["username_siswa"] ?? "" ?></p>
+            </div>
 
-                <div class="login-admin-siswa-input">
-                    <label for="password_siswa">Masukkan Password</label>
-                    <input type="password" name="password_siswa" id="password_siswa" placeholder="Masukkan password"
-                        value="">
-                    <span class="eror-validasi">
-                        <p><?= $eror["password_siswa"] ?? "" ?></p>
-                    </span>
-                </div>
-                <p>Belum punya akun? <a href="./siswa/registrasi_siswa.php" class="btn-regis-login">Register</a></p>
-                <button type="submit" name="submit_login_siswa" class="btn-submit">Login</button>
-            </form>
+            <div class="login-admin-siswa-input">
+                <label for="password_siswa">Masukkan Password</label>
+                <input type="password" name="password_siswa" id="password_siswa" placeholder="Masukkan password"
+                    value="">
+                <p class="eror-validasi"><?= $eror["password_siswa"] ?? "" ?></p>
+            </div>
+            <p>Belum punya akun? <a href="./siswa/registrasi_siswa.php" class="btn-regis-login">Register</a></p>
+            <button type="submit" name="submit_login_siswa" class="btn-submit">Login</button>
         </div>
     </section>
-    <?php require_once "./components/footer.php" ?>
-
-</body>
-
-</html>
+</form>

@@ -63,18 +63,18 @@ if (isset($_POST['submit'])) {
 }
 
 // Header admin
-require_once "../components/header_admin.php";
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
-    <link rel="stylesheet" href="../source/css/style.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update | Jurusan</title>
+<link rel="stylesheet" href="../source/css/style.css">
 
 <body>
-
+    <?php require_once "../components/header_admin.php";
+    ?>
     <div class="admin-container">
 
         <h2 class="judul-riwayat">Edit Jurusan</h2>

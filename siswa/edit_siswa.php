@@ -24,8 +24,7 @@ if (!$siswa) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     updateSiswa($username, $_POST);
 }
-require_once "../components/header.php"
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,10 +36,11 @@ require_once "../components/header.php"
 </head>
 
 <body>
+    <?php require_once "../components/header.php" ?>
     <section class="edit-siswa">
         <h2>Edit Profil Siswa</h2>
         <div class="edit-form-siswa">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="#" method="POST" enctype="multipart/form-data">
                 <label>Nama Lengkap:</label>
                 <input type="text" name="nama_lengkap_siswa" value="<?= $siswa['NAMA_LENGKAP_SISWA'] ?>">
 

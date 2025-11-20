@@ -165,23 +165,43 @@ function valTanggalLahir($field, &$eror)
 {
     if (requiredCheck($field)) {
         $eror['tanggal_lahir'] = "Tanggal lahir wajib diisi.";
+        return;
+    }
+    $pecah = explode("-", $field);
+    if (count($pecah) !== 3) {
+        $eror['tanggal_lahir'] = "Format tanggal tidak valid.";
+        return;
+    }
+
+    list($tahun, $bulan, $hari) = $pecah;
+    if (!checkdate((int) $bulan, (int) $hari, (int) $tahun)) {
+        $eror['tanggal_lahir'] = "Tanggal lahir tidak valid.";
+        return;
+    }
+    $tanggal_lahir = new DateTime($field);
+    $tanggal_patokan = new DateTime("2025-07-01");
+    $umur = $tanggal_patokan->diff($tanggal_lahir)->y;
+    if ($umur > 21) {
+        $eror['tanggal_lahir'] = "Umur maksimal 21 tahun untuk tahun ajaran.";
+    } elseif ($umur < 15) {
+        $eror['tanggal_lahir'] = "Umur minimal 15 tahun.";
     }
 }
+
 
 
 function displayErrorPopup($message)
 {
     echo "
         <div class='error-popup-container'>
-            <span class='error-icon'>⚠️⚠️<span>
-            <p class='eror-akun'>{$message}</p>
+            <p class='eror-akun'>⚠️⚠️ {$message}</p>
         </div>";
     return false;
 }
 
-// ====================
+// ===============
 // succes validasi
-// =====================
+// ===============
 
 function displaySuccesPopup($message)
 {
@@ -200,6 +220,9 @@ function displaySuccesPopup($message)
 function addSiswa(array $data)
 {
     global $connect;
+    if (checkUsernameDuplication($data['username_siswa'])) {
+        return displayErrorPopup('Username sudah terdaftar! Silahkan pilih username lain');
+    }
 
     $stmnt = $connect->prepare("
         INSERT INTO siswa (USERNAME_SISWA, NAMA_LENGKAP_SISWA, FOTO_SISWA, PASSWORD_SISWA)
@@ -209,8 +232,8 @@ function addSiswa(array $data)
     $result = $stmnt->execute([
         ":username_siswa" => htmlspecialchars($data['username_siswa']),
         ":nama_lengkap_siswa" => htmlspecialchars($data['nama_lengkap_siswa']),
-        ":foto_siswa" => 'default.jpg',
-        ":password_siswa" => md5($data['password_siswa']),
+        ":foto_siswa" => htmlspecialchars('default.jpg'),
+        ":password_siswa" => htmlspecialchars(md5($data['password_siswa'])),
     ]);
 
     if ($result && $stmnt->rowCount() > 0) {
@@ -320,7 +343,7 @@ function handleSiswaLogin($username_siswa, $password_siswa)
         }
         return displayErrorPopup('Password siswa salah');
     }
-    return false;
+    return displayErrorPopup('Username belum ada silahkan registrasi dulu');
 }
 
 // ===================
@@ -380,8 +403,8 @@ function updateSiswa($username, $data)
 
     $update = $stmnt->execute([
         ':nama' => htmlspecialchars($data['nama_lengkap_siswa']),
-        ':foto' => $fotoBaru,
-        ':username' => $username
+        ':foto' => htmlspecialchars($fotoBaru),
+        ':username' => htmlspecialchars($username)
     ]);
 
     if ($update) {
@@ -484,8 +507,8 @@ function addPendaftaran(array $data, $username_siswa)
     ");
 
     $result_pendaftaran = $stmnt_pendaftaran->execute([
-        ":id_jurusan" => $id_jurusan,
-        ":username_siswa" => $username_siswa,
+        ":id_jurusan" => htmlspecialchars($id_jurusan),
+        ":username_siswa" => htmlspecialchars($username_siswa),
         ":nisn_siswa" => htmlspecialchars($data['nisn_siswa']),
         ":jenis_kelamin" => htmlspecialchars($data['jenis_kelamin']),
         ":tanggal_lahir" => htmlspecialchars($data['tanggal_lahir']),
@@ -495,7 +518,7 @@ function addPendaftaran(array $data, $username_siswa)
         ":alamat" => htmlspecialchars($data['alamat']),
         ":nama_wali" => htmlspecialchars($data['nama_wali']),
         ":no_hp_wali" => htmlspecialchars($data['no_hp_wali']),
-        ":status" => $status_penerimaan,
+        ":status" => htmlspecialchars($status_penerimaan),
         ":program_pondok" => htmlspecialchars($data['program_pondok']),
     ]);
 

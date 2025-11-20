@@ -48,19 +48,20 @@ $stmnt->execute();
 $siswas = $stmnt->fetchAll();
 
 // Gunakan header admin
-require_once "../components/header_admin.php";
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Calon siswa</title>
+        <title>Detail | siswa</title>
 </head>
 
 <body>
+        <?php require_once "../components/header_admin.php";
+        ?>
         <div class="admin-container">
                 <h2 class="judul-riwayat">Detail Calon Siswa</h2>
 

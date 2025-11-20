@@ -1,6 +1,5 @@
 <?php
 
-include '../components/header_admin.php';
 require_once(__DIR__ . "/../config/function.php");
 require_once(__DIR__ . "/../config/database.php");
 if (session_status() === PHP_SESSION_NONE)
@@ -34,6 +33,8 @@ $counts_jurusan = $count_jurusan_->fetch();
 </head>
 
 <body>
+    <?php include '../components/header_admin.php';
+    ?>
     <div class="container-siswa">
         <h2>Selamat datang di beranda admin</h2>
         <p>kelola data,edit jurusan siswa baru Pesantern AL - AMIN </p>

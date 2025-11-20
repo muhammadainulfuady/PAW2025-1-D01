@@ -7,7 +7,8 @@ require_once __DIR__ . "/config/base.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Siswa</title>
+    <link rel="stylesheet" href="./source/css/style.css">
+    <title>Login | Siswa</title>
 </head>
 
 <body>

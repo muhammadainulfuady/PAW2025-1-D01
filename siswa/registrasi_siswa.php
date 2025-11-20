@@ -1,6 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE)
-    session_start();
 require_once(__DIR__ . "/../config/function.php");
 function getStickyValue($fieldName)
 {
@@ -8,9 +6,9 @@ function getStickyValue($fieldName)
 }
 $eror = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username_siswa = $_POST['username_siswa'] ?? '';
-    $nama_lengkap_siswa = $_POST['nama_lengkap_siswa'] ?? '';
-    $password_siswa = $_POST['password_siswa'] ?? '';
+    $username_siswa = htmlspecialchars($_POST['username_siswa'] ?? '');
+    $nama_lengkap_siswa = htmlspecialchars($_POST['nama_lengkap_siswa'] ?? '');
+    $password_siswa = htmlspecialchars($_POST['password_siswa'] ?? '');
     valUsername($username_siswa, $eror);
     valName($nama_lengkap_siswa, $eror);
     valPassword($password_siswa, $eror);
@@ -33,49 +31,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <section class="registrasi-siswa">
         <div class="login-container">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="#" method="POST" enctype="multipart/form-data">
                 <h2>Registrasi Calon Siswa</h2>
+
                 <div class="login-input">
                     <label for="username_siswa">Username</label>
-                    <input type="text" name="username_siswa" id="username_siswa" placeholder="Contoh : YourName_2404"
+                    <input type="text" name="username_siswa" id="username_siswa" placeholder="Contoh : loremIpsum09"
                         value="<?php
                         if (!isset($eror['username_siswa'])) {
                             echo getStickyValue('username_siswa');
                         }
                         ?>">
-                    <span class="eror-validasi">
-                        <p><?= $eror["username_siswa"] ?? "" ?></p>
-                    </span>
+                    <p class="eror-validasi"><?= $eror["username_siswa"] ?? "" ?></p>
                 </div>
 
                 <div class="login-input">
                     <label for="nama_lengkap_siswa">Nama Lengkap</label>
                     <input type="text" name="nama_lengkap_siswa" id="nama_lengkap_siswa"
-                        placeholder="Contoh : Your Name" value="<?php
+                        placeholder="Contoh : Lorem Ipsum" value="<?php
                         if (!isset($eror['nama_lengkap_siswa'])) {
                             echo getStickyValue('nama_lengkap_siswa');
                         }
                         ?>">
-                    <span class="eror-validasi">
-                        <p><?= $eror["nama_lengkap_siswa"] ?? "" ?></p>
-                    </span>
+                    <p class="eror-validasi"><?= $eror["nama_lengkap_siswa"] ?? "" ?></p>
                 </div>
 
                 <div class="login-input">
                     <label for="password_siswa">Password</label>
-                    <input type="password" name="password_siswa" id="password_siswa"
-                        placeholder="Contoh : YourPassword2404" value="">
-                    <span class=" eror-validasi">
-                        <p><?= $eror["password_siswa"] ?? "" ?></p>
-                    </span>
+                    <input type="password" name="password_siswa" id="password_siswa" placeholder="Contoh Lorem234">
+                    <p class="eror-validasi"><?= $eror["password_siswa"] ?? "" ?></p>
                 </div>
                 <p>Sudah punya akun? <a href="../index.php" class="btn-regis-login">Login</a></p>
-                <p class="nb">NB : Catat username dan password anda biar tidak lupa😊😊</p>
+                <p class="nb">NB : Catat username dan pasword anda biar tidak lupa😊😊</p>
                 <button type="submit" name="submit_siswa_register" class="btn-submit">Registrasi</button>
             </form>
         </div>
     </section>
-    <?php require_once "../components/footer.php" ?>
 </body>
 
 </html>

@@ -37,21 +37,21 @@ $pendaftaran->execute();
 $pendaftars = $pendaftaran->fetchAll();
 
 // Gunakan header admin
-require_once "../components/header_admin.php";
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../source/css/style.css">
-
-    <title></title>
+    <title>Riwayat | Siswa</title>
 </head>
 
 <body>
+    <?php require_once "../components/header_admin.php";
+    ?>
     <div class="admin-container">
         <h2 class="judul-riwayat">Daftar Calon Siswa</h2>
 

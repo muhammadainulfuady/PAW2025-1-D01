@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../source/css/style.css">
 <section class="header-admin-siswa">
     <h2 class="logo">PPDB Pesantern AL - AMIN</h2>
     <nav>
