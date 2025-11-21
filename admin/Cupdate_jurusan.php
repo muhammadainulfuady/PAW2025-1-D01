@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($dipakai > 0) {
             $_SESSION['eror_update_jurusan'] = "Jurusan sudah ada yang punya tidak bisa di edit";
             header("Location: Ddelete_jurusan.php");
+            exit;
         }
 
         // Lanjut update jika aman
@@ -59,12 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $update->bindParam(":nama", $nama_jurusan);
         $update->bindParam(":id", $id);
         $update->execute();
-        $_SESSION['BERHASIL_UPDATE_JURUSAN'] = "Jurusan berhasil di update";
         header("Location: Ddelete_jurusan.php");
+        exit;
     }
 }
 
-// Header admin
 ?>
 <!DOCTYPE html>
 <html lang="en">

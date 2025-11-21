@@ -61,12 +61,6 @@ $jurusans = $stmnt->fetchAll();
             </div>
             <?php unset($_SESSION['BERHASIL_TAMBAH_JURUSAN']) ?>
         <?php endif ?>
-        <?php if (isset($_SESSION['BERHASIL_TAMBAH_JURUSAN'])): ?>
-            <div class='popup-success'>
-                <?= $_SESSION['BERHASIL_TAMBAH_JURUSAN'] ?>
-            </div>
-            <?php unset($_SESSION['BERHASIL_TAMBAH_JURUSAN']) ?>
-        <?php endif ?>
         <h2 class="judul-riwayat">Daftar Jurusan</h2>
 
         <table class="tabel-siswa">

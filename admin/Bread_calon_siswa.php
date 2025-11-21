@@ -42,9 +42,11 @@ SELECT
     FROM siswa s
     LEFT JOIN pendaftaran p ON s.USERNAME_SISWA = p.USERNAME_SISWA
     LEFT JOIN jurusan j ON p.ID_JURUSAN = j.ID_JURUSAN
-    WHERE s.USERNAME_SISWA = '$username_siswa'
+    WHERE s.USERNAME_SISWA = :username_siswa
 ");
-$stmnt->execute();
+$stmnt->execute([
+        ":username_siswa" => $username_siswa,
+]);
 $siswas = $stmnt->fetchAll();
 
 // Gunakan header admin
