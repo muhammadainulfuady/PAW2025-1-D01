@@ -37,7 +37,7 @@ $counts_jurusan = $count_jurusan_->fetch();
     ?>
     <div class="container-siswa">
         <h2>Selamat datang di beranda admin</h2>
-        <p>kelola data,edit jurusan siswa baru Pesantern AL - AMIN </p>
+        <p>Kelola data, edit jurusan calon siswa baru Pesantern AL - AMIN </p>
         <div class="dashboard-container">
             <a href="../admin/riwayat_calon_siswa.php" class="dashboard-card">
                 Siswa : <?= $counts_siswa['BANYAK_SISWA'] ?>

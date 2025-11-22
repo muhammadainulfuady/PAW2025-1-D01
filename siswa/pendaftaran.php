@@ -9,6 +9,7 @@ if (!isset($_SESSION['USERNAME_SISWA'])) {
     header("Location: ../index.php");
     exit;
 }
+
 function getStickyValue($fieldName)
 {
     return isset($_POST[$fieldName]) ? htmlspecialchars(trim($_POST[$fieldName])) : '';
@@ -92,7 +93,7 @@ if ($status === "0") {
     </head>
     <body>
     <div class='text-terima'>
-        <p class='terima-siswa terima-iscon'>✔️✔️ {$message}</p>
+        <p class='terima-siswa terima-icon'>✔️✔️ {$message}</p>
     </div>
         <a href='browse_calon.php' class='btn-kembali-pusat'>Kembali</a>
     </body>
@@ -146,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php require_once '../components/header.php'; ?>
     <div class="form-container">
-        <h2>Formulir Pendaftaran Siswa 2025/2026</h2>
+        <h2>Formulir Pendaftaran Calon Siswa 2025/2026</h2>
         <form action="#" method="POST" enctype="multipart/form-data">
 
             <label for="nisn_siswa">NISN</label>

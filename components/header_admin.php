@@ -8,7 +8,7 @@
             <li><a href="../admin/index.php">Beranda</a></li>
             <li><a href="../admin/riwayat_calon_siswa.php">Calon siswa</a></li>
             <li><a href="../admin/Ddelete_jurusan.php">Kelola jurusan</a></li>
-            <li><a href="../auth/logout.php">Logout</a></li>
+            <li><a href="../auth/logout.php?role=admin">Logout</a></li>
             <li>Admin PPDB</li>
             <li></li>
             <li class="user-info">

@@ -201,6 +201,13 @@ function valCreateJurusan($field, &$eror)
     }
 }
 
+function valEditNamaSiswa($field, &$eror)
+{
+    if (requiredCheck($field)) {
+        $eror['nama_lengkap_siswa'] = "Nama lengkap tidak boleh kosong";
+    }
+}
+
 
 function displayErrorPopup($message)
 {

@@ -4,6 +4,7 @@ if (!isset($_SESSION['USERNAME_SISWA'])) {
     header("Location: ../index.php");
     exit;
 }
+
 $username_siswa = $_SESSION['USERNAME_SISWA'];
 global $connect;
 // Ambil data siswa

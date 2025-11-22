@@ -252,7 +252,7 @@ img.img-daftar {
 
 /* siswa di ditolak dan tidak bisa lihat form pendaftaran */
 .text-tolak {
-  background-color: #d81e1e;
+  background-color: #dc3545;
   text-align: center;
   margin: 10px auto;
   width: 30%;
@@ -269,12 +269,12 @@ img.img-daftar {
 }
 
 .text-tolak p {
-  color: white;
+  color: black;
 }
 
 /* siswa diterima */
 .text-terima {
-  background-color: #15d22b;
+  background-color: #28a745;
   text-align: center;
   margin: 10px auto;
   width: 30%;
@@ -291,12 +291,12 @@ img.img-daftar {
 }
 
 .text-terima p {
-  color: white;
+  color: black;
 }
 
 /* siswa di proses */
 .text-proses {
-  background-color: #f6f60b;
+  background-color: #ffc107;
   text-align: center;
   margin: 10px auto;
   width: 30%;
@@ -313,7 +313,7 @@ img.img-daftar {
 }
 
 .text-proses p {
-  color: white;
+  color: black;
 }
 
 /* Animasi slide turun + fade in */

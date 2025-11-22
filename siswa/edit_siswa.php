@@ -9,6 +9,11 @@ if (!isset($_SESSION['USERNAME_SISWA'])) {
     exit;
 }
 
+function getStickyValue($fieldName)
+{
+    return isset($_POST[$fieldName]) ? htmlspecialchars(trim($_POST[$fieldName])) : '';
+}
+
 $username = $_SESSION['USERNAME_SISWA'];
 
 global $connect;
@@ -38,8 +43,13 @@ if (!$siswa) {
     exit;
 }
 
+$eror = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    updateSiswa($username, $_POST);
+    $nama_lengkap_siswa = $_POST['nama_lengkap_siswa'];
+    valEditNamaSiswa($nama_lengkap_siswa, $eror);
+    if (empty($eror)) {
+        updateSiswa($username, $_POST);
+    }
 }
 ?>
 
@@ -56,13 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <?php require_once "../components/header.php" ?>
     <section class="edit-siswa">
-        <h2>Edit Profil Siswa</h2>
+        <h2>Edit Profil Calon Siswa</h2>
         <div class="edit-form-siswa">
             <form action="#" method="POST" enctype="multipart/form-data">
                 <label>Nama Lengkap:</label>
-                <input type="text" name="nama_lengkap_siswa"
-                    value="<?= htmlspecialchars($siswa['NAMA_LENGKAP_SISWA']) ?>">
-
+                <input type="text" name="nama_lengkap_siswa" placeholder="Masukan nama baru"
+                    value="<?= htmlspecialchars($_POST['nama_lengkap_siswa'] ?? $siswa['NAMA_LENGKAP_SISWA']) ?>">
+                <p class="eror-validasi"><?= $eror["nama_lengkap_siswa"] ?? "" ?></p>
                 <label>Foto Saat Ini:</label><br>
                 <?php if ($siswa['FOTO_SISWA'] === "default.jpg"): ?>
                     <img src="default.jpg" alt="Foto Siswa">

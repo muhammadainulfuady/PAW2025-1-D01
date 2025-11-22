@@ -5,7 +5,7 @@
             <li><a href="../dashboard/index.php">Beranda</a></li>
             <li><a href="../siswa/browse_calon.php">Riwayat</a></li>
             <li><a href="../siswa/pendaftaran.php">Pendaftaran</a></li>
-            <li><a href="../auth/logout.php">Logout</a></li>
+            <li><a href="../auth/logout.php?role=siswa">Logout</a></li>
             <li><a href="../siswa/edit_siswa.php">
                     <?php if (empty($siswa['NAMA_LENGKAP_SISWA']) || $siswa['NAMA_LENGKAP_SISWA'] === ''): ?>
                         <p>None</p>
