@@ -113,8 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $no_hp_wali = $_POST['no_hp_wali'] ?? '';
     $program_pondok = $_POST['program_pondok'] ?? '';
     $id_jurusan = $_POST['id_jurusan'] ?? '';
-    $file_akte = $_FILES['file_akte']['name'] ?? '';
-    $file_kk = $_FILES['file_kk']['name'] ?? '';
+    $file_akte = $_FILES['file_akte'] ?? '';
+    $file_kk = $_FILES['file_kk'] ?? '';
     valNisn($nisn_siswa, $eror);
     valTanggalLahir($tanggal_lahir, $eror);
     valJenisKelamin($jenis_kelamin, $eror);
@@ -161,9 +161,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="jenis_kelamin">Jenis kelamin siswa</label>
             <select name="jenis_kelamin" id="jenis_kelamin">
                 <option value="">-- Jenis Kelamin --</option>
-                <option value="L" <?= getStickyValue('jenis_kelamin') == 'Laki - Laki' ? 'selected' : '' ?>>
+                <option value="L" <?= getStickyValue('jenis_kelamin') == 'L' ? 'selected' : '' ?>>
                     Laki - Laki</option>
-                <option value="P" <?= getStickyValue('jenis_kelmin') == 'Perempuan' ? 'selected' : '' ?>>
+                <option value="P" <?= getStickyValue('jenis_kelmin') == 'P' ? 'selected' : '' ?>>
                     Perempuan</option>
             </select>
 
@@ -176,8 +176,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } ?>">
 
             <p class="eror-validasi"><?= $eror["tanggal_lahir"] ?? "" ?></p>
-
-
 
             <label for="tempat_lahir">Tempat Lahir</label>
             <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Contoh : Bungah Gresik" value="<?php if (!isset($eror['tempat_lahir'])) {
@@ -219,16 +217,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <p class="eror-validasi"><?= $eror["nama_wali"] ?? "" ?></p>
 
-
-
             <label for="no_hp_wali">Nomor HP Wali</label>
             <input type="text" name="no_hp_wali" id="no_hp_wali" placeholder="08123456789 atau +62812..." value="<?php if (!isset($eror['no_hp_wali'])) {
                 echo getStickyValue('no_hp_wali');
             } ?>">
 
             <p class="eror-validasi"><?= $eror["no_hp_wali"] ?? "" ?></p>
-
-
 
             <label for="program_pondok">Program Pondok</label>
             <select name="program_pondok" id="program_pondok">
@@ -243,8 +237,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <p class="eror-validasi"><?= $eror["program_pondok"] ?? "" ?></p>
 
-
-
             <label for="id_jurusan">Jurusan</label>
             <select name="id_jurusan" id="id_jurusan">
                 <option value="">-- Pilih Jurusan --</option>
@@ -257,11 +249,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <p class="eror-validasi"><?= $eror["id_jurusan"] ?? "" ?></p>
 
-
-
             <div class="document-upload">
                 <label for="file_akte">Upload Akte Kelahiran *</label>
-                <input type="file" name="file_akte" id="file_akte" accept=".pdf,.jpg,.jpeg,.png">
+                <input type="file" name="file_akte" id="file_akte">
             </div>
 
             <p class="eror-validasi"><?= $eror["file_akte"] ?? "" ?></p>
@@ -269,15 +259,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="document-upload">
                 <label for="file_kk">Upload Kartu Keluarga (KK) *</label>
-                <input type="file" name="file_kk" id="file_kk" accept=".pdf,.jpg,.jpeg,.png">
+                <input type="file" name="file_kk" id="file_kk">
             </div>
 
             <p class="eror-validasi"><?= $eror["file_kk"] ?? "" ?></p>
 
-
             <button type="submit" name="submit_pendaftaran">Daftar</button>
         </form>
     </div>
+    <?php require_once "../components/footer.php" ?>
+
 </body>
 
 </html>

@@ -34,10 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="login">
             <div class="login-admin-siswa-input">
                 <label for="username_siswa">Masukkan Username</label>
-                <input type="text" name="username_siswa" id="username_siswa" placeholder="Masukkan username" value="<?php
-                if (!isset($eror['username_siswa'])) {
-                    echo getStickyValue('username_siswa');
-                } ?>">
+                <input type="text" name="username_siswa" id="username_siswa" placeholder="Masukkan username">
                 <p class="eror-validasi"><?= $eror["username_siswa"] ?? "" ?></p>
             </div>
 

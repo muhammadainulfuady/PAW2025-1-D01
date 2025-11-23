@@ -26,7 +26,7 @@ function valUsername($field, &$eror)
 
 function valName($field, &$eror)
 {
-    $ptNamaLengkap = "/^[a-zA-Z\s]{5,}$/";
+    $ptNamaLengkap = "/^[a-zA-Z\s]{3,}$/";
     if (requiredCheck($field)) {
         $eror['nama_lengkap_siswa'] = "Kolom nama lengkap wajib di isi.";
     } elseif (!preg_match($ptNamaLengkap, $field)) {
@@ -40,7 +40,7 @@ function valPassword($field, &$eror)
     if (requiredCheck($field)) {
         $eror['password_siswa'] = "Kolom password wajib di isi.";
     } elseif (!preg_match($ptPassword, $field)) {
-        $eror['password_siswa'] = "Password harus alphanumeric huruf besar kecil dan minimal 8 karakter.";
+        $eror['password_siswa'] = "Password harus alphanumeric huruf besar kecil dan minimal 8 karakter. Tanpa spasi";
     }
 }
 
@@ -64,7 +64,6 @@ function valJenisKelamin($field, &$eror)
     }
 }
 
-
 function valTempatLahir($field, &$eror)
 {
     $ptTempatLahir = "/^[a-zA-Z\s]+$/";
@@ -76,7 +75,6 @@ function valTempatLahir($field, &$eror)
         $eror['tempat_lahir'] = "Tempat lahir tidak boleh lebih dari 20 huruf.";
     }
 }
-
 
 function valNoHpSiswa($field, &$eror)
 {
@@ -100,7 +98,6 @@ function valAsalSekolah($field, &$eror)
     }
 }
 
-
 function valAlamat($field, &$eror)
 {
     $ptAlamat = "/^[a-zA-Z0-9\s.,-]+$/";
@@ -110,7 +107,6 @@ function valAlamat($field, &$eror)
         $eror['alamat'] = "Alamat hanya boleh huruf, angka, spasi, koma, titik, dan strip.";
     }
 }
-
 
 function valNamaWali($field, &$eror)
 {
@@ -132,7 +128,6 @@ function valNoHpWali($field, &$eror)
     }
 }
 
-
 function valProgramPondok($field, &$eror)
 {
     if (requiredCheck($field)) {
@@ -147,17 +142,41 @@ function valJurusan($field, &$eror)
     }
 }
 
-function valFileAkte($field, &$eror)
+function valFileAkte($fileInput, &$eror)
 {
-    if (requiredCheck($field)) {
-        $eror['file_akte'] = "File akte wajib diisi.";
+    if ($fileInput['error'] == 4) {
+        $eror['file_akte'] = "File Akte Kelahiran wajib diupload.";
+        return;
+    }
+
+    $allowed = ['pdf', 'jpg', 'jpeg', 'png'];
+    $ext = strtolower(pathinfo($fileInput['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowed)) {
+        $eror['file_akte'] = "Format Akte salah! Hanya boleh: PDF, JPG, PNG. (File anda: .$ext)";
+    }
+
+    if ($fileInput['size'] > 2000000) {
+        $eror['file_akte'] = "Ukuran Akte terlalu besar! Maksimal 2 MB.";
     }
 }
 
-function valFileKK($field, &$eror)
+function valFileKK($fileInput, &$eror)
 {
-    if (requiredCheck($field)) {
-        $eror['file_kk'] = "File KK wajib diisi.";
+    if ($fileInput['error'] == 4) {
+        $eror['file_kk'] = "File Kartu Keluarga wajib diupload.";
+        return;
+    }
+
+    $allowed = ['pdf', 'jpg', 'jpeg', 'png'];
+    $ext = strtolower(pathinfo($fileInput['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowed)) {
+        $eror['file_kk'] = "Format KK salah! Hanya boleh: PDF, JPG, PNG. (File anda: .$ext)";
+    }
+
+    if ($fileInput['size'] > 2000000) {
+        $eror['file_kk'] = "Ukuran KK terlalu besar! Maksimal 2 MB.";
     }
 }
 
@@ -207,7 +226,6 @@ function valEditNamaSiswa($field, &$eror)
         $eror['nama_lengkap_siswa'] = "Nama lengkap tidak boleh kosong";
     }
 }
-
 
 function displayErrorPopup($message)
 {
@@ -362,6 +380,8 @@ function loginUser($username, $password)
     }
     if (handleSiswaLogin($username, $password)) {
         return true;
+    } else {
+        return displayErrorPopup('Password dan username salah');
     }
 }
 
@@ -427,32 +447,19 @@ function updateSiswa($username, $data)
 
 function uploadDocumentFile($fileKey, $keterangan)
 {
-    $namaFile = $_FILES[$fileKey]['name'];
-    $ukuranFile = $_FILES[$fileKey]['size'];
-    $error = $_FILES[$fileKey]['error'];
-    $tmpName = $_FILES[$fileKey]['tmp_name'];
+    $file = $_FILES[$fileKey];
+    $namaFile = $file['name'];
+    $tmpName = $file['tmp_name'];
 
-    if ($error === 4) {
-        return false;
-    }
-
-    // Ekstensi yang diperbolehkan (pdf, jpg, jpeg, png)
-    $ekstensiValid = ['pdf', 'jpg', 'jpeg', 'png'];
     $ekstensiFile = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
-
-    if (!in_array($ekstensiFile, $ekstensiValid)) {
-        displayErrorPopup("File tidak valid (hanya PDF, JPG, JPEG, PNG");
-        return false;
-    }
-
-    if ($ukuranFile > 2000000) {
-        echo displayErrorPopup("Ukuran file terlalu besar! Maksimal 2 MB");
-        return false;
-    }
-
     $namaBaru = 'doc_' . uniqid() . '.' . $ekstensiFile;
-    move_uploaded_file($tmpName, "../source/upload/documents/" . $namaBaru);
-    return $namaBaru;
+
+    if (move_uploaded_file($tmpName, "../source/upload/documents/" . $namaBaru)) {
+        return $namaBaru;
+    } else {
+        displayErrorPopup("Gagal mengupload file $keterangan ke server.");
+        return false;
+    }
 }
 
 // ===========================
@@ -538,7 +545,7 @@ function addPendaftaran(array $data, $username_siswa)
             $_SESSION['BERHASIL_DAFTAR'] = "Selamat anda berhasil daftar";
             exit;
         } else {
-            return displayErrorPopup("Pendaftaran gagal di tingkat dokumen.");
+            return false;
         }
     } else {
         return displayErrorPopup("Gagal menyimpan data pendaftaran utama.");
