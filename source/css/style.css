@@ -999,3 +999,14 @@ footer.main-footer p {
     font-size: 14px;
   }
 }
+
+.eror-404 {
+  background-color: #007f3b;
+  max-width: 300px;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

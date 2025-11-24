@@ -15,7 +15,6 @@ function getStickyValue($fieldName)
     return isset($_POST[$fieldName]) ? htmlspecialchars(trim($_POST[$fieldName])) : '';
 }
 
-
 global $connect;
 $stmnt_check_enroll = $connect->prepare("SELECT COUNT(*) FROM pendaftaran WHERE USERNAME_SISWA = :username_siswa AND STATUS = '0'");
 $stmnt_check_enroll->execute([':username_siswa' => $username_siswa]);
