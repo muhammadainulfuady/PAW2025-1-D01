@@ -339,7 +339,7 @@ function handleAdminLogin($username_admin, $password_admin)
             header("Location: ./admin/index.php");
             exit;
         }
-        return displayErrorPopup('Password admin salah');
+        return false;
     }
     return false;
 }
@@ -364,7 +364,7 @@ function handleSiswaLogin($username_siswa, $password_siswa)
             header("Location:./dashboard/index.php");
             exit;
         }
-        return displayErrorPopup('Password siswa salah');
+        return false;
     }
     return false;
 }
