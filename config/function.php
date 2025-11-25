@@ -222,8 +222,14 @@ function valCreateJurusan($field, &$eror)
 
 function valEditNamaSiswa($field, &$eror)
 {
+    $ptNamaLengkap = "/^[a-zA-Z\s]{3,}$/";
     if (requiredCheck($field)) {
         $eror['nama_lengkap_siswa'] = "Nama lengkap tidak boleh kosong";
+    } elseif (strlen($field) > 30) {
+        $eror['nama_lengkap_siswa'] = "Panjang maksimal 30 karakter";
+    } elseif (!preg_match($ptNamaLengkap, $field)) {
+        $eror['nama_lengkap_siswa'] = "Nama lengkap harus berisi alfabet, minimal 3 karakter.";
+
     }
 }
 

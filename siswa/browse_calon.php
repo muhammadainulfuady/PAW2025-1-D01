@@ -10,7 +10,6 @@ if (!isset($_SESSION['USERNAME_SISWA'])) {
     exit;
 }
 
-
 // query untuk menampilkan nama yang ada di dalam header kanan atas sampingnya foto profile
 global $connect;
 $stmnt = $connect->prepare("SELECT * FROM siswa WHERE USERNAME_SISWA = :username_siswa");
