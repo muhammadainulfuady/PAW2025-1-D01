@@ -15,12 +15,12 @@ function requiredCheck($field)
 
 function valUsername($field, &$eror)
 {
-    $ptUsername = "/^[a-zA-Z0-9._]{5,}$/";
+    $ptUsername = "/^[a-zA-Z0-9]{5,}$/";
 
     if (requiredCheck($field)) {
         $eror['username_siswa'] = "Kolom username wajib di isi.";
     } elseif (!preg_match($ptUsername, $field)) {
-        $eror['username_siswa'] = "Username harus alphanumeric dan minimal 5 karakter tidak boleh spasi.";
+        $eror['username_siswa'] = "Username minimal 5 karakter tidak boleh spasi.";
     }
 }
 
@@ -40,7 +40,7 @@ function valPassword($field, &$eror)
     if (requiredCheck($field)) {
         $eror['password_siswa'] = "Kolom password wajib di isi.";
     } elseif (!preg_match($ptPassword, $field)) {
-        $eror['password_siswa'] = "Password harus alphanumeric huruf besar kecil dan minimal 8 karakter. Tanpa spasi";
+        $eror['password_siswa'] = "Password setidaknya ada 1 digit huruf besar kecil dan minimal 8 karakter. Tanpa spasi";
     }
 }
 
@@ -154,10 +154,16 @@ function valFileAkte($fileInput, &$eror)
 
     if (!in_array($ext, $allowed)) {
         $eror['file_akte'] = "Format Akte salah! Hanya boleh: PDF, JPG, PNG. (File anda: .$ext)";
+        return false;
     }
 
     if ($fileInput['size'] > 2000000) {
         $eror['file_akte'] = "Ukuran Akte terlalu besar! Maksimal 2 MB.";
+    }
+
+    if (!in_array($ext, $allowed)) {
+        $eror['file_akte'] = "Format salah!";
+        return;
     }
 }
 
@@ -173,6 +179,7 @@ function valFileKK($fileInput, &$eror)
 
     if (!in_array($ext, $allowed)) {
         $eror['file_kk'] = "Format KK salah! Hanya boleh: PDF, JPG, PNG. (File anda: .$ext)";
+        return false;
     }
 
     if ($fileInput['size'] > 2000000) {
@@ -213,6 +220,7 @@ function valUpdateJurusan($field, &$eror)
         $eror['nama_jurusan'] = "Nama jurusan tidak boleh kosong";
     }
 }
+
 function valCreateJurusan($field, &$eror)
 {
     if (requiredCheck($field)) {
